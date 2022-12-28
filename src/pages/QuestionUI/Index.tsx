@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Maincontent from '../../Components/Maincontent';
-import Vote from '../../Components/Vote';
+import MainContent from '../../Components/Question/Maincontent';
+import Vote from '../../Components/Question/Vote';
 import "./Question.css"
 
 const rendertime = (name: string, value: string) => {
@@ -60,7 +60,7 @@ function Index() {
                             <Vote />
                         </div>
                         <div className="p-2 w-32">
-                            <Maincontent />
+                            <MainContent />
                         </div>
                     </div>
                     <div className="p-2 w-32">
