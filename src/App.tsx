@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import Mainpage from "./page/Mainpage"
+import Mainpage from "./page/QuestionUI/Index"
 const App = () => {
 
   const renderScreen = () => {

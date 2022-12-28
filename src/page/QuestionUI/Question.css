@@ -1,4 +1,4 @@
-.container-code{
+.container-code {
     height: 200px;
     background-color: #f6f6f6;
     margin-top: 30px;
@@ -6,25 +6,33 @@
     border-radius: 5px;
     padding: 10px;
 }
-.link-improve{
+
+.link-improve {
     color: #6a737c;
 }
-.card-roll{
-    max-height:130px;
+
+.card-roll {
+    max-height: 130px;
     max-width: 340px;
 }
-.add-comment{
+
+.add-comment {
     color: #6a737c;
 
 }
-.bi{
+
+.bi {
     color: #babfc4;
     font-size: 30px;
 }
-.btn-ask{
+
+.btn-ask {
     height: 5%;
     width: 15%;
 }
-.card-body{
-    
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
 }
