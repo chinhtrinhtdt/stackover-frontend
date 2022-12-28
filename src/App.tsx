@@ -4,7 +4,7 @@ import Mainpage from "./page/QuestionUI/Index"
 const App = () => {
 
   const renderScreen = () => {
-    return <>Hellooo</>
+    return <>Hello React</>
   }
 
   return (
