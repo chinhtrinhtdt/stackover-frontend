@@ -1,10 +1,18 @@
-import CommonLayout from '../../layouts/CommonLayout'
-
+import Header from '../../Components/header'
+import Navbar from '../../Components/navbar'
+import QuestionUI from "../QuestionUI/index"
+import "./commonLayout.css"
 function Home() {
   return (
-    <CommonLayout>
-       <h1>Content</h1>
-    </CommonLayout>
+    <div>
+      <Header />
+      <div className="container d-flex align-items-start">
+        <Navbar />
+        <div className="content px-3 w-100">
+          <QuestionUI />
+        </div>
+      </div>
+    </div>
   )
 }
 

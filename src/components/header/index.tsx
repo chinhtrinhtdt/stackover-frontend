@@ -2,7 +2,7 @@ import './header.css'
 
 function Header() {
   return (
-    <header className="p-2 bg-white position-fixed text-black border-bottom w-100">
+    <header className="p-2 bg-white position-fixed text-black border-bottom w-100 top-0 z-index-99">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-between">
           <a href="/" className="mx-2">
