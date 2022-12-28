@@ -4,7 +4,7 @@ import "./App.css";
 const App = () => {
 
   const renderScreen = () => {
-    return <>Hello</>
+    return <>Hello React</>
   }
 
   return (
