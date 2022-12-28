@@ -4,7 +4,7 @@ import Mainpage from "./page/Mainpage"
 const App = () => {
 
   const renderScreen = () => {
-    return <>Hellooo</>
+    return <>Hello React</>
   }
 
   return (
