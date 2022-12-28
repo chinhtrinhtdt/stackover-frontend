@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MainContent from '../../Components/Question/Maincontent';
+import MainContent from '../../Components/Question/MainContent';
 import Vote from '../../Components/Question/Vote';
 import "./Question.css"
 
