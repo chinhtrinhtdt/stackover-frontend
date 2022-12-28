@@ -1,0 +1,23 @@
+.image-logo {
+    width: 150px;
+}
+
+.header__nav-link:hover {
+    background-color: rgba(167, 167, 167, 0.279);
+    border-radius: 20px;
+}
+
+.input-search {
+    padding-left: 30px !important;
+}
+ 
+.input-search-icon {
+    position: absolute;
+    top: 3px;
+    left: 8px;
+}
+
+.btn-outline-primary:hover{
+    background-color: rgba(128, 198, 214, 0.604) !important;
+    color: #000 !important;
+}

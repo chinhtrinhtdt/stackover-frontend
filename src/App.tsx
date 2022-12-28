@@ -1,15 +1,10 @@
-import React from "react";
 import "./App.css";
+import Question from "./pages/question";
 
 const App = () => {
-
-  const renderScreen = () => {
-    return <>Hello React</>
-  }
-
   return (
     <div className="site-main">
-      {renderScreen()}
+      <Question />
     </div>
   );
 };
