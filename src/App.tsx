@@ -1,10 +1,10 @@
 import "./App.css";
-import Question from "./pages/question";
+import Home from "./pages/home";
 
 const App = () => {
   return (
     <div className="site-main">
-      <Question />
+      <Home />
     </div>
   );
 };
