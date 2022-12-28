@@ -1,16 +1,17 @@
 import React from "react";
 import "./App.css";
-
+import Mainpage from "./page/Mainpage"
 const App = () => {
 
   const renderScreen = () => {
-    return <>Hello</>
+    return <>Hellooo</>
   }
 
   return (
     <div className="site-main">
-      {renderScreen()}
-    </div>
+<Mainpage/>
+      {/* {renderScreen()} */}
+    </div>  
   );
 };
 
