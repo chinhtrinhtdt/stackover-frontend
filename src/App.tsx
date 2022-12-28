@@ -1,15 +1,10 @@
-import React from "react";
 import "./App.css";
+import Home from "./pages/home";
 
 const App = () => {
-
-  const renderScreen = () => {
-    return <>Hello React</>
-  }
-
   return (
     <div className="site-main">
-      {renderScreen()}
+      <Home />
     </div>
   );
 };
