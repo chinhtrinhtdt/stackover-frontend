@@ -1,4 +1,4 @@
-import CommonLayout from '../layouts/CommonLayout'
+import CommonLayout from '../../layouts/CommonLayout'
 
 function Home() {
   return (
