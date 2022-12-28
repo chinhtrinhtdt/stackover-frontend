@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-function Count() {
+function Vote() {
     return (
         <>
             <div>
@@ -15,4 +15,4 @@ function Count() {
         </>
     )
 }
-export default React.memo(Count)
+export default React.memo(Vote)

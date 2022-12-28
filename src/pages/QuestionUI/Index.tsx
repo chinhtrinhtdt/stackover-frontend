@@ -3,7 +3,7 @@ import MainContent from '../../Components/Question/MainContent';
 import Vote from '../../Components/Question/Vote';
 import "./Question.css"
 
-const rendertime = (name: string, value: string) => {
+const renderTime = (name: string, value: string) => {
     return (
         <div className='flex p-2'>
             <small className="text-muted p-2">{name} </small>
@@ -12,7 +12,7 @@ const rendertime = (name: string, value: string) => {
     )
 }
 
-const rendertitlepart = () => {
+const renderTitlePart = () => {
     return (
         <div>
             <div className='d-flex'>
@@ -22,9 +22,9 @@ const rendertitlepart = () => {
                 <button type="button" className="btn btn-primary btn-ask"  >Ask Question</button>
             </div>
             <div className="d-flex flex-row mb-3">
-                {rendertime("Asked ", "today")}
-                {rendertime("Modified ", "today")}
-                {rendertime("Viewed  ", "22 times")}
+                {renderTime("Asked ", "today")}
+                {renderTime("Modified ", "today")}
+                {renderTime("Viewed  ", "22 times")}
             </div>
         </div>
     )
@@ -48,11 +48,11 @@ const renderRelateBlog = () => {
 
 
 
-function Index() {
+function MainPage() {
     return (
         <>
             <div className="container" >
-                {rendertitlepart()}
+                {renderTitlePart()}
                 <hr />
                 <div className='d-flex'>
                     <div className='d-flex'>
@@ -72,4 +72,4 @@ function Index() {
     )
 }
 
-export default React.memo(Index)
+export default React.memo(MainPage)
