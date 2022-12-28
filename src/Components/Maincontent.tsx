@@ -1,5 +1,5 @@
 import * as React from 'react';
-import '../page/QuestionUI/Question.css'
+import '../pages/QuestionUI/Question.css'
 
 function Maincontent() {
     return (

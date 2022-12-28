@@ -1,17 +1,11 @@
-import React from "react";
 import "./App.css";
-import Mainpage from "./page/QuestionUI/Index"
+import Home from "./pages/home";
+
 const App = () => {
-
-  const renderScreen = () => {
-    return <>Hello React</>
-  }
-
   return (
     <div className="site-main">
-<Mainpage/>
-      {/* {renderScreen()} */}
-    </div>  
+      <Home />
+    </div>
   );
 };
 
