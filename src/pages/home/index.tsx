@@ -1,6 +1,6 @@
 import Header from '../../Components/header'
 import Navbar from '../../Components/navbar'
-import QuestionUI from "../QuestionUI/index1"
+import QuestionUI from "../QuestionUI"
 import "./commonLayout.css"
 function Home() {
   return (
