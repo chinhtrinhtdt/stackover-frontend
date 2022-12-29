@@ -1,7 +1,7 @@
 import * as React from 'react';
 import MainContent from '../../components/Question/MainContent';
 import Vote from '../../components/Question/Vote';
-import "./Question.css"
+import style from "./Question.module.css"
 
 const renderTime = (name: string, value: string) => {
     return (
@@ -19,7 +19,7 @@ const renderTitlePart = () => {
                 <h2>
                     How to update dynamic multiple input (user can add those input themself)?
                 </h2>
-                <button type="button" className="btn btn-primary btn-ask"  >Ask Question</button>
+                <button type="button" className="btn btn-primary btn-ask "  >Ask Question</button>
             </div>
             <div className="d-flex flex-row mb-3">
                 {renderTime("Asked ", "today")}
@@ -33,7 +33,7 @@ const renderTitlePart = () => {
 const renderRelateBlog = () => {
     return (
         <div>
-            <div className="card" >
+            <div className={`card ${style.relate_blog}`} >
                 <div className="card-body">
                     <h5 className="card-title">Card title</h5>
                     <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -51,7 +51,7 @@ const renderRelateBlog = () => {
 function MainPage() {
     return (
         <>
-            <div className="container" >
+            <div className="container-box mt-2" >
                 {renderTitlePart()}
                 <hr />
                 <div className='d-flex'>

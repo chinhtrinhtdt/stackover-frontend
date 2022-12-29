@@ -1,15 +1,4 @@
-.container-code {
-    height: 200px;
-    background-color: #f6f6f6;
-    margin-top: 30px;
-    border: 1px solid rgb(151, 151, 151);
-    border-radius: 5px;
-    padding: 10px;
-}
 
-.link-improve {
-    color: #6a737c;
-}
 
 .card-roll {
     max-height: 130px;
@@ -31,8 +20,11 @@
     width: 15%;
 }
 
-.container {
+.container-box {
     width: 100%;
     margin: 0 auto;
     margin-top: 30px;
+}
+.relate_blog{
+  background-color: antiquewhite;
 }

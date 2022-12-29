@@ -1,16 +1,23 @@
 import * as React from "react";
-import "../../pages/QuestionUI/Question.css";
+import ModalComment from "../ModalComment";
+import style from "./Question.module.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Maincontent() {
+  const [posts, setPosts] = useState([]);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get("http://10.1.30.94:3000/api/post").then((res) => {
+      setData(res.data);
+      console.log(data);
+    });
+  }, [posts]);
+
   return (
     <>
       <div>
-        <div>
-          I have a form. Initially there is some default values (user name and
-          address). When user click add, there is an extra input which user can
-          enter another name and address, and the extra name and address will
-          store in <b>additionConfigs</b>.
-        </div>
+        <div></div>
         <br />
         <div>
           Example:{" "}
@@ -18,7 +25,7 @@ function Maincontent() {
             https://codesandbox.io/s/elastic-pateu-2uy4rt
           </a>
         </div>
-        <div className="overflow-auto container-code">
+        <div className={`overflow-auto ${style.container_code}`}>
           <p>
             I have a form. Initially there is some default values (user name and
             address). When user click add, there is an extra input which user
@@ -50,11 +57,11 @@ function Maincontent() {
             will store in <code>additionConfigs</code>.
           </p>
         </div>
-        <div>
+        <div className="mt-4 mb-4">
           I have seen this and hence this. But, I'm still confused about how to
-          implement that suggestion for this simple case.
+          implement that suggestion htmlFor this simple case.
         </div>
-        <div className="d-flex">
+        <div className="d-flex mb-4">
           <button type="button" className="btn btn-secondary m-2">
             Javascript
           </button>
@@ -65,22 +72,26 @@ function Maincontent() {
             React Hook
           </button>
         </div>
-        <div className="d-flex">
+        <div className="d-flex justify-content-between">
           <div className="p-2 w-32 ">
-            <a href="" className="link-improve">
+            <a href="" className={style.link_improve}>
               Share{" "}
             </a>
-            <a href="" className="link-improve">
+            <a href="" className={style.link_improve}>
               Improve this question{" "}
             </a>
-            <a href="" className="link-improve">
+            <a href="" className={style.link_improve}>
               Follow{" "}
             </a>
           </div>
-          <div className="d-flex flex-row-reverse card mb-3 card-roll ">
+          <div
+            className={`d-flex flex-row-reverse card mb-3 card-roll ${style.card_box}`}
+          >
             <div className="row g-0 d-flex ">
-              <div className="p-2">asked Feb 11, 2019 at 15:18</div>
-              <div className="col-md-2 p-2">
+              <div className="p-2 fs-6">
+                <small>asked Feb 11, 2019 at 15:18</small>
+              </div>
+              <div className="col-md-2 m-2">
                 <img
                   src="https://i.stack.imgur.com/kKetn.jpg?s=64&g=1"
                   className="img-fluid rounded-start"
@@ -88,8 +99,8 @@ function Maincontent() {
                 />
               </div>
               <div className="col-md-8 ">
-                <div className="card-body">
-                  <h5 className="card-title">devserkan</h5>
+                <div className="m-2">
+                  <h5 className="card-title fs-6">devserkan</h5>
                   <div className="d-flex">
                     <div>16.3k</div>
                     <div className="d-flex">
@@ -117,13 +128,18 @@ function Maincontent() {
             </div>
           </div>
         </div>
+
         <div>
-          <div className="modal-dialog modal-fullscreen-sm-down">
-          Add a comment
-          </div>
-          <a href="" className="add-comment">
-            
-          </a>
+          <button
+            type="button"
+            className="btn btn-light"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Add a comment
+          </button>
+
+          <ModalComment />
         </div>
       </div>
     </>
