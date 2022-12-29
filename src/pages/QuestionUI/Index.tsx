@@ -1,6 +1,7 @@
 import * as React from 'react';
-import MainContent from '../../Components/Question/MainContent';
-import Vote from '../../Components/Question/Vote';
+import MainContent from '../../components/Question/MainContent';
+import Vote from '../../components/Question/Vote';
+
 import "./Question.css"
 
 const renderTime = (name: string, value: string) => {
