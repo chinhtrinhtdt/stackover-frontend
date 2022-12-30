@@ -1,9 +1,9 @@
-import React from 'react'
+import {memo} from 'react'
 
-function AddQuestion() {
+function ModalAddQuestion() {
     return (
         <div className="modal fade" id="addQuestion" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered ">
+            <div className="modal-dialog modal-lg modal-dialog-centered ">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="staticBackdropLabel">Add Question</h5>
@@ -39,4 +39,4 @@ function AddQuestion() {
     )
 }
 
-export default AddQuestion
+export default memo(ModalAddQuestion)

@@ -3,7 +3,7 @@ import MainContent from '../../components/Question/MainContent';
 import Vote from '../../components/Question/Vote';
 
 import "./Question.css"
-import AddQuestion from '../../components/add-question';
+import ModalAddQuestion from '../../components/QuestionComp/ModalAddQuestion';
 
 const renderTime = (name: string, value: string) => {
     return (
@@ -24,7 +24,7 @@ const renderTitlePart = () => {
                 <button type="button" className="btn btn-primary btn-ask " data-bs-toggle="modal" data-bs-target="#addQuestion">
                     Add question
                 </button>
-                <AddQuestion />
+                <ModalAddQuestion />
             </div>
             <div className="d-flex flex-row mb-3">
                 {renderTime("Asked ", "today")}

@@ -1,1 +1,1 @@
-export {}
+export const LOGO_IMAGE_URL = "https://stackoverflow.design/assets/img/logos/so/logo-stackoverflow.png"
