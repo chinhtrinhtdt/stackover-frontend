@@ -1,29 +1,27 @@
 import * as React from "react";
-import { AVATAR_MODAL } from "../../mocks";
+import { AVATAR_MODALCOMMENT } from "../../mocks";
 import style from "./ModalComment.module.css";
 
 function Maincontent() {
   return (
     <>
       <div
-        className="modal fade modal-box"
-        id="exampleModal"
+        className="modal fade"
+        id="exampleModalLong"
         tabIndex={-1}
-        aria-labelledby="exampleModalLabel"
+        role="dialog"
+        aria-labelledby="exampleModalLongTitle"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-scrollable">
-          <div >
-            
-            <div
-              className={`modal-body ${style.modalCover}`}
-            >
+        <div className="modal-dialog " role="document">
+          <div>
+            <div className={`modal-content ${style.modalCover}`}>
               <div className={`${style.modalContainer}`}>
                 <div className="card m-4">
                   <div className="card-body">
-                    <h5 className="card-title">Display name</h5>
+                    <h6 className="card-title">Display name</h6>
                     <div className="card-subtitle mb-2 fw-normal fs-7  ">
-                      <div className={style.card_sub}>
+                      <div className={style.cardSub}>
                         Your display name will be shown on your posts and
                         comments.
                       </div>
@@ -41,13 +39,13 @@ function Maincontent() {
                       <div className="row">
                         <div className="col-2">
                           <img
-                            src={AVATAR_MODAL}
+                            src={AVATAR_MODALCOMMENT}
                             className="img-thumbnail "
                             alt="..."
                           />
                         </div>
                         <div className="col-10">
-                          <h5 className="card-title">Profile picture</h5>
+                          <h6 className="card-title">Profile picture</h6>
                           <div className="card-subtitle mb-2 fw-normal fs-7  ">
                             <div className={style.cardSub}>
                               Adding a photo can make it easier for others to
@@ -63,11 +61,11 @@ function Maincontent() {
                         </div>
                       </div>
                       <div className="mb-3">
-                        <h5 className="card-title mt-4">
+                        <h6 className="card-title mt-2">
                           Technology tags that interest you
-                        </h5>
+                        </h6>
                         <div className="card-subtitle mb-2 fw-normal fs-7  ">
-                          <div className={style.card_sub}>
+                          <div className={style.cardSub}>
                             Picking tags will help us show you much more
                             relevant questions and answers.
                           </div>
@@ -89,7 +87,7 @@ function Maincontent() {
                           className="form-check-label"
                           htmlFor="exampleCheck1"
                         >
-                          <div className={style.card_sub}>
+                          <div className={style.cardSub}>
                             Opt-in to receive occasional product updates, user
                             research invitations, company announcements, and
                             digests
@@ -103,7 +101,7 @@ function Maincontent() {
                       </div>
                     </form>
                     <div className="card-subtitle mb-2 fw-normal mt-4  ">
-                      <div className={style.card_sub}>
+                      <div className={style.cardSub}>
                         By clicking “Create my account”, you agree to our terms
                         of service, privacy policy and cookie policy
                       </div>

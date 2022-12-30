@@ -9,10 +9,6 @@ function Maincontent() {
   const [posts, setPosts] = useState([]);
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.get("http://10.1.30.94:3000/api/post").then((res) => {
-      setData(res.data);
-      console.log(data);
-    });
 
     question.getApiQuestion().then((res) => {
       setData(res.data);
@@ -31,7 +27,7 @@ function Maincontent() {
             https://codesandbox.io/s/elastic-pateu-2uy4rt
           </a>
         </div>
-        <div className={`overflow-auto ${style.container_code}`}>
+        <div className={`overflow-auto ${style.containerCode}`}>
           <p>
             I have a form. Initially there is some default values (user name and
             address). When user click add, there is an extra input which user
@@ -140,7 +136,7 @@ function Maincontent() {
             type="button"
             className="btn btn-light"
             data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            data-bs-target="#exampleModalLong"
           >
             Add a comment
           </button>
