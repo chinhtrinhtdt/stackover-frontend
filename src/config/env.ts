@@ -1,3 +1,3 @@
 export const ENV = {
-    BASE_URL: '',
+    PUBLIC_API : 'http://10.1.30.94:8080',
 }

@@ -6,7 +6,7 @@ const client = axios.create(AppConfig.axios);
 const configHeader = () => {
   return {
     headers: {
-      'Authorization': `Bearer `
+      'Authorization': `Bearer`
     }
   }
 }

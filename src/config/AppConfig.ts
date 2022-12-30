@@ -2,8 +2,8 @@ import { AxiosRequestConfig } from "axios";
 import { ENV } from "./env";
 
 const axios: AxiosRequestConfig = {
-  baseURL: ENV.BASE_URL,
-  responseType: 'arraybuffer',
+  baseURL: ENV.PUBLIC_API,
+  responseType: 'json',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/x-protobuf'

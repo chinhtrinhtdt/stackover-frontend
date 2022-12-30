@@ -1,5 +1,5 @@
 import * as React from "react";
-import ModalComment from "../ModalComment";
+import ModalComment from "../QuestionComp/ModalComment";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -12,14 +12,20 @@ function Maincontent() {
 
     question.getApiQuestion().then((res) => {
       setData(res.data);
-      console.log(data);
+     
     });
-
+    console.log(14, data);
   }, [posts]);
 
   return (
     <>
       <div>
+        <div>
+          I have a form. Initially there is some default values (user name and
+          address). When user click add, there is an extra input which user can
+          enter another name and address, and the extra name and address will
+          store in <b>additionConfigs</b>.
+        </div>
         <br />
         <div>
           Example:{" "}
