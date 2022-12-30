@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styles from './header.module.css'
+import { LOGO_IMAGE_URL } from '../../mocks'
 
 function Header() {
   return (
@@ -7,7 +8,7 @@ function Header() {
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-between">
           <Link to="/" className="mx-2">
-            <img className={styles.logo} src="https://stackoverflow.design/assets/img/logos/so/logo-stackoverflow.png" alt="stackoverflow" />
+            <img className={styles.logo} src={LOGO_IMAGE_URL} alt="stackoverflow" />
           </Link>
 
           <ul className="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
