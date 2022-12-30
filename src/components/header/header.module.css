@@ -1,6 +1,6 @@
 .header {
-    z-index: 9999;
     height: 50px;
+    z-index: 1;
 }
 
 .logo {
