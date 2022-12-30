@@ -2,8 +2,8 @@ import * as React from 'react';
 import MainContent from '../../components/Question/MainContent';
 import Vote from '../../components/Question/Vote';
 import ModalAddQuestion from '../../components/QuestionComp/ModalAddQuestion';
-import styles from './question.module.css'
 import { LIST_QUESTIONS } from '../../mocks';
+import styles from './questionUI.module.css';
 
 const renderTime = (name: string, value: string) => {
     return (
@@ -18,10 +18,10 @@ const renderHeaderContent = () => (
     <div>
         <div className='d-flex justify-content-between p-3'>
             <h4>
-                How to update dynamic multiple input (user can add those input themsnput)?
+                How to update dynamic multiple inpdate dynamic multiple inpdate dynamic multiple inpdate dynamic multiple inpdate dynamic multiple input (user can add those input themsnput)?
             </h4>
             <button type="button" className={`${styles.ask} btn btn-primary`} data-bs-toggle="modal" data-bs-target="#addQuestion">
-                Add question
+                Add question22
             </button>
             <ModalAddQuestion />
         </div>
