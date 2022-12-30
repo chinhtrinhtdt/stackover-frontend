@@ -1,8 +1,8 @@
 import * as React from 'react';
 import MainContent from '../../components/Question/MainContent';
 import Vote from '../../components/Question/Vote';
-
 import "./Question.module.css"
+import ModalAddQuestion from '../../components/QuestionComp/ModalAddQuestion';
 
 const renderTime = (name: string, value: string) => {
     return (
@@ -16,11 +16,14 @@ const renderTime = (name: string, value: string) => {
 const renderTitlePart = () => {
     return (
         <div>
-            <div className='d-flex'>
-                <h2>
-                    How to update dynamic multiple input (user can add those input themself)?
-                </h2>
-                <button type="button" className="btn btn-primary btn-ask"  >Ask Question</button>
+            <div className='d-flex justify-content-between p-3'>
+                <h4>
+                    How to update dynamic multiple input (user can add those input themsnput)?
+                </h4>
+                <button type="button" className="btn btn-primary btn-ask " data-bs-toggle="modal" data-bs-target="#addQuestion">
+                    Add question
+                </button>
+                <ModalAddQuestion />
             </div>
             <div className="d-flex flex-row mb-3">
                 {renderTime("Asked ", "today")}

@@ -12,12 +12,11 @@
 
 .bi {
     color: #babfc4;
-    /* font-size: 30px; */
 }
 
 .btn-ask {
-    height: 5%;
-    width: 15%;
+    height: 40px;
+    min-width: 150px;
 }
 
 .container-box {
