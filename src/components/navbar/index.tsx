@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import './navbar.css'
+import styles from './navbar.module.css'
 
 function Navbar() {
   return (
-    <nav className="navbar position-fixed border-end h-100 d-flex flex-column align-items-start justify-content-start left-sidebar">
+    <nav className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}>
       <ul className="list-unstyled ps-0 w-100">
-        <li className="mb-3 ps-2">
+        <li className="my-3 ps-2">
           <Link to='/#' className="link-dark" >Home</Link>
         </li>
         <li className="mb-1 ps-2">Public</li>
