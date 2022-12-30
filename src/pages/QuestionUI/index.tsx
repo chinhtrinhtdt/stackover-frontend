@@ -21,7 +21,7 @@ const renderHeaderContent = () => (
                 How to update dynamic multiple inpdate dynamic multiple inpdate dynamic multiple inpdate dynamic multiple inpdate dynamic multiple input (user can add those input themsnput)?
             </h4>
             <button type="button" className={`${styles.ask} btn btn-primary`} data-bs-toggle="modal" data-bs-target="#addQuestion">
-                Add question22
+                Add question
             </button>
             <ModalAddQuestion />
         </div>
