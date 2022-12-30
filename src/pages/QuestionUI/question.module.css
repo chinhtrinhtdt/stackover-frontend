@@ -1,0 +1,19 @@
+button.ask{
+    height: 40px;
+    min-width: 150px;
+}
+
+.font12 {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.tags {
+    border-radius: 5px;
+    background-color: rgba(147, 190, 212, 0.312);
+    cursor: pointer;
+}
+
+.tags:hover {
+    background-color:rgba(82, 155, 192, 0.312);
+}
