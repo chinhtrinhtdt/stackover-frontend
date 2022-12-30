@@ -1,4 +1,11 @@
-.card_sub{
-    font-size: 12px;
-  
+.cardSub {
+  font-size: 12px;
+}
+.modalCover {
+  width: "100%";
+  margin: "0 auto";
+}
+.modaContainer {
+  width: "100%";
+  margin: "0 auto";
 }

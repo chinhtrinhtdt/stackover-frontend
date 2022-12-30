@@ -3,6 +3,7 @@ import ModalComment from "../ModalComment";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { question } from "../../api";
 
 function Maincontent() {
   const [posts, setPosts] = useState([]);
@@ -12,12 +13,17 @@ function Maincontent() {
       setData(res.data);
       console.log(data);
     });
+
+    question.getApiQuestion().then((res) => {
+      setData(res.data);
+      console.log(data);
+    });
+
   }, [posts]);
 
   return (
     <>
       <div>
-        <div></div>
         <br />
         <div>
           Example:{" "}

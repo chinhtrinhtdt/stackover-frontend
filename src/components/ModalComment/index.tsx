@@ -1,4 +1,5 @@
 import * as React from "react";
+import { AVATAR_MODAL } from "../../mocks";
 import style from "./ModalComment.module.css";
 
 function Maincontent() {
@@ -11,42 +12,13 @@ function Maincontent() {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-fullscreen">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
+        <div className="modal-dialog modal-dialog-scrollable">
+          <div >
+            
             <div
-              className="modal-body"
-              style={{ width: "100%", margin: "0 auto" }}
+              className={`modal-body ${style.modalCover}`}
             >
-              <div
-                className="text-center"
-                style={{ width: "35%", margin: "0 auto" }}
-              >
-                <div className="text-center">You’re almost done!</div>
-                <br />
-                <div className="text-center">
-                  You are about to create a new account on{" "}
-                  <b>Stack Overflow </b>
-                  using a login from <i className="bi bi-google"></i> Google
-                  (duonghuongs2v@gmail.com)
-                </div>
-                <br />
-                <div className="text-center ">
-                  Share a little more about yourself, and we’ll show you more
-                  relevant questions.
-                </div>
-              </div>
-              <div style={{ width: "40%", margin: "0 auto" }}>
+              <div className={`${style.modalContainer}`}>
                 <div className="card m-4">
                   <div className="card-body">
                     <h5 className="card-title">Display name</h5>
@@ -63,13 +35,13 @@ function Maincontent() {
                           className="form-control"
                           id="exampleInputEmail1"
                           aria-describedby="emailHelp"
-                        //   value="Hương Dương"
+                          //   value="Hương Dương"
                         />
                       </div>
                       <div className="row">
                         <div className="col-2">
                           <img
-                            src="https://www.gravatar.com/avatar/59df9b9c6a027d9512817a5e01f1d765?s=64&d=identicon&r=PG"
+                            src={AVATAR_MODAL}
                             className="img-thumbnail "
                             alt="..."
                           />
@@ -77,7 +49,7 @@ function Maincontent() {
                         <div className="col-10">
                           <h5 className="card-title">Profile picture</h5>
                           <div className="card-subtitle mb-2 fw-normal fs-7  ">
-                            <div className={style.card_sub}>
+                            <div className={style.cardSub}>
                               Adding a photo can make it easier for others to
                               recognize you.
                             </div>
