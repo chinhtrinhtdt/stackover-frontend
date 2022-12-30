@@ -1,8 +1,7 @@
 import * as React from 'react';
 import MainContent from '../../components/Question/MainContent';
 import Vote from '../../components/Question/Vote';
-
-import "./Question.css"
+import "./Question.module.css"
 import ModalAddQuestion from '../../components/QuestionComp/ModalAddQuestion';
 
 const renderTime = (name: string, value: string) => {
