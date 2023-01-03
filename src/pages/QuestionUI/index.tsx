@@ -6,7 +6,7 @@ import { LIST_QUESTIONS } from "../../mocks";
 import styles from "./questionUI.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { question } from "../../api";
+import { questionApi } from "../../api";
 import { IQuestionDetail } from "../../interfaces/api.interfaces";
 
 const renderTime = (name: string, value: string) => {
@@ -68,13 +68,15 @@ const renderListQuestion = (data: IQuestionDetail[]) => {
 function MainPage() {
   const [posts, setPosts] = useState([]);
   const [data, setData] = useState<IQuestionDetail[]>([]);
+
   useEffect(() => {
-    question
+    questionApi
       .getApiQuestion()
       //   .then((res) => console.log(44,res.data) )
       .then((res) => setData(res.data))
       .catch((e) => console.log(e));
   }, [posts]);
+
   return (
     <div className="container">
       {renderHeaderContent(data)}
@@ -88,7 +90,7 @@ function MainPage() {
             <MainContent />
           </div>
         </div>
-        <div className="p-2 w-25">{renderListQuestion(data)}</div>
+        <div className="p-2 w-25">aa{renderListQuestion(data)}</div>
       </div>
     </div>
   );

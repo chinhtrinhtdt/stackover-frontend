@@ -5,13 +5,18 @@ function Vote() {
     return (
         <>
             <div>
-                <i className={`${style.link_improve} bi bi-caret-up-fill fs-2`}></i>
-                <div className=''>
+                <i className={`${style.linkImprove} bi bi-caret-up-fill fs-2`}></i>
+                <div className={`${style.iconText}`}>
                     220
                 </div>
-                <i className={`${style.link_improve} bi bi-caret-up-fill fs-2`}></i>
-                <i className={`${style.link_improve} bi bi-bookmark fs-5`}></i>
-                <i className={`${style.link_improve} bi bi-arrow-clockwise fs-5`}></i>
+                <i className={`${style.linkImprove} bi bi-caret-up-fill fs-2`}></i>
+                <br/>
+                <div className={`${style.iconText}`}>
+                <i className={`${style.linkImprove} bi bi-bookmark fs-5`}></i>
+                </div>
+                <div className={`${style.iconText}`}>
+                <i className={`${style.linkImprove} bi bi-arrow-clockwise fs-5`}></i>
+                </div>
             </div>
         </>
     )

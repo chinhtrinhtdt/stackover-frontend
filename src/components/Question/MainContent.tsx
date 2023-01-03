@@ -3,36 +3,30 @@ import ModalComment from "../QuestionComp/ModalComment";
 import style from "./question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { IQuestion } from "../../interfaces/api.interfaces";
 import { questionApi } from "../../api";
+import { IQuestion, IQuestionDetail } from "../../interfaces/api.interfaces";
+import { DATADETAIL_GET_QUESTION } from "../../mocks";
 
-interface IStatequestion {}
 function Maincontent() {
   const [posts, setPosts] = useState([]);
-  const [data1, setData1] = useState<IQuestion>(VALUE);
+  const [dataDetail, setdataDetail] = useState<IQuestionDetail>(
+    DATADETAIL_GET_QUESTION
+  );
+
   useEffect(() => {
-<<<<<<< HEAD
-    question
+    questionApi
       .getApiQuestion()
       // .then((res) => console.log(22,res.data[1].textContent))
-      .then((res) => setData1(res.data[0]))
+      .then((res) => setdataDetail(res.data[0]))
       .catch((e) => console.log(e));
-=======
-
-    questionApi.getApiQuestion().then((res) => {
-      setData(res.data);
-      console.log(data);
-    });
-
->>>>>>> dec8e0ea9a840f2084dc5bced9d85b75f36595fe
   }, [posts]);
 
   return (
     <div>
-      <div>{data1.textContent}</div>
+      <div>{dataDetail.textContent}</div>
       <br />
       <div className={`overflow-auto ${style.containerCode}`}>
-        <p>{data1.codeContent}</p>
+        <p>{dataDetail.codeContent}</p>
       </div>
       <div className="d-flex mb-4 mt-4">
         <button type="button" className="btn btn-secondary m-2">
@@ -41,13 +35,13 @@ function Maincontent() {
       </div>
       <div className="d-flex justify-content-between">
         <div className="p-2 w-32 ">
-          <a href="" className={style.link_improve}>
+          <a href="" className={style.linkImprove}>
             Share{" "}
           </a>
-          <a href="" className={style.link_improve}>
+          <a href="" className={style.linkImprove}>
             Improve this question{" "}
           </a>
-          <a href="" className={style.link_improve}>
+          <a href="" className={style.linkImprove}>
             Follow{" "}
           </a>
         </div>
@@ -104,7 +98,6 @@ function Maincontent() {
         >
           Add a comment
         </button>
-
         <ModalComment />
       </div>
     </div>
