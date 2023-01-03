@@ -12,7 +12,7 @@ function Maincontent() {
   const [dataDetail, setdataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
-
+  const [isComment, setisComment] = useState<boolean>(false);
   useEffect(() => {
     questionApi
       .getApiQuestion()
@@ -20,7 +20,9 @@ function Maincontent() {
       .then((res) => setdataDetail(res.data[0]))
       .catch((e) => console.log(e));
   }, [posts]);
-
+  const onClickopenComment = () => {
+    setisComment(true);
+  };
   return (
     <div>
       <div>{dataDetail.textContent}</div>
@@ -89,16 +91,57 @@ function Maincontent() {
           </div>
         </div>
       </div>
+      <div className={`pl-4`}>
+        <div>
+          <hr />
+          Very nice, simple, elegant. – <a href="">Michel Floyd</a>{" "}
+          <span className={style.linkImprove}>Aug 16, 2021 at 22:04</span>
+        </div>
+        <div>
+          <hr />
+          great one brother – <a href="">Michel Floyd</a>{" "}
+          <span className={style.linkImprove}> Feb 25, 2022 at 13:18</span>
+        </div>
+        <div>
+          <hr />
+          This method will result in "An interface declaring no members is
+          equivalent to its supertype" if the linter doesn't allow empty
+          interfaces. – <a href="">demisx</a>{" "}
+          <span className={style.linkImprove}> Dec 26, 2019 at 20:37</span>
+        </div>
+        <hr />
+      </div>
+
       <div>
-        <button
-          type="button"
-          className="btn btn-light"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModalLong"
-        >
-          Add a comment
-        </button>
-        <ModalComment />
+        {isComment ? (
+          <div>
+            <div className="form-floating mt-4 mb-4">
+              <textarea
+                className={`form-control ${style.textComment}`}
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+              ></textarea>
+              <label htmlFor="floatingTextarea">Comments</label>
+            </div>
+            <button
+              type="button"
+              className="btn btn-secondary mt-4"
+              onClick={() => setisComment(false)}
+            >
+              Add a comment
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary mt-4 ms-2"
+              onClick={() => setisComment(false)}
+            >
+              Hide
+            </button>
+          </div>
+        ) : (
+          <button type="button" className={`btn btn-link ${style.linkImprove}`} onClick={() => setisComment(true)}>Add a comment</button>
+          
+        )}
       </div>
     </div>
   );
