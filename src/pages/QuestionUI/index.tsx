@@ -7,7 +7,7 @@ import styles from "./questionUI.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { question } from "../../api";
-import { IQuestion } from "../../interfaces/api.interfaces";
+import { IQuestionDetail } from "../../interfaces/api.interfaces";
 
 const renderTime = (name: string, value: string) => {
   return (
@@ -18,10 +18,10 @@ const renderTime = (name: string, value: string) => {
   );
 };
 
-const renderHeaderContent = (data: any) => (
+const renderHeaderContent = (data: IQuestionDetail[]) => (
   <div>
     <div className="d-flex justify-content-between p-3">
-      <h4>{data[0]?.title}</h4>
+      <h4>{data[0]?.name}</h4>
       <button
         type="button"
         className={`${styles.ask} btn btn-primary`}
@@ -40,7 +40,7 @@ const renderHeaderContent = (data: any) => (
   </div>
 );
 
-const renderListQuestion = (data: [IQuestion]) => {
+const renderListQuestion = (data: IQuestionDetail[]) => {
   return data.map((question: any, index: number) => (
     <div className="d-flex mb-4 shadow-sm p-1" key={question.id}>
       <div className="d-flex flex-column ">
@@ -48,7 +48,7 @@ const renderListQuestion = (data: [IQuestion]) => {
         <div className={`${styles.font12} p-1`}>{question.textContent}</div>
         <div className="d-flex gap-3">
           <span className={`${styles.font12} ${styles.tags}`}>
-            {question.tag.name}
+            {/* {question.tag.name} */}
           </span>
         </div>
         <div className="d-flex justify-content-between ">
@@ -67,9 +67,7 @@ const renderListQuestion = (data: [IQuestion]) => {
 
 function MainPage() {
   const [posts, setPosts] = useState([]);
-  const [data, setData] = useState<[IQuestion]>([
-    { name: "", textContent: "", codeContent: "" },
-  ]);
+  const [data, setData] = useState<IQuestionDetail[]>([]);
   useEffect(() => {
     question
       .getApiQuestion()

@@ -6,7 +6,7 @@ const axios: AxiosRequestConfig = {
   responseType: 'json',
   timeout: 30000,
   headers: {
-    'Content-Type': 'application/x-protobuf'
+    'Content-Type': 'application/json'
   }
 }
 

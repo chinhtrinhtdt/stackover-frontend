@@ -3,23 +3,28 @@ import ModalComment from "../QuestionComp/ModalComment";
 import style from "./question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { question } from "../../api";
 import { IQuestion } from "../../interfaces/api.interfaces";
+import { questionApi } from "../../api";
 
 interface IStatequestion {}
 function Maincontent() {
   const [posts, setPosts] = useState([]);
-  const [data1, setData1] = useState<IQuestion>({
-    name: "",
-    textContent: "",
-    codeContent: "",
-  });
+  const [data1, setData1] = useState<IQuestion>(VALUE);
   useEffect(() => {
+<<<<<<< HEAD
     question
       .getApiQuestion()
       // .then((res) => console.log(22,res.data[1].textContent))
       .then((res) => setData1(res.data[0]))
       .catch((e) => console.log(e));
+=======
+
+    questionApi.getApiQuestion().then((res) => {
+      setData(res.data);
+      console.log(data);
+    });
+
+>>>>>>> dec8e0ea9a840f2084dc5bced9d85b75f36595fe
   }, [posts]);
 
   return (
