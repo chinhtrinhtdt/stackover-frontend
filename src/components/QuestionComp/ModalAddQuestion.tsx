@@ -1,13 +1,5 @@
-import axios from 'axios';
-import { memo, useEffect, useState } from 'react'
+import { memo, useState } from 'react';
 import questionApi from '../../api/questionApi';
-
-interface Question {
-    title: string;
-    problem: string;
-    expect: string;
-    tag: string;
-}
 
 function ModalAddQuestion() {
     const [title, setTitle] = useState<string>('')
@@ -16,14 +8,11 @@ function ModalAddQuestion() {
     const [tagName, setTagName] = useState<string>('')
 
     const validation = () => {
-        if(title === "") return false
-        if(textContent === "") return false
-        if(codeContent === "") return false
-        if(tagName === "") return false
+        if(title === "" || textContent === "" || codeContent === "" || tagName === "") return false
         return true
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = () => {
         const question = {
             title,
             textContent,
@@ -32,8 +21,7 @@ function ModalAddQuestion() {
         }
 
         if(validation()) {
-            const response = await questionApi.postApiQuestion(question)
-             console.log(26,response);
+            questionApi.postApiQuestion(question)
         }        
     }
 
