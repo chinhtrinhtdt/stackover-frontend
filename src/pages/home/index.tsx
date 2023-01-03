@@ -1,8 +1,7 @@
-
-import Header from "../../components/header"
-import Navbar from "../../components/navbar"
-import QuestionUI from "../QuestionUI/index"
-import styles from './home.module.css'
+import Header from "../../components/header";
+import Navbar from "../../components/navbar";
+import QuestionUI from "../QuestionUI/index";
+import styles from "./home.module.css";
 
 function Home() {
   return (
@@ -15,7 +14,7 @@ function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

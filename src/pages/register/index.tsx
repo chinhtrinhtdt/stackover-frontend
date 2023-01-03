@@ -2,40 +2,28 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
 import styles from './register.module.css';
+import { passwordUtil } from '../../utils';
 
 function Register() {
   const navigate = useNavigate();
 
-  const [username, setUserName] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
+  const [username, setUserName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
 
-  const passwordValidation = () => {
-    const regEx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/
-    if (regEx.test(password)) return true
-    return false
-  }
-
-  const handleSubmit = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
+  const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
 
     const registerObject = {
       username,
       password,
       email
-    }
+    };
 
-    if (!passwordValidation()) return
+    if (!username || !password || !email || !passwordUtil(password)) return;
 
-    if (username && password && email) {
-      try {
-        const response = await authApi.postApiRegister(registerObject)
-        response.status === 200 && navigate('/login')
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    return
+    authApi.postApiRegister(registerObject)
+      .then(res => res.status === 200 && navigate('/login'));
   }
 
   return (

@@ -15,3 +15,12 @@ export interface IParamLogin {
     username: string;
     password: string;
 }
+export interface IQuestionDetail{
+    name:string;
+    textContent:string;
+    codeContent:string;
+}
+
+export interface IQuestion{
+    data: IQuestionDetail[]
+}

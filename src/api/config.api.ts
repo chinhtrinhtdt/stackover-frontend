@@ -4,7 +4,7 @@ import AppConfig from '../config/AppConfig';
 const client = axios.create(AppConfig.axios);
 
 const configHeader = () => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
   return {
     headers: {
       'Authorization': `Bearer ${token}`

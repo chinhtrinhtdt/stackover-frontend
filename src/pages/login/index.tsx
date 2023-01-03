@@ -1,33 +1,32 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
-import styles from './login.module.css'
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './login.module.css';
 import { authApi } from '../../api';
 import { LOGO_SECONDARY_IMAGE_URL } from '../../mocks';
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
+  const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
 
     const loginObject = {
       username,
       password
-    }
+    };
 
-    if (username && password) {
-      try {
-        const response = await authApi.postApiLogin(loginObject)
-        localStorage.setItem('token', response.data.access_token)
-        response.status === 200 && navigate('/')
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    return
+    if (!username || !password) return;
+
+    authApi.postApiLogin(loginObject)
+      .then(res => {
+        if (res.status === 200) {
+          localStorage.setItem('token', res.data.access_token);
+          navigate('/');
+        }
+      })
   }
 
   return (
@@ -50,7 +49,7 @@ function Login() {
       </form>
 
       <div className='text-center'>
-        <p>Don’t have an account?
+        <p>Don't have an account?
           <Link to="/register"> Register</Link>
         </p>
       </div>

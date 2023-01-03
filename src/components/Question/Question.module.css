@@ -1,21 +1,28 @@
-.cardSub{
-    font-size: 12px;
-  
+.cardSub {
+  font-size: 12px;
 }
-.card_box{
-width: 40%;
-height: 20% ;
-background-color: #d9eaf7;
+.card_box {
+  width: 40%;
+  height: 20%;
+  background-color: #d9eaf7;
 }
-.containerCode{
-    height: 200px;
-    background-color: #f6f6f6;
-    margin-top: 30px;
-    border: 1px solid rgb(151, 151, 151);
-    border-radius: 5px;
-    padding: 10px;
+.containerCode {
+  height: 200px;
+  background-color: #f6f6f6;
+  margin-top: 30px;
+  border: 1px solid rgb(151, 151, 151);
+  border-radius: 5px;
+  padding: 10px;
 }
 
-.link_improve {
-    color: #6a737c;
+.linkImprove {
+  color: #6a737c;
+  text-decoration: none;
+}
+.iconText {
+  text-align: center;
+}
+textarea {
+  height: 200px;
+  background-color: rgb(193, 148, 148);
 }
