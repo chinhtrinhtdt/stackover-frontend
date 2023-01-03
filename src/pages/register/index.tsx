@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
 import styles from './register.module.css';
-import { passwordUtil } from '../../utils';
+import { passwordValidation } from '../../utils';
 
 function Register() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Register() {
       email
     };
 
-    if (!username || !password || !email || !passwordUtil(password)) return;
+    if (!username || !password || !email || !passwordValidation(password)) return;
 
     authApi.postApiRegister(registerObject)
       .then(res => res.status === 200 && navigate('/login'));
