@@ -1,4 +1,4 @@
-import question from './questionApi'
+import questionApi from './questionApi'
 export {
-    question
+    questionApi
 }

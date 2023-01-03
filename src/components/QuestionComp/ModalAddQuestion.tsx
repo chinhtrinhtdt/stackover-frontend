@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import questionApi from '../../api/questionApi';
+import { questionApi } from '../../api';
 
 function ModalAddQuestion() {
     const [title, setTitle] = useState<string>('')
@@ -8,8 +8,8 @@ function ModalAddQuestion() {
     const [tagName, setTagName] = useState<string>('')
 
     const validation = () => {
-        if(title === "" || textContent === "" || codeContent === "" || tagName === "") return false
-        return true
+        if(title && textContent && codeContent && tagName) return true
+        return false
     }
 
     const handleSubmit = () => {
