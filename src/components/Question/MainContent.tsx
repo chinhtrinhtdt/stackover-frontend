@@ -3,14 +3,14 @@ import ModalComment from "../ModalComment";
 import style from "./question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { question } from "../../api";
+import { questionApi } from "../../api";
 
 function Maincontent() {
   const [posts, setPosts] = useState([]);
   const [data, setData] = useState([]);
   useEffect(() => {
 
-    question.getApiQuestion().then((res) => {
+    questionApi.getApiQuestion().then((res) => {
       setData(res.data);
       console.log(data);
     });

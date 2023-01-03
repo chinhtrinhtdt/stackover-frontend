@@ -12,3 +12,8 @@
 .tags:hover {
     background-color: rgba(82, 155, 192, 0.312);
 }
+
+.ask {
+    min-width: 130px;
+    height: 40px;
+}
