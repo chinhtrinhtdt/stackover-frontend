@@ -14,10 +14,6 @@ function Maincontent() {
   );
   const [isComment, setisComment] = useState<boolean>(false);
 
-  const onClickopenComment = () => {
-    setisComment(true);
-  };
-
   useEffect(() => {
     questionApi
       .getApiQuestion()
@@ -26,7 +22,46 @@ function Maincontent() {
       .catch((e) => console.log(e));
   }, [posts]);
 
-
+  const renderAddComment = () => {
+    return(
+      <div>
+      {isComment ? (
+      <div>
+        <div className="form-floating mt-4 mb-4">
+          <textarea
+            className={`form-control ${style.textComment}`}
+            placeholder="Leave a comment here"
+            id="floatingTextarea2"
+          ></textarea>
+          <label htmlFor="floatingTextarea">Comments</label>
+        </div>
+        <button
+          type="button"
+          className="btn btn-secondary mt-4"
+          onClick={() => setisComment(false)}
+        >
+          Add a comment
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary mt-4 ms-2"
+          onClick={() => setisComment(false)}
+        >
+          Hide
+        </button>
+      </div>
+    ) : (
+      <button
+        type="button"
+        className={`btn btn-link ${style.linkImprove}`}
+        onClick={() => setisComment(true)}
+      >
+        Add a comment
+      </button>
+    )}
+    </div>
+    )
+  }
   return (
     <div>
       <div>{dataDetail.textContent}</div>
@@ -99,7 +134,7 @@ function Maincontent() {
         <div>
           <hr />
           Very nice, simple, elegant. – <a href="#">Michel Floyd</a>
-          <span className={style.linkImprove}>Aug 16, 2021 at 22:04</span>
+          <span className={style.linkImprove}> Aug 16, 2021 at 22:04</span>
         </div>
         <div>
           <hr />
@@ -116,40 +151,7 @@ function Maincontent() {
         <hr />
       </div>
       <div>
-        {isComment ? (
-          <div>
-            <div className="form-floating mt-4 mb-4">
-              <textarea
-                className={`form-control ${style.textComment}`}
-                placeholder="Leave a comment here"
-                id="floatingTextarea2"
-              ></textarea>
-              <label htmlFor="floatingTextarea">Comments</label>
-            </div>
-            <button
-              type="button"
-              className="btn btn-secondary mt-4"
-              onClick={() => setisComment(false)}
-            >
-              Add a comment
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary mt-4 ms-2"
-              onClick={() => setisComment(false)}
-            >
-              Hide
-            </button>
-          </div>
-        ) : (
-          <button
-            type="button"
-            className={`btn btn-link ${style.linkImprove}`}
-            onClick={() => setisComment(true)}
-          >
-            Add a comment
-          </button>
-        )}
+       {renderAddComment()}
       </div>
     </div>
   );
