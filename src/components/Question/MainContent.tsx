@@ -9,10 +9,10 @@ import { DATADETAIL_GET_QUESTION } from "../../mocks";
 
 function Maincontent() {
   const [posts, setPosts] = useState([]);
+  const [isComment, setIsComment] = useState<boolean>(false);
   const [dataDetail, setdataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
-  const [isComment, setisComment] = useState<boolean>(false);
 
   useEffect(() => {
     questionApi
@@ -23,45 +23,45 @@ function Maincontent() {
   }, [posts]);
 
   const renderAddComment = () => {
-    return(
+    return (
       <div>
-      {isComment ? (
-      <div>
-        <div className="form-floating mt-4 mb-4">
-          <textarea
-            className={`form-control ${style.textComment}`}
-            placeholder="Leave a comment here"
-            id="floatingTextarea2"
-          ></textarea>
-          <label htmlFor="floatingTextarea">Comments</label>
-        </div>
-        <button
-          type="button"
-          className="btn btn-secondary mt-4"
-          onClick={() => setisComment(false)}
-        >
-          Add a comment
-        </button>
-        <button
-          type="button"
-          className="btn btn-secondary mt-4 ms-2"
-          onClick={() => setisComment(false)}
-        >
-          Hide
-        </button>
+        {isComment ? (
+          <div>
+            <div className="form-floating mt-4 mb-4">
+              <textarea
+                className={`form-control ${style.textComment}`}
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+              ></textarea>
+              <label htmlFor="floatingTextarea">Comments</label>
+            </div>
+            <button
+              type="button"
+              className="btn btn-secondary mt-4"
+              onClick={() => setIsComment(false)}
+            >
+              Add a comment
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary mt-4 ms-2"
+              onClick={() => setIsComment(false)}
+            >
+              Hide
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={`btn btn-link ${style.linkImprove}`}
+            onClick={() => setIsComment(true)}
+          >
+            Add a comment
+          </button>
+        )}
       </div>
-    ) : (
-      <button
-        type="button"
-        className={`btn btn-link ${style.linkImprove}`}
-        onClick={() => setisComment(true)}
-      >
-        Add a comment
-      </button>
-    )}
-    </div>
-    )
-  }
+    );
+  };
   return (
     <div>
       <div>{dataDetail.textContent}</div>
@@ -136,23 +136,9 @@ function Maincontent() {
           Very nice, simple, elegant. – <a href="#">Michel Floyd</a>
           <span className={style.linkImprove}> Aug 16, 2021 at 22:04</span>
         </div>
-        <div>
-          <hr />
-          great one brother – <a href="#">Michel Floyd</a>
-          <span className={style.linkImprove}> Feb 25, 2022 at 13:18</span>
-        </div>
-        <div>
-          <hr />
-          This method will result in "An interface declaring no members is
-          equivalent to its supertype" if the linter doesn't allow empty
-          interfaces. – <a href="#">demisx</a>
-          <span className={style.linkImprove}> Dec 26, 2019 at 20:37</span>
-        </div>
         <hr />
       </div>
-      <div>
-       {renderAddComment()}
-      </div>
+      <div>{renderAddComment()}</div>
     </div>
   );
 }
