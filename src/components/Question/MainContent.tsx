@@ -1,87 +1,47 @@
 import * as React from "react";
-import ModalComment from "../ModalComment";
+import ModalComment from "../QuestionComp/ModalComment";
 import style from "./question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { questionApi } from "../../api";
+import { IQuestion, IQuestionDetail } from "../../interfaces/api.interfaces";
+import { DATADETAIL_GET_QUESTION } from "../../mocks";
 
 function Maincontent() {
   const [posts, setPosts] = useState([]);
-  const [data, setData] = useState([]);
+  const [dataDetail, setdataDetail] = useState<IQuestionDetail>(
+    DATADETAIL_GET_QUESTION
+  );
+
   useEffect(() => {
-
-    questionApi.getApiQuestion().then((res) => {
-      setData(res.data);
-      console.log(data);
-    });
-
+    questionApi
+      .getApiQuestion()
+      // .then((res) => console.log(22,res.data[1].textContent))
+      .then((res) => setdataDetail(res.data[0]))
+      .catch((e) => console.log(e));
   }, [posts]);
 
   return (
     <div>
+      <div>{dataDetail.textContent}</div>
       <br />
-      <div>
-        Example:{" "}
-        <a href="https://codesandbox.io/s/elastic-pateu-2uy4rt">
-          https://codesandbox.io/s/elastic-pateu-2uy4rt
-        </a>
-      </div>
       <div className={`overflow-auto ${style.containerCode}`}>
-        <p>
-          I have a form. Initially there is some default values (user name and
-          address). When user click add, there is an extra input which user
-          can enter another name and address, and the extra name and address
-          will store in <code>additionConfigs</code>.
-        </p>
-        <p>
-          I have a form. Initially there is some default values (user name and
-          address). When user click add, there is an extra input which user
-          can enter another name and address, and the extra name and address
-          will store in <code>additionConfigs</code>.
-        </p>
-        <p>
-          I have a form. Initially there is some default values (user name and
-          address). When user click add, there is an extra input which user
-          can enter another name and address, and the extra name and address
-          will store in <code>additionConfigs</code>.
-        </p>
-        <p>
-          I have a form. Initially there is some default values (user name and
-          address). When user click add, there is an extra input which user
-          can enter another name and address, and the extra name and address
-          will store in <code>additionConfigs</code>.
-        </p>
-        <p>
-          I have a form. Initially there is some default values (user name and
-          address). When user click add, there is an extra input which user
-          can enter another name and address, and the extra name and address
-          will store in <code>additionConfigs</code>.
-        </p>
+        <p>{dataDetail.codeContent}</p>
       </div>
-      <div className="mt-4 mb-4">
-        I have seen this and hence this. But, I'm still confused about how to
-        implement that suggestion htmlFor this simple case.
-      </div>
-      <div className="d-flex mb-4">
+      <div className="d-flex mb-4 mt-4">
         <button type="button" className="btn btn-secondary m-2">
-          Javascript
-        </button>
-        <button type="button" className="btn btn-secondary m-2">
-          Reactjs
-        </button>
-        <button type="button" className="btn btn-secondary  m-2">
-          React Hook
+          {/* {data1.tag.name} */}
         </button>
       </div>
       <div className="d-flex justify-content-between">
         <div className="p-2 w-32 ">
-          <a href="" className={style.link_improve}>
+          <a href="" className={style.linkImprove}>
             Share{" "}
           </a>
-          <a href="" className={style.link_improve}>
+          <a href="" className={style.linkImprove}>
             Improve this question{" "}
           </a>
-          <a href="" className={style.link_improve}>
+          <a href="" className={style.linkImprove}>
             Follow{" "}
           </a>
         </div>
@@ -129,7 +89,6 @@ function Maincontent() {
           </div>
         </div>
       </div>
-
       <div>
         <button
           type="button"
@@ -139,7 +98,6 @@ function Maincontent() {
         >
           Add a comment
         </button>
-
         <ModalComment />
       </div>
     </div>

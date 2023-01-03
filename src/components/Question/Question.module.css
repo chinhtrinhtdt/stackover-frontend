@@ -16,6 +16,9 @@ background-color: #d9eaf7;
     padding: 10px;
 }
 
-.link_improve {
+.linkImprove {
     color: #6a737c;
+}
+.iconText{
+    text-align: center;
 }
