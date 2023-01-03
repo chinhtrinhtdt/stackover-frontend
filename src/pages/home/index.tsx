@@ -10,7 +10,7 @@ function Home() {
       <Header />
       <div className="container d-flex align-items-start">
         <Navbar />
-        <div className={`${styles.content} px-3 w-100`}>
+        <div className={`${styles.content} px-3 w-100`}> 
           <QuestionUI />
         </div>
       </div>
