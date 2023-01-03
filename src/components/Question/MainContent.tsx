@@ -13,6 +13,11 @@ function Maincontent() {
     DATADETAIL_GET_QUESTION
   );
   const [isComment, setisComment] = useState<boolean>(false);
+
+  const onClickopenComment = () => {
+    setisComment(true);
+  };
+
   useEffect(() => {
     questionApi
       .getApiQuestion()
@@ -20,9 +25,8 @@ function Maincontent() {
       .then((res) => setdataDetail(res.data[0]))
       .catch((e) => console.log(e));
   }, [posts]);
-  const onClickopenComment = () => {
-    setisComment(true);
-  };
+
+
   return (
     <div>
       <div>{dataDetail.textContent}</div>
@@ -94,24 +98,23 @@ function Maincontent() {
       <div className={`pl-4`}>
         <div>
           <hr />
-          Very nice, simple, elegant. – <a href="">Michel Floyd</a>{" "}
+          Very nice, simple, elegant. – <a href="#">Michel Floyd</a>
           <span className={style.linkImprove}>Aug 16, 2021 at 22:04</span>
         </div>
         <div>
           <hr />
-          great one brother – <a href="">Michel Floyd</a>{" "}
+          great one brother – <a href="#">Michel Floyd</a>
           <span className={style.linkImprove}> Feb 25, 2022 at 13:18</span>
         </div>
         <div>
           <hr />
           This method will result in "An interface declaring no members is
           equivalent to its supertype" if the linter doesn't allow empty
-          interfaces. – <a href="">demisx</a>{" "}
+          interfaces. – <a href="#">demisx</a>
           <span className={style.linkImprove}> Dec 26, 2019 at 20:37</span>
         </div>
         <hr />
       </div>
-
       <div>
         {isComment ? (
           <div>
@@ -139,8 +142,13 @@ function Maincontent() {
             </button>
           </div>
         ) : (
-          <button type="button" className={`btn btn-link ${style.linkImprove}`} onClick={() => setisComment(true)}>Add a comment</button>
-          
+          <button
+            type="button"
+            className={`btn btn-link ${style.linkImprove}`}
+            onClick={() => setisComment(true)}
+          >
+            Add a comment
+          </button>
         )}
       </div>
     </div>
