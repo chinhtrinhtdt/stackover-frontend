@@ -5,6 +5,14 @@ import style from "./ModalComment.module.css";
 function Maincontent() {
   return (
     <>
+     <button
+          type="button"
+          className="btn btn-light mt-4"
+          data-bs-toggle="textarea"
+          data-bs-target="#exampleModalLong1"
+        >
+          Add a comment
+        </button>
       <div
         className="modal fade"
         id="exampleModalLong"

@@ -9,6 +9,7 @@ import { DATADETAIL_GET_QUESTION } from "../../mocks";
 
 function Maincontent() {
   const [posts, setPosts] = useState([]);
+  const [isComment, setIsComment] = useState<boolean>(false);
   const [dataDetail, setdataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
@@ -21,6 +22,46 @@ function Maincontent() {
       .catch((e) => console.log(e));
   }, [posts]);
 
+  const renderAddComment = () => {
+    return (
+      <div>
+        {isComment ? (
+          <div>
+            <div className="form-floating mt-4 mb-4">
+              <textarea
+                className={`form-control ${style.textComment}`}
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+              ></textarea>
+              <label htmlFor="floatingTextarea">Comments</label>
+            </div>
+            <button
+              type="button"
+              className="btn btn-secondary mt-4"
+              onClick={() => setIsComment(false)}
+            >
+              Add a comment
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary mt-4 ms-2"
+              onClick={() => setIsComment(false)}
+            >
+              Hide
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={`btn btn-link ${style.linkImprove}`}
+            onClick={() => setIsComment(true)}
+          >
+            Add a comment
+          </button>
+        )}
+      </div>
+    );
+  };
   return (
     <div>
       <div>{dataDetail.textContent}</div>
@@ -89,17 +130,15 @@ function Maincontent() {
           </div>
         </div>
       </div>
-      <div>
-        <button
-          type="button"
-          className="btn btn-light"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModalLong"
-        >
-          Add a comment
-        </button>
-        <ModalComment />
+      <div className={`pl-4`}>
+        <div>
+          <hr />
+          Very nice, simple, elegant. – <a href="#">Michel Floyd</a>
+          <span className={style.linkImprove}> Aug 16, 2021 at 22:04</span>
+        </div>
+        <hr />
       </div>
+      <div>{renderAddComment()}</div>
     </div>
   );
 }
