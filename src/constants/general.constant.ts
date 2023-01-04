@@ -8,3 +8,7 @@ export const STATUS_CODE = {
     CONFLICT: 409,
 }
 
+export const MESSAGE = {
+    INVALID_PASSWORD: "Your password is invalid",
+}
+

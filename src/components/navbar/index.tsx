@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from './navbar.module.css'
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -8,15 +9,29 @@ function Navbar() {
         <li className="my-3 ps-2">
           <Link to='/#' className="link-dark" >Home</Link>
         </li>
+        
         <li className="mb-1 ps-2">Public</li>
         <li className="mb-3 ps-2">
-          <Link to='/#' className="link-dark " >
+          <Link to='/questions' className="link-dark " >
             <i className="bi bi-info-circle"></i>
-            <span className="fw-bold ms-1">Questions</span>
+            <span className="fw-bold ms-1">
+              Questions
+            </span>
           </Link>
           <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li className="ps-5 py-2"><Link to="/#" className="link-dark">Tags</Link></li>
-            <li className="ps-5 py-2"><Link to="/#" className="link-dark">Users</Link></li>
+            <li className="ps-5 py-2"><Link to="/tags" className="link-dark">Tags</Link></li>
+            <li className="ps-5 py-2"><Link to="/users" className="link-dark">
+            {
+              window.location.pathname === "/users"?
+              <span className="fw-bold ">
+              Users
+            </span>
+            :
+            <span >
+              Users
+            </span>
+            }
+              </Link></li>
             <li className="ps-5 py-2"><Link to="/#" className="link-dark">Companies</Link></li>
           </ul>
         </li>

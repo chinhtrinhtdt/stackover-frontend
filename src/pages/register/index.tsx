@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
 import styles from './register.module.css';
 import { passwordValidation } from '../../utils';
-import { STATUS_CODE } from '../../constants/general.constant';
+import { MESSAGE, STATUS_CODE } from '../../constants/general.constant';
 
 function Register() {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function Register() {
 
     document.querySelector("form")?.classList.add("was-validated")
     if (!username || !password || !email || !passwordValidation(password)) {
-      setMsgInvalidPassword("Your password is invalid");
+      setMsgInvalidPassword(MESSAGE.INVALID_PASSWORD);
       return;
     };
 
@@ -55,14 +55,14 @@ function Register() {
         <div className="form-group">
           <label htmlFor="password" className="fw-bold pb-1">Password</label><br />
           <div className="position-relative">
-            <input onChange={e => setPassword(e.target.value)} type={showPassword ? "text" : "password"} name="password" id="password" className={`${styles.reset} form-control pe-5`} required />
+            <input onChange={e => setPassword(e.target.value)} type={showPassword ? "text" : "password"} name="password" id="password" className={`${styles.reset} form-control pe-5`} required autoComplete='off' />
             <span className={styles.passwordIcon} onClick={() => setShowPassword(!showPassword)}>
               <i className="bi bi-eye-fill"></i>
             </span>
           </div>
           <div className="invalid-feedback"> Please fill a password.</div>
           <div className={`${styles.font14} invalid-password text-danger`}> {msgInvalidPassword} </div>
-          <span className={styles.note}>Passwords must contain at least eight characters, including at least 1 letter and 1 number.</span>
+          <span className={`${styles.note} text-danger`}>Passwords must contain at least eight characters, including at least 1 letter and 1 number.</span>
         </div>
 
         <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>Register</button>

@@ -17,24 +17,16 @@ function Tags() {
         </div>)
 
     return (
-        <div>
-            <Header />
-            <div className="container d-flex align-items-start">
-                <Navbar />
-                <div className={`${styles.content} px-3 w-100`}>
-                    <div className="p-3">
-                        <h3>Tags</h3>
-                        <p className="py-3">A tag is a keyword or label that categorizes your question with other, similar questions.
-                            Using the right tags makes it easier for others to find and answer your question.</p>
-                        <div className="w-25 position-relative flex-fill">
-                            <i className={`${styles.searchIcon} bi bi-search`}></i>
-                            <input className={`${styles.searchInput} form-control form-control-sm`} type="text" placeholder="Filter by tag name..." />
-                        </div>
-                        <div className="d-flex flex-wrap gap-2 mt-3">
-                            {renderCardTag}
-                        </div>
-                    </div>
-                </div>
+        <div className="p-3">
+            <h3>Tags</h3>
+            <p className="py-3">A tag is a keyword or label that categorizes your question with other, similar questions.
+                Using the right tags makes it easier for others to find and answer your question.</p>
+            <div className="w-25 position-relative flex-fill">
+                <i className={`${styles.searchIcon} bi bi-search`}></i>
+                <input className={`${styles.searchInput} form-control form-control-sm`} type="text" placeholder="Filter by tag name..." />
+            </div>
+            <div className="d-flex flex-wrap gap-2 mt-3">
+                {renderCardTag}
             </div>
         </div>
     );
