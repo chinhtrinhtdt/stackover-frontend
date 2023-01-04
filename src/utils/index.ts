@@ -13,3 +13,12 @@ export const passwordValidation = (password: string) => {
     ? true
     : false;
 };
+
+export const checkToken = () => {
+  return localStorage.getItem("token") === null ? false : true;
+};
+
+export const getUserInfo = () => {
+  const userInfo = localStorage.getItem("user");
+  return userInfo !== null && JSON.parse(userInfo);
+};
