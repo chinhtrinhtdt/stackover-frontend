@@ -113,25 +113,6 @@ function Maincontent() {
                       </li>
                     </ul>
                   </div>
-                  {/* <div className="d-flex">
-                    <div>
-                      <i className="bi bi-dot "></i>
-                    </div>
-                    <div>4</div>
-                  </div>
-                  <div className="d-flex">
-                    <div>
-                      <i className="bi bi-dot"></i>
-                    </div>
-                    <div>3</div>
-                  </div>
-                  <div className="d-flex">
-                    <div>
-                      <i className="bi bi-circle-fill"></i>
-                    </div>
-                    <div>26</div>
-                  </div>
-                  <div></div> */}
                 </div>
               </div>
             </div>

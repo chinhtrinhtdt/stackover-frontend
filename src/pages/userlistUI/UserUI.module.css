@@ -29,14 +29,15 @@ input[type="radio"]:checked+label{ font-weight: bold; }
 
 
 .activeBtn {
-  background-color: antiquewhite;
-  font-weight: bold;
+  background-color: #dcd9d6;
+
 }
 .activeBtn:hover {
-  background-color: antiquewhite
+  background-color: #f7f4f1
 }
 .activeBtnUserTime{
   font-weight: bold; 
-  color: rgb(172, 132, 132);
+  color: rgb(10, 8, 8);
+  font-size: 16px;
 
 }

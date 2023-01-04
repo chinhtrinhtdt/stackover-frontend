@@ -4,16 +4,18 @@ import styles from "./UserUI.module.css";
 import { useState } from "react";
 
 function UserList() {
-  const [checkButtonUserType, setcheckButtonUserType] = useState<number>(0);
-  const [checkButtonUserTime, setcheckButtonUserTime] = useState<number>(0);
+  const [checkButtonUserType, setCheckButtonUserType] = useState<number>(0);
+  const [checkButtonUserTime, setCheckButtonUserTime] = useState<number>(0);
 
   const renderButtonUserType = (id: number, htmlfor: string, label: string) => {
     return (
       <>
         <button
           type="button"
-          className={`btn border ${checkButtonUserType === id ? styles.activeBtn : ''}`}
-          onClick={() => setcheckButtonUserType(id)}
+          className={`btn border ${
+            checkButtonUserType === id ? styles.activeBtn : ""
+          }`}
+          onClick={() => setCheckButtonUserType(id)}
         >
           {label}
         </button>
@@ -23,14 +25,15 @@ function UserList() {
   const renderButtonUserTime = (id: number, htmlfor: string, label: string) => {
     return (
       <>
-      <button
+        <button
           type="button"
-          className={`btn  ${checkButtonUserTime === id ? styles.activeBtnUserTime : ''}`}
-          onClick={() => setcheckButtonUserTime(id)}
+          className={`btn  ${
+            checkButtonUserTime === id ? styles.activeBtnUserTime : ""
+          }`}
+          onClick={() => setCheckButtonUserTime(id)}
         >
           {label}
         </button>
-        
       </>
     );
   };
@@ -81,17 +84,6 @@ function UserList() {
             />
           </div>
           <div>
-            {/* <input
-              type="radio"
-              className="btn-check"
-              name="btnradio1"
-              id="dd"
-              autoComplete="off"
-              defaultChecked
-            />
-            <label className="btn btn-outline-secondary" htmlFor="btnradio1">
-              Reputation
-            </label> */}
             {renderButtonUserType(0, "btnradio2", "New users")}
             {renderButtonUserType(1, "btnradio3", "Voters")}
             {renderButtonUserType(2, "btnradio4", "Editors")}
