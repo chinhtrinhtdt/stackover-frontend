@@ -11,6 +11,8 @@ function Register() {
   const [username, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [showPassword, setShowPassword] = useState(false)
+  const [msgInvalidPassword, setMsgInvalidPassword] = useState('')
 
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -20,10 +22,14 @@ function Register() {
       password,
       email
     };
-    
-    document.querySelector("form")?.classList.add("was-validated")
-    if (!username || !password || !email || !passwordValidation(password)) return;
 
+    document.querySelector("form")?.classList.add("was-validated")
+    if (!username || !password || !email || !passwordValidation(password)) {
+      setMsgInvalidPassword("Your password is invalid");
+      return;
+    };
+
+    setMsgInvalidPassword("");
     authApi.postApiRegister(registerObject)
       .then(res => res.status === STATUS_CODE.CREATED && navigate('/login'));
   }
@@ -36,18 +42,26 @@ function Register() {
       <form className='d-grid gap-2 p-4 mt-4 bg-light shadow-sm rounded' >
         <div className="form-group">
           <label htmlFor="username" className="fw-bold pb-1">User name</label><br />
-          <input onChange={e => setUserName(e.target.value)} type="text" name="username" id="username" className="form-control" required />
+          <input onChange={e => setUserName(e.target.value)} type="text" name="username" id="username" className={`${styles.reset} form-control`} required />
           <div className="invalid-feedback"> Please fill a username.</div>
         </div>
+
         <div className="form-group">
           <label htmlFor="email" className="fw-bold pb-1">Email</label><br />
-          <input onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" className="form-control" required />
+          <input onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" className={`${styles.reset} form-control`} required />
           <div className="invalid-feedback"> Please fill a email.</div>
         </div>
+
         <div className="form-group">
           <label htmlFor="password" className="fw-bold pb-1">Password</label><br />
-          <input onChange={e => setPassword(e.target.value)} type="password" name="password" id="password" className="form-control" required />
+          <div className="position-relative">
+            <input onChange={e => setPassword(e.target.value)} type={showPassword ? "text" : "password"} name="password" id="password" className={`${styles.reset} form-control pe-5`} required />
+            <span className={styles.passwordIcon} onClick={() => setShowPassword(!showPassword)}>
+              <i className="bi bi-eye-fill"></i>
+            </span>
+          </div>
           <div className="invalid-feedback"> Please fill a password.</div>
+          <div className={`${styles.font14} invalid-password text-danger`}> {msgInvalidPassword} </div>
           <span className={styles.note}>Passwords must contain at least eight characters, including at least 1 letter and 1 number.</span>
         </div>
 
