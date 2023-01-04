@@ -65,7 +65,7 @@ const renderListQuestion = (data: IQuestionDetail[]) => {
   ));
 };
 
-function MainPage() {
+function QuestionPage() {
   const [posts, setPosts] = useState([]);
   const [data, setData] = useState<IQuestionDetail[]>([]);
 
@@ -96,4 +96,4 @@ function MainPage() {
   );
 }
 
-export default React.memo(MainPage);
+export default React.memo(QuestionPage);
