@@ -1,39 +1,36 @@
 import * as React from "react";
 import { LIST_IMAGE_USER } from "../../mocks";
 import styles from "./UserUI.module.css";
+import { useState } from "react";
 
 function UserList() {
-  const renderButtonUserType = (id: string, htmlfor: string, label: string) => {
+  const [checkButtonUserType, setcheckButtonUserType] = useState<number>(0);
+  const [checkButtonUserTime, setcheckButtonUserTime] = useState<number>(0);
+
+  const renderButtonUserType = (id: number, htmlfor: string, label: string) => {
     return (
       <>
-        <input
-          type="radio"
-          className="btn-check"
-          name="btnradio"
-          id={id}
-          autoComplete="off"
-          defaultChecked
-        />
-        <label className="btn btn-outline-secondary" htmlFor={htmlfor}>
+        <button
+          type="button"
+          className={`btn border ${checkButtonUserType === id ? styles.activeBtn : ''}`}
+          onClick={() => setcheckButtonUserType(id)}
+        >
           {label}
-        </label>
+        </button>
       </>
     );
   };
-  const renderButtonUserTime = (id: string, htmlfor: string, label: string) => {
+  const renderButtonUserTime = (id: number, htmlfor: string, label: string) => {
     return (
       <>
-        <input
-          type="radio"
-          className="btn-check"
-          name="btnradio"
-          id={id}
-          autoComplete="off"
-          defaultChecked
-        />
-        <label className={`${styles.itemTime} btn btn-link`} htmlFor={htmlfor}>
+      <button
+          type="button"
+          className={`btn  ${checkButtonUserTime === id ? styles.activeBtnUserTime : ''}`}
+          onClick={() => setcheckButtonUserTime(id)}
+        >
           {label}
-        </label>
+        </button>
+        
       </>
     );
   };
@@ -41,7 +38,7 @@ function UserList() {
     return (
       <>
         <div
-          className={`d-flex flex-row-reverse card mb-3 me-5 mt-4 card-roll ${styles.cardBox}`}
+          className={`d-flex flex-row-reverse card mb-3 me-5 mt-2 card-roll ${styles.cardBox}`}
         >
           <div className="row g-0 d-flex ">
             <div className="col-md-2 m-2">
@@ -70,7 +67,7 @@ function UserList() {
   return (
     <>
       <div className="ms-4 mb-2">
-        <p className="fs-3 my-4">User</p>
+        <p className="fs-3 my-4">Users</p>
         <div className={`${styles.container} my-4`}>
           <div className="input-group w-25">
             <span className="input-group-text" id="inputGroup-sizing-default">
@@ -78,23 +75,32 @@ function UserList() {
             </span>
             <input
               type="text"
-              className="form-control"
+              className="form-control shadow-none"
               aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default"
             />
           </div>
           <div>
+            {/* <input
+              type="radio"
+              className="btn-check"
+              name="btnradio1"
+              id="dd"
+              autoComplete="off"
+              defaultChecked
+            />
+            <label className="btn btn-outline-secondary" htmlFor="btnradio1">
+              Reputation
+            </label> */}
+            {renderButtonUserType(0, "btnradio2", "New users")}
+            {renderButtonUserType(1, "btnradio3", "Voters")}
+            {renderButtonUserType(2, "btnradio4", "Editors")}
+            {renderButtonUserType(3, "btnradio5", "Moderators")}
             <div
               className="btn-group"
               role="group"
               aria-label="Basic radio toggle button group"
-            >
-              {renderButtonUserType("btnradio1", "btnradio1", "Reputation")}
-              {renderButtonUserType("btnradio2", "btnradio2", "New users")}
-              {renderButtonUserType("btnradio3", "btnradio3", "Voters")}
-              {renderButtonUserType("btnradio4", "btnradio4", "Editors")}
-              {renderButtonUserType("btnradio5", "btnradio5", "Moderators")}
-            </div>
+            ></div>
             <br />
           </div>
         </div>
@@ -105,11 +111,11 @@ function UserList() {
         >
           <div></div>
           <div>
-            {renderButtonUserTime("btntime1", "btntime1", "week")}
-            {renderButtonUserTime("btntime2", "btntime2", "month")}
-            {renderButtonUserTime("btntime3", "btntime3", "quater")}
-            {renderButtonUserTime("btntime4", "btntime4", "year")}
-            {renderButtonUserTime("btntime5", "btntime5", "all")}
+            {renderButtonUserTime(0, "btntime1", "week")}
+            {renderButtonUserTime(1, "btntime2", "month")}
+            {renderButtonUserTime(2, "btntime3", "quater")}
+            {renderButtonUserTime(3, "btntime4", "year")}
+            {renderButtonUserTime(4, "btntime5", "all")}
           </div>
         </div>
 

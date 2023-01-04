@@ -7,8 +7,8 @@ import { useLocation } from "react-router-dom";
 
 function Home() {
   const renderPage = () => {
-    if (window.location.pathname === "/question") return <QuestionUI />;
-    if (window.location.pathname === "/userlist") return <UserList />;
+    if (window.location.pathname === "/questions") return <QuestionUI />;
+    if (window.location.pathname === "/users") return <UserList />;
   };
   return (
     <div>

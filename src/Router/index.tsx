@@ -12,8 +12,8 @@ const RouterDom = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/userlist" element={<Home />} />
-        <Route path="/question" element={<Home />} />
+        <Route path="/users" element={<Home />} />
+        <Route path="/questions" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

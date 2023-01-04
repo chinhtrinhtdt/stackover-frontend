@@ -28,7 +28,7 @@ const renderHeaderContent = (data: IQuestionDetail[]) => (
         data-bs-toggle="modal"
         data-bs-target="#addQuestion"
       >
-        Add question22
+        Add question
       </button>
       <ModalAddQuestion />
     </div>

@@ -22,6 +22,21 @@
   width: 25%;
   height: 20%;
   background-color: #ffffff;
-  min-width: 250px;
+  min-width: 200px;
   border: none;
+}
+input[type="radio"]:checked+label{ font-weight: bold; } 
+
+
+.activeBtn {
+  background-color: antiquewhite;
+  font-weight: bold;
+}
+.activeBtn:hover {
+  background-color: antiquewhite
+}
+.activeBtnUserTime{
+  font-weight: bold; 
+  color: rgb(172, 132, 132);
+
 }
