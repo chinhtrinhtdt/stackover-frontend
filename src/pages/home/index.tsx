@@ -6,9 +6,10 @@ import styles from "./home.module.css";
 import { useLocation } from "react-router-dom";
 
 function Home() {
+  let pathName  = window.location.pathname
   const renderPage = () => {
-    if (window.location.pathname === "/questions") return <QuestionUI />;
-    if (window.location.pathname === "/users") return <UserList />;
+    if (pathName  === "/questions") return <QuestionUI />;
+    if (pathName  === "/users") return <UserList />;
   };
   return (
     <div>
