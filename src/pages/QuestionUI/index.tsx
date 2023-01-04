@@ -21,7 +21,7 @@ const renderTime = (name: string, value: string) => {
 const renderHeaderContent = (data: IQuestionDetail[]) => (
   <div>
     <div className="d-flex justify-content-between p-3">
-      <h4>{data[0]?.name}</h4>
+      <h4>{data[0]?.title}</h4>
       <button
         type="button"
         className={`${styles.ask} btn btn-primary`}
@@ -90,7 +90,7 @@ function MainPage() {
             <MainContent />
           </div>
         </div>
-        <div className="p-2 w-25">aa{renderListQuestion(data)}</div>
+        <div className="p-2 w-25">{renderListQuestion(data)}</div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export interface IParamQuestion {
     tagName: string;
 }
 export interface IQuestionDetail{
-    name:string;
+    title:string;
     textContent:string;
     codeContent:string;
 }

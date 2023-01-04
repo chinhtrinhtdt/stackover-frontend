@@ -31,7 +31,7 @@ export const LIST_QUESTIONS = [
 ];
 
 export const DATADETAIL_GET_QUESTION = {
-  name: "",
+  title: "",
   textContent: "",
   codeContent: "",
 };

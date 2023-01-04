@@ -37,7 +37,7 @@ function Maincontent() {
             </div>
             <button
               type="button"
-              className="btn btn-secondary mt-4"
+              className="btn btn-primary mt-4"
               onClick={() => setIsComment(false)}
             >
               Add a comment
