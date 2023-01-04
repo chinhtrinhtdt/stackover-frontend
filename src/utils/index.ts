@@ -15,10 +15,10 @@ export const passwordValidation = (password: string) => {
 };
 
 export const checkToken = () => {
-  return localStorage.getItem("token") === null ? false : true;
+  return localStorage.getItem("token") ? true : false;
 };
 
 export const getUserInfo = () => {
   const userInfo = localStorage.getItem("user");
-  return userInfo !== null && JSON.parse(userInfo);
+  return userInfo && JSON.parse(userInfo);
 };

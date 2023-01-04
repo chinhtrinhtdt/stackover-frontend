@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 import { authApi } from '../../api';
 import { LOGO_SECONDARY_IMAGE_URL } from '../../mocks';
+import { STATUS_CODE } from '../../constants/general.constant';
 
 function Login() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Login() {
 
     authApi.postApiLogin(loginObject)
       .then(res => {
-        if (res.status === 201) {
+        if (res.status === STATUS_CODE.DONE || STATUS_CODE.CREATED) {
           localStorage.setItem('user', JSON.stringify(res.data.user))
           localStorage.setItem('token', res.data.access_token);
           navigate('/');

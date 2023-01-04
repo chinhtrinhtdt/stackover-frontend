@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
 import styles from './register.module.css';
 import { passwordValidation } from '../../utils';
+import { STATUS_CODE } from '../../constants/general.constant';
 
 function Register() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function Register() {
     if (!username || !password || !email || !passwordValidation(password)) return;
 
     authApi.postApiRegister(registerObject)
-      .then(res => res.status === 201 && navigate('/login'));
+      .then(res => res.status === STATUS_CODE.CREATED && navigate('/login'));
   }
 
   return (
