@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
 import styles from './register.module.css';
 import { passwordValidation } from '../../utils';
+import { STATUS_CODE } from '../../constants/general.constant';
 
 function Register() {
   const navigate = useNavigate();
@@ -19,33 +20,34 @@ function Register() {
       password,
       email
     };
-
+    
+    document.querySelector("form")?.classList.add("was-validated")
     if (!username || !password || !email || !passwordValidation(password)) return;
 
     authApi.postApiRegister(registerObject)
-      .then(res => res.status === 200 && navigate('/login'));
+      .then(res => res.status === STATUS_CODE.CREATED && navigate('/login'));
   }
 
   return (
-    <div className='d-grid gap-2 col-4 mx-auto p-3'>
+    <div className='d-grid gap-2 col-4 mx-auto mt-5 p-3'>
       <h5 className='text-center'>Create your Stack Overflow account. It's free and only takes a minute.
       </h5>
 
-      <form className='d-grid gap-2 p-4 mt-4 bg-light shadow-sm rounded was-validation' >
+      <form className='d-grid gap-2 p-4 mt-4 bg-light shadow-sm rounded' >
         <div className="form-group">
           <label htmlFor="username" className="fw-bold pb-1">User name</label><br />
           <input onChange={e => setUserName(e.target.value)} type="text" name="username" id="username" className="form-control" required />
-          <div className="invalid-feedback">
-            Please choose a username.
-          </div>
+          <div className="invalid-feedback"> Please fill a username.</div>
         </div>
         <div className="form-group">
           <label htmlFor="email" className="fw-bold pb-1">Email</label><br />
           <input onChange={e => setEmail(e.target.value)} type="email" name="email" id="email" className="form-control" required />
+          <div className="invalid-feedback"> Please fill a email.</div>
         </div>
         <div className="form-group">
           <label htmlFor="password" className="fw-bold pb-1">Password</label><br />
           <input onChange={e => setPassword(e.target.value)} type="password" name="password" id="password" className="form-control" required />
+          <div className="invalid-feedback"> Please fill a password.</div>
           <span className={styles.note}>Passwords must contain at least eight characters, including at least 1 letter and 1 number.</span>
         </div>
 
