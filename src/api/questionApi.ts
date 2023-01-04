@@ -6,6 +6,7 @@ const questionApi = {
     getApiQuestion() {
         return API.get(ApiSettings.API_GET_QUESTION)
     },
+    
     postApiQuestion(params: IParamQuestion) {
         return API.post(ApiSettings.API_POST_QUESTION, params)
     }
