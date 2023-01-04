@@ -8,7 +8,7 @@ const authApi = {
     },
 
     postApiLogin(params: IParamLogin) {
-        return myClient.post(ApiSettings.API_POST_REGISTER, params)
+        return myClient.post(ApiSettings.API_POST_LOGIN, params)
     }
 }
 
