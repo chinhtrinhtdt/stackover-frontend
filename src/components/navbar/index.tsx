@@ -19,7 +19,7 @@ function Navbar() {
             </span>
           </Link>
           <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li className="ps-5 py-2"><Link to="/#" className="link-dark">Tags</Link></li>
+            <li className="ps-5 py-2"><Link to="/tags" className="link-dark">Tags</Link></li>
             <li className="ps-5 py-2"><Link to="/users" className="link-dark">
             {
               window.location.pathname === "/users"?

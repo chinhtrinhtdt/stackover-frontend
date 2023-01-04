@@ -1,10 +1,9 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../App";
 import Login from "../pages/login";
-import QuestionUI from "../pages/QuestionUI/index";
 import Register from "../pages/register";
-import UserlistUI from "../pages/userlistUI/index";
+import Tags from "../pages/tags";
+
 const RouterDom = () => {
   return (
     <BrowserRouter>
@@ -14,6 +13,7 @@ const RouterDom = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/users" element={<Home />} />
         <Route path="/questions" element={<Home />} />
+        <Route path="/tags" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

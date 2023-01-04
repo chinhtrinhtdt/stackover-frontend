@@ -1,16 +1,18 @@
 import Header from "../../components/header";
 import Navbar from "../../components/navbar";
 import QuestionUI from "../QuestionUI/index";
+import Tags from "../tags";
 import UserList from "../userlistUI/index";
 import styles from "./home.module.css";
-import { useLocation } from "react-router-dom";
 
 function Home() {
   let pathName  = window.location.pathname
   const renderPage = () => {
-    if (pathName  === "/questions") return <QuestionUI />;
+    if (pathName  === "/questions" || pathName === "/") return <QuestionUI />;
     if (pathName  === "/users") return <UserList />;
+    if (pathName  === "/tags") return <Tags />;
   };
+
   return (
     <div>
       <Header />
