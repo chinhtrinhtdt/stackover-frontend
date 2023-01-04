@@ -1,6 +1,7 @@
 import Header from "../../components/header";
 import Navbar from "../../components/navbar";
 import QuestionUI from "../QuestionUI/index";
+import UserList from "../userlistUI/index";
 import styles from "./home.module.css";
 
 function Home() {
@@ -10,7 +11,8 @@ function Home() {
       <div className="container d-flex align-items-start">
         <Navbar />
         <div className={`${styles.content} px-3 w-100`}>
-          <QuestionUI />
+          <UserList />
+          {/* <QuestionUI /> */}
         </div>
       </div>
     </div>
