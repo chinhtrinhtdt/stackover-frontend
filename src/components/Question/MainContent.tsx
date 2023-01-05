@@ -159,14 +159,14 @@ function Maincontent() {
         </div>
       </div>
       <div className={`${style.textComment}pl-4`}>
-        {commentDataDetail.map((cmtitem: ICommentDetail, index: number) => (
+        {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
-            {cmtitem.content} -{" "}
+            {item.content} - {" "}
             <a href="#" className={`${style.textComment}`}>
-              {cmtitem.user.username}
+              {item.user.username}
             </a>-<span className={`${style.textComment} ${style.linkImprove}`}>
-              {cmtitem.createdAt}
+              {item.createdAt}
             </span>
           </div>
         ))}

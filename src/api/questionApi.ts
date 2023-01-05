@@ -2,7 +2,7 @@ import { IParamQuestion,IParamComment } from "../interfaces/api.interfaces";
 import { ApiSettings } from "./api.setting";
 import API from "./config.api";
 
-export const questionApi = {
+const questionApi = {
   getApiQuestion() {
     return API.get(ApiSettings.API_GET_QUESTION);
   },
@@ -18,5 +18,7 @@ export const questionApi = {
     return API.post(ApiSettings.API_POST_COMMENT, params);
   },
 };
+
+export default questionApi;
 
 
