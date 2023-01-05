@@ -10,6 +10,7 @@ function Login() {
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -43,14 +44,21 @@ function Login() {
       <form className='d-grid gap-2 p-4 mt-4 bg-light shadow-sm rounded' >
         <div className="form-group">
           <label htmlFor="username" className="fw-bold pb-1">Username</label><br />
-          <input onChange={e => setUsername(e.target.value)} type="text" name="username" id="username" className="form-control" required />
+          <input onChange={e => setUsername(e.target.value)} type="text" name="username" id="username" className={`${styles.reset} form-control`} required />
           <div className="invalid-feedback"> Please fill a username.</div>
         </div>
+
         <div className="form-group">
           <label htmlFor="password" className="fw-bold pb-1">Password</label><br />
-          <input onChange={e => setPassword(e.target.value)} type="password" name="password" id="password" className="form-control" required />
-          <div className="invalid-feedback"> Please fill a passwrod.</div>
+          <div className="position-relative">
+            <input onChange={e => setPassword(e.target.value)} type={showPassword ? "text" : "password"} name="password" id="password" className={`${styles.reset} form-control pe-5`} required />
+            <span className={styles.passwordIcon} onClick={() => setShowPassword(!showPassword)}>
+              <i className="bi bi-eye-fill"></i>
+            </span>
+          </div>
+          <div className="invalid-feedback"> Please fill a password.</div>
         </div>
+
         <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>Login</button>
       </form>
 

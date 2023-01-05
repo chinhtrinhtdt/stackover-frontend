@@ -38,6 +38,42 @@ export const DATADETAIL_GET_QUESTION = {
   textContent: "",
   codeContent: "",
 };
+
+export const LIST_TAGS = [
+  {
+    name: "javascript",
+    description: "For questions about programming in ECMAScript (JavaScript/JS) and its different dialects/implementations (except for ActionScript)",
+  },
+  {
+    name: "python",
+    description: "Python is a multi-paradigm, dynamically typed, multi-purpose programming language. It is designed to be quick to learn, understand.",
+  },
+  {
+    name: "java",
+    description: "Java is a high-level object-oriented programming language. Use this tag when you're having problems using or understanding the language itself.",
+  },
+  {
+    name: "c#",
+    description: "C# (pronounced 'see sharp') is a high-level, statically typed, multi-paradigm programming language developed by Microsoft",
+  },
+  {
+    name: "php",
+    description: "PHP is a widely used, open source, general-purpose, multi-paradigm, dynamically typed and interpreted scripting language designed initially.",
+  },
+  {
+    name: "android",
+    description: "Android is Google's mobile operating system, used for programming or developing digital devices (Smartphones, Tablets).",
+  },
+  {
+    name: "html",
+    description: "HTML (HyperText Markup Language) is the markup language for creating web pages and other information to be displayed in a web browser.",
+  },
+  {
+    name: "css",
+    description: "CSS (Cascading Style Sheets) is a representation style sheet language used for describing the look and formatting of HTML",
+  },
+];
+
 export const LIST_IMAGE_USER = [
   "https://i.stack.imgur.com/hMDvl.jpg?s=96&g=1",
   "https://i.stack.imgur.com/hMDvl.jpg?s=96&g=1",
