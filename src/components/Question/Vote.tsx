@@ -1,5 +1,5 @@
-import * as React from 'react';
-import style from "./qq.module.css";
+import * as React from "react";
+import style from "./Question.module.css";
 
 function Vote() {
   return (
