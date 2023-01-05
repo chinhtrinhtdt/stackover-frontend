@@ -3,7 +3,7 @@ import ModalComment from "../QuestionComp/ModalComment";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { questionApi, commentApi } from "../../api";
+import { questionApi } from "../../api";
 import {
   IQuestion,
   IQuestionDetail,
@@ -27,7 +27,7 @@ function Maincontent() {
       .getApiQuestion()
       .then((res) => setQuesdataDetail(res.data[0]))
       .catch((e) => console.log(e));
-    commentApi
+      questionApi
       .getApiComment()
       .then((res) => setCommentDataDetail(res.data))
       .catch((e) => console.log(e));
@@ -44,7 +44,7 @@ function Maincontent() {
     if (contentComment) {
       setContentComment("");
       setIsComment(!isComment);
-      commentApi.postApiComment(params);
+      questionApi.postApiComment(params);
     }
   };
 

@@ -10,15 +10,13 @@ export const questionApi = {
   postApiQuestion(params: IParamQuestion) {
     return API.post(ApiSettings.API_POST_QUESTION, params);
   },
+  getApiComment() {
+    return API.get(ApiSettings.API_GET_COMMENT);
+  },
+
+  postApiComment(params: IParamComment) {
+    return API.post(ApiSettings.API_POST_COMMENT, params);
+  },
 };
 
-export const commentApi = {
-    getApiComment() {
-      return API.get(ApiSettings.API_GET_COMMENT);
-    },
-  
-    postApiComment(params: IParamComment) {
-      return API.post(ApiSettings.API_POST_COMMENT, params);
-    },
-  };
 

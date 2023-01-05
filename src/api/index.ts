@@ -1,7 +1,6 @@
-import {questionApi,commentApi} from './questionApi'
+import {questionApi} from './questionApi'
 import authApi from './authApi'
 export {
     questionApi,
-    authApi,
-    commentApi
+    authApi
 }
