@@ -32,7 +32,7 @@ function Navbar() {
             </span>
             }
               </Link></li>
-            <li className="ps-5 py-2"><Link to="/#" className="link-dark">Companies</Link></li>
+            <li className="ps-5 py-2"><Link to="/companies" className="link-dark">Companies</Link></li>
           </ul>
         </li>
       </ul>

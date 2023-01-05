@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
 import styles from './register.module.css';
-import { passwordValidation } from '../../utils';
 import { MESSAGE, STATUS_CODE } from '../../constants/general.constant';
+import { passwordValidation } from '../../helper/utils';
 
 function Register() {
   const navigate = useNavigate();

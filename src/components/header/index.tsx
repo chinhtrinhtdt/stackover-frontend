@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './header.module.css'
 import { LOGO_IMAGE_URL } from '../../mocks'
-import { checkToken, getUserInfo } from '../../utils'
+import { checkToken, getUserInfo } from '../../helper/utils'
 
 function Header() {
 

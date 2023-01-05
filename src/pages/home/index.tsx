@@ -3,6 +3,7 @@ import Navbar from "../../components/navbar";
 import QuestionUI from "../QuestionUI/index";
 import Tags from "../tags";
 import UserList from "../userlistUI/index";
+import Companies from "../companies";
 import styles from "./home.module.css";
 
 function Home() {
@@ -11,6 +12,7 @@ function Home() {
     if (pathName  === "/questions" || pathName === "/") return <QuestionUI />;
     if (pathName  === "/users") return <UserList />;
     if (pathName  === "/tags") return <Tags />;
+    if (pathName  === "/companies") return <Companies />;
   };
 
   return (
