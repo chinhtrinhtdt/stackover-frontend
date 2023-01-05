@@ -18,11 +18,10 @@ function Maincontent() {
   const [quesdataDetail, setQuesdataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
-  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
-    []
-  );
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
   const [postId, setPostId] = useState<string>("3");
+
   useEffect(() => {
     questionApi
       .getApiQuestion()
@@ -34,24 +33,21 @@ function Maincontent() {
       .catch((e) => console.log(e));
   }, [isComment]);
 
-  const validation = () => {
-    if (contentComment) return true;
-    return false;
-  };
   const handleSunmitCmt = () => {
-    const comment = {
+    const params = {
       content: contentComment,
       postId: postId,
     };
     document
       .querySelector(".form-add-question")
       ?.classList.add("was-validated");
-    if (validation()) {
+    if (contentComment) {
       setContentComment("");
       setIsComment(!isComment);
-      commentApi.postApiComment(comment);
+      commentApi.postApiComment(params);
     }
   };
+
   const renderAddComment = () => {
     return (
       <div>
@@ -73,7 +69,6 @@ function Maincontent() {
                     required
                   />
                   <div className="invalid-feedback">
-                    {" "}
                     Please fill a comment.
                   </div>
                 </div>
@@ -164,7 +159,7 @@ function Maincontent() {
         </div>
       </div>
       <div className={`${style.textComment}pl-4`}>
-        {commentDataDetail.map((cmtitem: any, index: number) => (
+        {commentDataDetail.map((cmtitem: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
             {cmtitem.content} -{" "}

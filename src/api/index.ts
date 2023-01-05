@@ -1,6 +1,5 @@
-import questionApi from './questionApi'
+import {questionApi,commentApi} from './questionApi'
 import authApi from './authApi'
-import commentApi from './commentApi'
 export {
     questionApi,
     authApi,
