@@ -27,13 +27,12 @@ textarea {
   background-color: rgb(193, 148, 148);
 }
 
-.listVote li{
+.listVote li {
   float: left;
   padding-right: 20px;
-  color:orange
+  color: orange;
 }
 
-.listVote li span{
-color: black;
+.listVote li span {
+  color: black;
 }
-
