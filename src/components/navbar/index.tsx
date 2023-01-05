@@ -1,41 +1,46 @@
-import { Link } from 'react-router-dom';
-import styles from './navbar.module.css'
-import { useLocation } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import styles from './navbar.module.css';
 
 function Navbar() {
+  const pathName = window.location.pathname
+
   return (
     <nav className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}>
       <ul className="list-unstyled ps-0 w-100">
-        <li className="my-3 ps-2">
-          <Link to='/#' className="link-dark" >Home</Link>
-        </li>
-        
-        <li className="mb-1 ps-2">Public</li>
-        <li className="mb-3 ps-2">
-          <Link to='/questions' className="link-dark " >
-            <i className="bi bi-info-circle"></i>
-            <span className="fw-bold ms-1">
-              Questions
-            </span>
-          </Link>
-          <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li className="ps-5 py-2"><Link to="/tags" className="link-dark">Tags</Link></li>
-            <li className="ps-5 py-2"><Link to="/users" className="link-dark">
-            {
-              window.location.pathname === "/users"?
-              <span className="fw-bold ">
-              Users
-            </span>
-            :
-            <span >
-              Users
-            </span>
-            }
-              </Link></li>
-            <li className="ps-5 py-2"><Link to="/#" className="link-dark">Companies</Link></li>
-          </ul>
-        </li>
+        <NavLink to='/' className="link-dark" >
+          <li className={`${pathName === '/' && styles.active} my-3 ps-1 py-2`} >
+            Home
+          </li>
+        </NavLink>
+
+        <li className={"mb-1 ps-1"}>Public</li>
+
+        <NavLink to='/questions' className="link-dark" >
+          <li className={`${pathName === '/questions' && styles.active} ps-1 py-2`}>
+            <i className="bi bi-question-circle"></i>
+            <span className="ms-1">Questions</span>
+          </li>
+        </NavLink>
+
+        <NavLink to="/tags" className="link-dark" >
+          <li className={`${pathName === '/tags' && styles.active} ps-4 py-2`}>
+            Tags
+          </li>
+        </NavLink>
+
+        <NavLink to="/users" className="link-dark"          >
+          <li className={`${pathName === '/users' && styles.active} ps-4 py-2`}>
+            Users
+          </li>
+        </NavLink>
+
+        <NavLink to="/companies" className="link-dark" >
+          <li className={`${pathName === '/companies' && styles.active} ps-4 py-2`}>
+            Companies
+          </li>
+        </NavLink>
       </ul>
+
     </nav>
   );
 }
