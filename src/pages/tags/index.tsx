@@ -5,7 +5,7 @@ import styles from "./tags.module.css";
 function Tags() {
 
     const renderCardTag = LIST_TAGS.map((tag) =>
-        <div className={`${styles.w24} card shadow-sm`}>
+        <div className={`${styles.w24} card shadow-sm`} key = {tag.name}>
             <div className="card-body">
                 <Link to="./#">
                     <h5 className="card-title fs-6 ">{tag.name}</h5>
