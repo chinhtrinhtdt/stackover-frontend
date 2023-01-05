@@ -6,10 +6,6 @@ function Navbar() {
 
   const navbarMenu = [
     {
-      path: '/',
-      name: 'Home'
-    },
-    {
       path: '/questions',
       name: 'Questions'
     },
@@ -30,20 +26,28 @@ function Navbar() {
   const renderNavbarMenu = () => (
     navbarMenu.map((menu, index) => (
       <NavLink to={menu.path} className="link-dark" key={index} >
-        <li className={`${pathCurrent === menu.path && styles.active} my-3 ps-1 py-2`} >
+        <li className={`${pathCurrent === menu.path && styles.active} ps-3 py-2`} >
           {menu.name}
-          {menu.path === '/questions' && <i className="bi bi-question-circle ms-1"></i>}
+          {menu.path === '/questions' && <i className="bi bi-question-circle-fill ms-1"></i>}
         </li>
       </NavLink>
     ))
-  )
+  );
 
   return (
     <nav
       className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}
     >
       <ul className="list-unstyled ps-0 w-100">
-        {renderNavbarMenu()}
+        <NavLink to='/' className="link-dark" >
+          <li className={`${pathCurrent === '/' && styles.active} mt-3 mb-2 ps-1 py-2`} >
+            Home
+          </li>
+        </NavLink>
+        <li className='ps-1 py-2'>PUBLIC</li>
+        <ul className='list-unstyled'>
+          {renderNavbarMenu()}
+        </ul>
       </ul>
     </nav>
   );
