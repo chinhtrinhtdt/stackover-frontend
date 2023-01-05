@@ -1,16 +1,16 @@
-import axios from 'axios';
-import AppConfig from '../config/AppConfig';
+import axios from "axios";
+import AppConfig from "../config/AppConfig";
 
 const client = axios.create(AppConfig.axios);
 
 const configHeader = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   return {
     headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  }
-}
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
 
 const myClient = {
   post(endpoint: string, params: any, config?: any) {
@@ -24,7 +24,11 @@ const myClient = {
   },
 
   delete(endpoint: string, params?: any, config?: any) {
-    return client.delete(endpoint, { ...config, ...configHeader(), data: params });
+    return client.delete(endpoint, {
+      ...config,
+      ...configHeader(),
+      data: params,
+    });
   },
 };
 

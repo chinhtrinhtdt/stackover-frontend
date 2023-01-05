@@ -22,7 +22,7 @@ function Maincontent() {
     []
   );
   const [contentComment, setContentComment] = useState<string>("");
-  const [postId,setPostId]=useState<string>("3")
+  const [postId, setPostId] = useState<string>("3");
   useEffect(() => {
     questionApi
       .getApiQuestion()
@@ -31,7 +31,6 @@ function Maincontent() {
     commentApi
       .getApiComment()
       .then((res) => setCommentDataDetail(res.data))
-      // .then((res)=> console.log(22,res.data))
       .catch((e) => console.log(e));
   }, [isComment]);
 
@@ -41,19 +40,17 @@ function Maincontent() {
   };
   const handleSunmitCmt = () => {
     const comment = {
-      content:contentComment,
-      postId:postId
-
+      content: contentComment,
+      postId: postId,
+    };
+    document
+      .querySelector(".form-add-question")
+      ?.classList.add("was-validated");
+    if (validation()) {
+      setContentComment("");
+      setIsComment(!isComment);
+      commentApi.postApiComment(comment);
     }
-    document.querySelector(".form-add-question")?.classList.add("was-validated");
-    if(validation()) 
-    {
-      setContentComment('')
-      setIsComment(!isComment)
-      commentApi.postApiComment(comment)
-    }
-
-
   };
   const renderAddComment = () => {
     return (
@@ -75,7 +72,10 @@ function Maincontent() {
                     onChange={(e) => setContentComment(e.target.value)}
                     required
                   />
-                  <div className="invalid-feedback"> Please fill a comment.</div>
+                  <div className="invalid-feedback">
+                    {" "}
+                    Please fill a comment.
+                  </div>
                 </div>
               </form>
             </div>
@@ -167,8 +167,12 @@ function Maincontent() {
         {commentDataDetail.map((cmtitem: any, index: number) => (
           <div key={index}>
             <hr />
-            {cmtitem.content} - <a href="#" className={`${style.textComment}`}> {cmtitem.user.username} </a>-{" "}
-            <span className={`${style.textComment} ${style.linkImprove}`}> {cmtitem.createdAt} </span>
+            {cmtitem.content} -{" "}
+            <a href="#" className={`${style.textComment}`}>
+              {cmtitem.user.username}
+            </a>-<span className={`${style.textComment} ${style.linkImprove}`}>
+              {cmtitem.createdAt}
+            </span>
           </div>
         ))}
         <hr />
