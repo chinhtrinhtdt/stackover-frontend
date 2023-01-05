@@ -1,18 +1,19 @@
 .content {
-    margin-top: 50px;
-    margin-left: 164px;
+  margin-top: 50px;
+  margin-left: 164px;
 }
 
 .searchInput {
-    padding-left: 30px !important;
+  padding-left: 30px !important;
 }
- 
+
 .searchIcon {
     position: absolute;
-    top: 3px;
+    top: 6px;
     left: 8px;
 }
 
 .w24 {
     width: 24%;
+    flex-grow: 1;
 }

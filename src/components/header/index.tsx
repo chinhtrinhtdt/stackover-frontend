@@ -39,10 +39,10 @@ function Header() {
                 <button type="button" className="btn btn-outline-secondary me-2  btn-sm" onClick={handleLogout}>Logout</button>
               </div> :
               <div>
-                <Link to="./login">
+                <Link to="/login">
                   <button type="button" className={`${styles.ctButton} btn btn-outline-primary me-2  btn-sm`}>Login</button>
                 </Link>
-                <Link to="./register">
+                <Link to="/register">
                   <button type="button" className="btn btn-primary  btn-sm">Sign-up</button>
                 </Link>
               </div>

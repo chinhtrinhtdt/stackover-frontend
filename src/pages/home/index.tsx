@@ -7,7 +7,7 @@ import Companies from "../companies";
 import styles from "./home.module.css";
 
 function Home() {
-  let pathName  = window.location.pathname
+  let pathName = window.location.pathname;
   const renderPage = () => {
     if (pathName  === "/questions" || pathName === "/") return <QuestionUI />;
     if (pathName  === "/users") return <UserList />;
