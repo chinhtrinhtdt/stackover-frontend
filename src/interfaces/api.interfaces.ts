@@ -24,3 +24,31 @@ export interface IQuestionDetail{
 export interface IQuestion{
     data: IQuestionDetail[]
 }
+export interface User{
+    username:string;
+    password:string;
+    email:string;
+    name:string;
+    phone:string;
+    isActive:boolean;
+    codeVerify:string;
+    interestedTags: string;
+    isEnabledTwoFactorAuth:boolean;
+
+}
+export interface ICommentDetail{
+content:string;
+commentId:number;
+userId:number;
+postId:number;
+user:User
+}
+
+export interface IComment{
+    data: ICommentDetail[]
+}
+
+export interface IParamComment{
+    content:string;
+    postId:string;
+}
