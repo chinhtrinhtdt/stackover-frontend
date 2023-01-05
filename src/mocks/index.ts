@@ -34,9 +34,12 @@ export const LIST_QUESTIONS = [
 ];
 
 export const DATADETAIL_GET_QUESTION = {
+  id: 0,
   title: "",
   textContent: "",
   codeContent: "",
+  createdAt: "",
+  tags: {}
 };
 
 export const LIST_TAGS = [

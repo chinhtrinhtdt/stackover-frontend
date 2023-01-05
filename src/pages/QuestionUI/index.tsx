@@ -1,13 +1,11 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
+import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import { LIST_QUESTIONS } from "../../mocks";
-import styles from "./questionUI.module.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { questionApi } from "../../api";
 import { IQuestionDetail } from "../../interfaces/api.interfaces";
+import styles from "./questionUI.module.css";
 
 const renderTime = (name: string, value: string) => {
   return (
@@ -18,7 +16,7 @@ const renderTime = (name: string, value: string) => {
   );
 };
 
-const renderHeaderContent = (data: IQuestionDetail[]) => (
+const renderHeaderContent = (data: IQuestionDetail[], setPosts:(item: any) => void) => (
   <div>
     <div className="d-flex justify-content-between p-3">
       <h4>{data[0]?.title}</h4>
@@ -30,7 +28,7 @@ const renderHeaderContent = (data: IQuestionDetail[]) => (
       >
         Add question
       </button>
-      <ModalAddQuestion />
+      <ModalAddQuestion setPosts={setPosts} />
     </div>
     <div className="d-flex flex-row mb-3">
       {renderTime("Asked ", "today")}
@@ -41,24 +39,26 @@ const renderHeaderContent = (data: IQuestionDetail[]) => (
 );
 
 const renderListQuestion = (data: IQuestionDetail[]) => {
-  return data.map((question: any, index: number) => (
-    <div className="d-flex mb-4 shadow-sm p-1" key={question.id}>
+  return data.reverse().slice(0,5).map((question: any) => (
+    <div className="d-flex mb-4 shadow p-2" key={question.id}>
       <div className="d-flex flex-column ">
-        <h6>{question.title}</h6>
-        <div className={`${styles.font12} p-1`}>{question.textContent}</div>
+        <h6>
+          {question.title.length > 50 ?
+            `${question.title.substring(0, 50)}...` : question.title
+          }
+        </h6>
+        <div className={`${styles.font12} p-1`}>
+          {question.textContent.length > 100 ?
+            `${question.textContent.substring(0, 100)}...` : question.textContent
+          }
+        </div>
         <div className="d-flex gap-3">
           <span className={`${styles.font12} ${styles.tags}`}>
             {question.tag.name}
           </span>
         </div>
         <div className="d-flex justify-content-between ">
-          <span className={styles.font12}>
-            {question.votesNumber} votes : 3
-          </span>
-          <span className={styles.font12}>
-            {question.answersNumber} answer : 4
-          </span>
-          <span className={styles.font12}>{question.viewsNumber} views: 8</span>
+          <span className={styles.font12}>{question.createdAt.slice(0, 10)}</span>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@ const renderListQuestion = (data: IQuestionDetail[]) => {
 };
 
 function QuestionPage() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<any>([]);
   const [data, setData] = useState<IQuestionDetail[]>([]);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function QuestionPage() {
 
   return (
     <div className="container">
-      {renderHeaderContent(data)}
+      {renderHeaderContent(data, setPosts)}
       <hr />
       <div className="d-flex gap-3">
         <div className="d-flex w-75">

@@ -2,7 +2,13 @@ import { memo, useState } from 'react';
 import { questionApi } from '../../api';
 import styles from './ModalAddQuestion.module.css'
 
-function ModalAddQuestion() {
+interface IPropsModalAddQuestion {
+    setPosts: (item: any) => void;
+}
+
+function ModalAddQuestion(props: IPropsModalAddQuestion) {
+    const { setPosts } = props;
+
     const [title, setTitle] = useState<string>('');
     const [textContent, setTextContent] = useState<string>('');
     const [codeContent, setCodeContent] = useState<string>('');
@@ -27,7 +33,11 @@ function ModalAddQuestion() {
             setTextContent('')
             setCodeContent('')
             setTagName('')
-            questionApi.postApiQuestion(question);
+            questionApi.postApiQuestion(question)
+                .then(res => {
+                    setPosts(res.data)
+                })
+                .catch(err => console.log(err))
         };
     };
 
