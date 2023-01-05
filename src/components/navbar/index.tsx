@@ -27,44 +27,23 @@ function Navbar() {
     },
   ];
 
-  const renderNavbarMenu = navbarMenu.map(menu => {
-    if (menu.path === "/") {
-      return (
-        <div key={menu.path}>
-          <NavLink to={menu.path} className="link-dark" >
-            <li className={`${pathCurrent === menu.path && styles.active} my-3 ps-1 py-2`} >
-              Home
-            </li>
-          </NavLink>
-          <li className={"mb-1 ps-1"}>Public</li>
-        </div>
-      )
-    };
-
-    if (menu.path === "/questions") {
-      return (
-        <NavLink to={menu.path} className="link-dark" key={menu.path} >
-          <li className={`${pathCurrent === menu.path && styles.active} ps-1 py-2`}>
-            <i className="bi bi-question-circle"></i>
-            <span className="ms-1">{menu.name}</span>
-          </li>
-        </NavLink>)
-    };
-
-    return (
-      <NavLink to={menu.path} className="link-dark" key={menu.path} >
-        <li className={`${pathCurrent === menu.path && styles.active} ps-4 py-2`} >
+  const renderNavbarMenu = () => (
+    navbarMenu.map((menu, index) => (
+      <NavLink to={menu.path} className="link-dark" key={index} >
+        <li className={`${pathCurrent === menu.path && styles.active} my-3 ps-1 py-2`} >
           {menu.name}
+          {menu.path === '/questions' && <i className="bi bi-question-circle ms-1"></i>}
         </li>
-      </NavLink>)
-  });
+      </NavLink>
+    ))
+  )
 
   return (
     <nav
       className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}
     >
       <ul className="list-unstyled ps-0 w-100">
-        {renderNavbarMenu}
+        {renderNavbarMenu()}
       </ul>
     </nav>
   );
