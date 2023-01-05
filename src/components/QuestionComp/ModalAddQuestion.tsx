@@ -1,13 +1,14 @@
 import { memo, useState } from 'react';
 import { questionApi } from '../../api';
 import styles from './ModalAddQuestion.module.css'
+import { IQuestionDetail } from '../../interfaces/api.interfaces';
 
 interface IPropsModalAddQuestion {
-    setPosts: (item: any) => void;
+    setData: (item: IQuestionDetail[]) => void;
 }
 
 function ModalAddQuestion(props: IPropsModalAddQuestion) {
-    const { setPosts } = props;
+    const { setData } = props;
 
     const [title, setTitle] = useState<string>('');
     const [textContent, setTextContent] = useState<string>('');
@@ -33,10 +34,10 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
             setTextContent('')
             setCodeContent('')
             setTagName('')
+
             questionApi.postApiQuestion(question)
-                .then(res => {
-                    setPosts(res.data)
-                })
+            questionApi.getApiQuestion()
+                .then(res => setData(res.data))
                 .catch(err => console.log(err))
         };
     };

@@ -17,3 +17,12 @@
   min-width: 130px;
   height: 40px;
 }
+
+.title {
+  max-width: 150px; 
+}
+
+.textContent {
+  max-width: 150px;
+  min-height: 100px;
+}

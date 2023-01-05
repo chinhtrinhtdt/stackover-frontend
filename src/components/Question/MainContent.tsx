@@ -1,11 +1,9 @@
 import * as React from "react";
-import ModalComment from "../QuestionComp/ModalComment";
-import style from "./Question.module.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { questionApi } from "../../api";
-import { IQuestion, IQuestionDetail } from "../../interfaces/api.interfaces";
+import { IQuestionDetail } from "../../interfaces/api.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
+import style from "./Question.module.css";
 
 function Maincontent() {
   const [posts, setPosts] = useState([]);
