@@ -3,16 +3,16 @@ import { LIST_TAGS } from "../../mocks";
 import styles from "./tags.module.css";
 
 function Tags() {
-
-    const renderCardTag = LIST_TAGS.map((tag) =>
-        <div className={`${styles.w24} card shadow-sm`} key = {tag.name}>
-            <div className="card-body">
-                <Link to="./#">
-                    <h5 className="card-title fs-6 ">{tag.name}</h5>
-                </Link>
-                <p className="card-text fs-6">{tag.description}</p>
-            </div>
-        </div>)
+  const renderCardTag = LIST_TAGS.map((tag) => (
+    <div className={`${styles.w24} card shadow-sm`}>
+      <div className="card-body">
+        <Link to="./#">
+          <h5 className="card-title fs-6 ">{tag.name}</h5>
+        </Link>
+        <p className="card-text fs-6">{tag.description}</p>
+      </div>
+    </div>
+  ));
 
     return (
         <div className="p-3">

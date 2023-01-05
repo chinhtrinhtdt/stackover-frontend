@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './navbar.module.css';
 
 function Navbar() {
-  const pathCurrent = window.location.pathname
+  const pathCurrent = window.location.pathname;
 
   const navbarMenu = [
     {
@@ -15,7 +15,7 @@ function Navbar() {
     },
     {
       path: '/tags',
-      name: 'tags'
+      name: 'Tags'
     },
     {
       path: '/users',
@@ -25,7 +25,7 @@ function Navbar() {
       path: '/companies',
       name: 'Companies'
     },
-  ]
+  ];
 
   const renderNavbarMenu = navbarMenu.map(menu => {
     if (menu.path === "/") {
@@ -39,7 +39,7 @@ function Navbar() {
           <li className={"mb-1 ps-1"}>Public</li>
         </div>
       )
-    }
+    };
 
     if (menu.path === "/questions") {
       return (
@@ -49,7 +49,7 @@ function Navbar() {
             <span className="ms-1">{menu.name}</span>
           </li>
         </NavLink>)
-    }
+    };
 
     return (
       <NavLink to={menu.path} className="link-dark" key={menu.path} >
@@ -57,10 +57,12 @@ function Navbar() {
           {menu.name}
         </li>
       </NavLink>)
-  })
+  });
 
   return (
-    <nav className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}>
+    <nav
+      className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}
+    >
       <ul className="list-unstyled ps-0 w-100">
         {renderNavbarMenu}
       </ul>
