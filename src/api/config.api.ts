@@ -8,7 +8,7 @@ const configHeader = () => {
   return {
     headers: {
       Authorization: `Bearer ${token}`
-    },
+    }
   };
 };
 
