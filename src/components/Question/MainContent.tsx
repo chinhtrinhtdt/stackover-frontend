@@ -1,6 +1,6 @@
 import * as React from "react";
 import ModalComment from "../QuestionComp/ModalComment";
-import style from "./question.module.css";
+import style from "./q1.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { questionApi } from "../../api";
