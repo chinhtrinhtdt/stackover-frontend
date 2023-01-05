@@ -48,7 +48,7 @@ const renderListQuestion = (data: IQuestionDetail[]) => {
         <div className={`${styles.font12} p-1`}>{question.textContent}</div>
         <div className="d-flex gap-3">
           <span className={`${styles.font12} ${styles.tags}`}>
-            {/* {question.tag.name} */}
+            {question.tag.name}
           </span>
         </div>
         <div className="d-flex justify-content-between ">
@@ -72,7 +72,6 @@ function QuestionPage() {
   useEffect(() => {
     questionApi
       .getApiQuestion()
-      //   .then((res) => console.log(44,res.data) )
       .then((res) => setData(res.data))
       .catch((e) => console.log(e));
   }, [posts]);

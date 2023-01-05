@@ -10,7 +10,6 @@ function UserList() {
   const renderButtonUserType = (id: number, htmlfor: string, label: string) => {
     return (
       <>
-       
         <button
           type="button"
           className={`btn border ${
@@ -18,11 +17,8 @@ function UserList() {
           } ${styles.containerButtonUserType}`}
           onClick={() => setCheckButtonUserType(id)}
         >
-          <div className="fs-6">
-          {label}
-          </div>
+          <div className="fs-6">{label}</div>
         </button>
-        
       </>
     );
   };
@@ -53,9 +49,7 @@ function UserList() {
           <div className="col-md-8">
             <div className="fs-6">
               <a href="#">{user.nameUser}</a>
-              
               <div className={`${styles.techType}`}>{user.nationality}</div>
-           
               <div className={`${styles.techType}`}>
                 <b>1,231</b>
               </div>
@@ -83,7 +77,6 @@ function UserList() {
               />
             </div>
           </div>
-
           <div className="btn-group" role="group" aria-label="Basic example">
             {renderButtonUserType(0, "btnradio1", "Reputation")}
             {renderButtonUserType(1, "btnradio2", "New users")}
@@ -107,7 +100,6 @@ function UserList() {
             {renderButtonUserTime(4, "btntime5", "all")}
           </div>
         </div>
-
         <div className={`${styles.listUser} d-flex  flex-wrap mt-4 w-100`}>
           {renderUserDetail()}
         </div>

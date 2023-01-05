@@ -25,21 +25,20 @@
   min-width: 200px;
   border: none;
 }
-input[type="radio"]:checked+label{ font-weight: bold; } 
-
+input[type="radio"]:checked + label {
+  font-weight: bold;
+}
 
 .activeBtn {
   background-color: #eeeded;
-
 }
 .activeBtn:hover {
-  background-color: #f7f4f1
+  background-color: #f7f4f1;
 }
-.activeBtnUserTime{
-  font-weight: bold; 
+.activeBtnUserTime {
+  font-weight: bold;
   color: rgb(10, 8, 8);
   font-size: 16px;
-
 }
 .searchInput {
   padding-left: 30px !important;
@@ -50,16 +49,15 @@ input[type="radio"]:checked+label{ font-weight: bold; }
   top: 3px;
   left: 8px;
 }
-.techType{
+.techType {
   font-size: 12px;
 }
-.containUser{
+.containUser {
   width: 203px;
 }
-.imgSize{
-  width:45px;
+.imgSize {
+  width: 45px;
 }
-.containerButtonUserType:hover{
+.containerButtonUserType:hover {
   background-color: #f9f9f9;
-
 }
