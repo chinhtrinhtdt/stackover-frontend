@@ -20,7 +20,14 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         return false;
     };
 
-    const handleSubmit = () => {
+    const resetStateInput = () => {
+        setTitle('')
+        setTextContent('')
+        setCodeContent('')
+        setTagName('')
+    }
+
+    const handleSubmit = async() => {
         const question = {
             title,
             textContent,
@@ -29,17 +36,16 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         };
         document.querySelector(".modal-add-question")?.classList.add("was-validated");
 
-        if (validation()) {
-            setTitle('')
-            setTextContent('')
-            setCodeContent('')
-            setTagName('')
+        if(!validation()) return
 
-            questionApi.postApiQuestion(question)
-            questionApi.getApiQuestion()
-                .then(res => setData(res.data))
-                .catch(err => console.log(err))
-        };
+        document.querySelector(".modal-add-question")?.classList.remove("was-validated");
+        resetStateInput()
+        await questionApi.postApiQuestion(question)
+        questionApi.getApiQuestion()
+            .then(res => {
+                setData(res.data)
+            })
+            .catch(err => console.log(err))
     };
 
     return (

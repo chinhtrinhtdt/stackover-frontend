@@ -22,3 +22,7 @@ export const getUserInfo = () => {
     const userInfo = localStorage.getItem("user");
     return userInfo && JSON.parse(userInfo);
 };
+
+export const sortListDecrease = (list: any[]) => {
+    return list.sort((a, b) => (a.id < b.id) ? 1 : -1)
+}
