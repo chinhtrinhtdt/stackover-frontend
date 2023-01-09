@@ -1,25 +1,29 @@
 import { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthContext } from "../App";
+import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
-import Home from "../pages/home";
-import { AuthContext } from "../App";
 import { checkToken } from "../helper/utils";
 
 const RouterDom = () => {
-  const { authed } = useContext(AuthContext);
-  console.log("checkToken", checkToken())
+  const { authed, setAuthed } = useContext(AuthContext);
+  if(checkToken()) {
+    setAuthed(true)
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        {(!checkToken()) &&
+        {(!authed) &&
           <>
             <Route path="/login" element={<Login />} index />
             <Route path="/register" element={<Register />} />
+            <Route path="/register" element={<Login />} />
           </>
         }
 
-        {(authed || checkToken()) &&
+        {(authed) &&
           <>
             <Route path="/" element={<Home />} />
             <Route path="/users" element={<Home />} />

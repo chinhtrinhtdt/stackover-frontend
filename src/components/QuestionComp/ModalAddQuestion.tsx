@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 import { questionApi } from '../../api';
 import styles from './ModalAddQuestion.module.css'
 import { IQuestionDetail } from '../../interfaces/api.interfaces';
+import { sortListDecrease } from '../../helper/utils';
 
 interface IPropsModalAddQuestion {
     setData: (item: IQuestionDetail[]) => void;
@@ -43,9 +44,9 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         await questionApi.postApiQuestion(question)
         questionApi.getApiQuestion()
             .then(res => {
-                setData(res.data)
+                setData(sortListDecrease(res.data));
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     };
 
     return (

@@ -8,38 +8,35 @@ import { IQuestionDetail } from "../../interfaces/api.interfaces";
 import styles from "./questionUI.module.css";
 import moment from "moment";
 import { sortListDecrease } from "../../helper/utils";
+import { DATADETAIL_GET_QUESTION } from "../../mocks";
 
 function QuestionPage() {
   const [data, setData] = useState<IQuestionDetail[]>([]);
   const [questions, setQuestions] = useState<IQuestionDetail[]>([]);
+  const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [questionPerPage, setQuestionPerPage] = useState<number>(5);
 
   useEffect(() => {
     questionApi.getApiQuestion()
       .then((res) => {
-        setData(sortListDecrease(res.data))
+        const listDataSort = sortListDecrease(res.data);
+        localStorage.setItem("post-questions", JSON.stringify(listDataSort));
+        setData(listDataSort);
+        setPostDetail(listDataSort[0]);
       })
       .catch((e) => console.log(e));
   }, []);
 
   useEffect(() => {
-    setQuestions(sortListDecrease(data).slice(currentPage, questionPerPage))
+    setQuestions(sortListDecrease(data).slice(currentPage, questionPerPage));
+    localStorage.setItem("post-questions", JSON.stringify(data));
   }, [data])
-
-  const renderTime = (name: string, value: string) => {
-    return (
-      <div className="flex p-2">
-        <small className="text-muted p-2">{name} </small>
-        {value}
-      </div>
-    );
-  };
 
   const renderHeaderContent = (data: IQuestionDetail[]) => (
     <header>
       <div className="d-flex justify-content-between p-3">
-        <h4>{data[0]?.title}</h4>
+        <h4>{postDetail?.title}</h4>
         <button
           type="button"
           className={`${styles.ask} btn btn-primary`}
@@ -50,17 +47,23 @@ function QuestionPage() {
         </button>
         <ModalAddQuestion setData={setData} />
       </div>
+      
       <div className="d-flex flex-row mb-3">
-        {renderTime("Asked ", "today")}
-        {renderTime("Modified ", "today")}
-        {renderTime("Viewed  ", "22 times")}
+        <div className="flex p-2">
+          <small className="text-muted p-2">Time </small>
+          {moment(postDetail?.createdAt).format("LLL")}
+        </div>
+        <div className="flex p-2">
+          <small className="text-muted p-2">Tag </small>
+          {postDetail.tag?.name}
+        </div>
       </div>
     </header>
   );
 
   const renderListQuestion = (data: IQuestionDetail[]) => {
     return data.map((question: IQuestionDetail) => (
-      <div className="d-flex mb-4 shadow p-2" tabIndex={question.id} key={question.id}>
+      <div className={`${styles.cursorPointer} d-flex mb-4 shadow p-2`} key={question.id} onClick={() => handleClick(question.id)}>
         <div className="d-flex flex-column ">
           <h6 className={styles.title}>{question.title}</h6>
           <p className={styles.textContent}>{question.textContent}</p>
@@ -89,6 +92,11 @@ function QuestionPage() {
     return Math.ceil(data.length / questionPerPage);
   };
 
+  const handleClick = (postId: number) => {
+    const post = data.find(post => post.id === postId) || DATADETAIL_GET_QUESTION;
+    setPostDetail(post);
+  }
+  
   return (
     <div className="container">
       {renderHeaderContent(data)}
@@ -99,7 +107,7 @@ function QuestionPage() {
             <Vote />
           </div>
           <div className="p-2">
-            <MainContent />
+            <MainContent postDetail={postDetail} />
           </div>
         </div>
         <div className="p-2 w-25">

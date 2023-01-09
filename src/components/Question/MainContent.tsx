@@ -1,24 +1,12 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { questionApi } from "../../api";
-import { IQuestionDetail } from "../../interfaces/api.interfaces";
-import { DATADETAIL_GET_QUESTION } from "../../mocks";
+import { useState } from "react";
+import { IPropsMainContent } from "../../interfaces/api.interfaces";
 import style from "./Question.module.css";
 
-function Maincontent() {
-  const [posts, setPosts] = useState([]);
-  const [isComment, setIsComment] = useState<boolean>(false);
-  const [dataDetail, setdataDetail] = useState<IQuestionDetail>(
-    DATADETAIL_GET_QUESTION
-  );
+function Maincontent(props: IPropsMainContent ) {
+  const {postDetail} = props;
 
-  useEffect(() => {
-    questionApi
-      .getApiQuestion()
-      // .then((res) => console.log(22,res.data[1].textContent))
-      .then((res) => setdataDetail(res.data[0]))
-      .catch((e) => console.log(e));
-  }, [posts]);
+  const [isComment, setIsComment] = useState<boolean>(false);
 
   const renderAddComment = () => {
     return (
@@ -62,20 +50,20 @@ function Maincontent() {
   };
   return (
     <div>
-      <div>{dataDetail.textContent}</div>
+      <div>{postDetail.textContent}</div>
       <br />
       <div className={`overflow-auto ${style.containerCode}`}>
-        <p>{dataDetail.codeContent}</p>
+        <p>{postDetail.codeContent}</p>
       </div>
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
-          <a href="" className={`${style.linkImprove}`}>
+          <a href="./#" className={`${style.linkImprove}`}>
             Share{" "}
           </a>
-          <a href="" className={`${style.linkImprove} mx-2`}>
+          <a href="./#" className={`${style.linkImprove} mx-2`}>
             Improve this question{" "}
           </a>
-          <a href="" className={style.linkImprove}>
+          <a href="./#" className={style.linkImprove}>
             Follow{" "}
           </a>
         </div>
@@ -120,7 +108,7 @@ function Maincontent() {
       <div className={`pl-4`}>
         <div>
           <hr />
-          Very nice, simple, elegant. – <a href="#">Michel Floyd</a>
+          Very nice, simple, elegant. – <a href="./#">Michel Floyd</a>
           <span className={style.linkImprove}> Aug 16, 2021 at 22:04</span>
         </div>
         <hr />
