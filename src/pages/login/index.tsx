@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './login.module.css';
 import { authApi } from '../../api';
 import { LOGO_SECONDARY_IMAGE_URL } from '../../mocks';
 import { STATUS_CODE } from '../../constants/general.constant';
+import { AuthContext } from '../../App';
 
 function Login() {
+  const {setAuthed} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const [username, setUsername] = useState<string>('');
@@ -28,6 +30,7 @@ function Login() {
         if (res.status === STATUS_CODE.DONE || STATUS_CODE.CREATED) {
           localStorage.setItem('user', JSON.stringify(res.data.user))
           localStorage.setItem('token', res.data.access_token);
+          setAuthed(true)
           navigate('/');
         };
       })

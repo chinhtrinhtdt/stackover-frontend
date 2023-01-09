@@ -110,15 +110,15 @@ function QuestionPage() {
                 <button className="page-link" onClick={handlePreviousPage} >Previous</button>
               </li>
               <li className="page-item">
-                <button className="page-link" >{currentPage + 1}</button>
+                <span className="page-link" >{currentPage + 1}</span>
               </li>
               {currentPage + 1 < handleSumPerPage() &&
                 <>
                   <li className="page-item">
-                    <button className="page-link" >...</button>
+                    <span className="page-link" >...</span>
                   </li>
                   <li className="page-item">
-                    <button className="page-link" >{handleSumPerPage()}</button>
+                    <span className="page-link" >{handleSumPerPage()}</span>
                   </li>
                 </>
               }

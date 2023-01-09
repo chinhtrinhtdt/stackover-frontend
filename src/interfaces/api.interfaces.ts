@@ -32,3 +32,8 @@ export interface ITag {
     id?: number;
     name: string;
 }
+
+export interface IParamAuthContext {
+    authed: boolean;
+    setAuthed: (item: boolean) => void;
+  }

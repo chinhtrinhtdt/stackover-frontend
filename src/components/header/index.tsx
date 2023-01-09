@@ -1,17 +1,20 @@
-import { Link, useNavigate } from 'react-router-dom'
-import styles from './header.module.css'
-import { LOGO_IMAGE_URL } from '../../mocks'
-import { checkToken, getUserInfo } from '../../helper/utils'
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './header.module.css';
+import { LOGO_IMAGE_URL } from '../../mocks';
+import { checkToken, getUserInfo } from '../../helper/utils';
+import { AuthContext } from '../../App';
 
 function Header() {
-
-  const navigate = useNavigate()
+  const { setAuthed } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-    navigate("/login")
-  }
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setAuthed(false);
+    navigate("/login");
+  };
 
   return (
     <header className={`${styles.header} p-2 bg-white position-fixed w-100 top-0 text-black border-bottom`}>
