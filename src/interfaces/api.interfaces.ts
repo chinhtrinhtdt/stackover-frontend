@@ -75,3 +75,12 @@ export interface IUserCheckVoteDetail {
 export interface IUserCheckVote {
   data: IUserCheckVoteDetail[];
 }
+
+export interface IQuestionId {
+  questionId: string;
+}
+
+export interface IVoteDetail {
+  username: string;
+  status: string;
+}

@@ -15,7 +15,7 @@ import { DATADETAIL_GET_QUESTION } from "../../mocks";
 function Maincontent() {
   const [posts, setPosts] = useState([]);
   const [isComment, setIsComment] = useState<boolean>(false);
-  const [quesdataDetail, setQuesdataDetail] = useState<IQuestionDetail>(
+  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
@@ -27,7 +27,7 @@ function Maincontent() {
   useEffect(() => {
     questionApi
       .getApiQuestion()
-      .then((res) => setQuesdataDetail(res.data[14]))
+      .then((res) => setQuesDataDetail(res.data[14]))
       .catch((e) => console.log(e));
     questionApi
       .getApiComment()
@@ -158,7 +158,7 @@ function Maincontent() {
           </div>
         </div>
       </div>
-      {/* <div className={`${style.textComment}pl-4`}>
+      <div className={`${style.textComment}pl-4`}>
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
@@ -173,8 +173,8 @@ function Maincontent() {
           </div>
         ))}
         <hr />
-      </div> */}
-      {/* <div>{renderAddComment()}</div> */}
+      </div>
+      <div>{renderAddComment()}</div>
     </div>
   );
 }
