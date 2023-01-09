@@ -24,12 +24,11 @@ function Maincontent(props: IQuestionId) {
     []
   );
   const [contentComment, setContentComment] = useState<string>("");
-  const [postId, setPostId] = useState<string>("3");
 
   useEffect(() => {
     questionApi
       .getApiQuestion()
-      .then((res) => setQuesDataDetail(res.data[14]))
+      .then((res) => setQuesDataDetail(res.data[19]))
       .catch((e) => console.log(e));
     questionApi
       .getApiComment()
@@ -38,9 +37,11 @@ function Maincontent(props: IQuestionId) {
   }, [isComment]);
 
   const handleSunmitCmt = () => {
+    console.log(11,typeof questionId.toString());
+    
     const params = {
       content: contentComment,
-      postId: questionId,
+      questionId: questionId.toString(),
     };
     document
       .querySelector(".form-add-question")

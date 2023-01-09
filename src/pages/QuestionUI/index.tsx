@@ -22,7 +22,7 @@ function QuestionPage() {
   const renderHeaderContent = (data: IQuestionDetail[]) => (
     <div>
       <div className="d-flex justify-content-between p-3">
-        <h4>{data[9]?.title}</h4>
+        <h4>{data[19]?.title}</h4>
         <button
           type="button"
           className={`${styles.ask} btn btn-primary`}

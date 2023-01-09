@@ -16,7 +16,7 @@ export interface IParamLogin {
 
 export interface IParamComment {
   content: string;
-  postId: string;
+  questionId: string;
 }
 
 export interface IParamVote {
