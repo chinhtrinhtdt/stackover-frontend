@@ -122,7 +122,6 @@ function Vote(props: IQuestionId) {
     }
     postApiDownVote();
   };
-  console.log(104, check);
 
   return (
     <>
