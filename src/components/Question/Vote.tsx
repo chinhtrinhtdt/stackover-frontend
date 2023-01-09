@@ -2,30 +2,24 @@ import * as React from "react";
 import { questionApi } from "../../api";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
-import {
-  IVote,
-  IQuestionId,
-  IVoteDetail,
-} from "../../interfaces/question.interface";
+import { IVote, IQuestionId, IVoteDetail } from "../../interfaces/question.interface";
 import { DEFAULT_GET_VOTE_TYPE, GET_VOTE_DETAIL_TYPE } from "../../mocks";
 import { param } from "jquery";
-import { VOTE_PAGE } from "../../constants/general.constant";
+
 
 function Vote(props: IQuestionId) {
   const [check, setCheck] = useState<string>("");
   const [voteNumber, setVoteNumber] = useState<IVote>(DEFAULT_GET_VOTE_TYPE);
   const [voteType, setVoteType] = useState<string>("");
   const { questionId } = props;
-  const user = JSON.parse(localStorage.getItem(VOTE_PAGE.USER) || "{}");
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
   const [statusVote, setStatusVote] = useState<IVoteDetail[]>([]);
   const [statusVoteDetail, setStatusVoteDetail] = useState<IVoteDetail>();
 
-  const voteNoteLocal = JSON.parse(
-    localStorage.getItem(VOTE_PAGE.USER_STATUS) || "[]"
-  );
+  const voteNoteLocal = JSON.parse(localStorage.getItem("userStatus") || "[]");
   // tim dung user dang dang nhap
   const voteUser = voteNoteLocal.find(
-    (item: any) => item.username === user.usern
+    (item: any) => item.username === user.username
   );
 
   const checkUserVoted = statusVote.find(
@@ -36,13 +30,11 @@ function Vote(props: IQuestionId) {
     if (voteUser) {
       setVoteType(voteUser.status);
     }
-    questionApi
-      .getApiVote()
-      .then((res) => setVoteNumber(res.data))
-      .catch((error) => console.log(error));
-  }, [checkUserVoted?.username, voteType]);
+    questionApi.getApiVote().then((res) => setVoteNumber(res.data));
+  }, [checkUserVoted?.username,voteType]);
 
   const handleUpVote = () => {
+
     let type = "";
     const idxUser = voteNoteLocal.findIndex(
       (item: any) => item.username === user.username
@@ -50,26 +42,26 @@ function Vote(props: IQuestionId) {
 
     //check da co user nay duoi local chua
     if (voteUser) {
-      if (voteUser.status === VOTE_PAGE.UP_VOTE) {
+      if (voteUser.status === "UP_VOTE") {
         setVoteType("");
         type = "";
       }
-      if (voteUser.status === VOTE_PAGE.DOWN_VOTE || voteUser.status === "") {
-        setVoteType(VOTE_PAGE.UP_VOTE);
-        type = VOTE_PAGE.UP_VOTE;
+      if (voteUser.status === "DOWN_VOTE" || voteUser.status === "") {
+        setVoteType("UP_VOTE");
+        type = "UP_VOTE";
       }
       const tmp = [...voteNoteLocal];
       tmp[idxUser].status = type;
-      localStorage.setItem(VOTE_PAGE.userStatus, JSON.stringify(tmp));
+      localStorage.setItem("userStatus", JSON.stringify(tmp));
     } else {
-      setVoteType(VOTE_PAGE.UP_VOTE);
-      type = VOTE_PAGE.UP_VOTE;
+      setVoteType("UP_VOTE");
+      type = "UP_VOTE";
       const obj = {
         username: user.username,
         status: type,
       };
       voteNoteLocal.push(obj);
-      localStorage.setItem(VOTE_PAGE.userStatus, JSON.stringify(voteNoteLocal));
+      localStorage.setItem("userStatus", JSON.stringify(voteNoteLocal));
     }
     postApiUpVote();
   };
@@ -77,7 +69,7 @@ function Vote(props: IQuestionId) {
   const postApiUpVote = () => {
     const params = {
       questionId: String(questionId),
-      voteType: VOTE_PAGE.UP_VOTE,
+      voteType: "UP_VOTE",
     };
 
     questionApi.postApiVote(params);
@@ -86,7 +78,7 @@ function Vote(props: IQuestionId) {
   const postApiDownVote = () => {
     const params = {
       questionId: String(questionId),
-      voteType: VOTE_PAGE.DOWN_VOTE,
+      voteType: "UP_VOTE",
     };
 
     questionApi.postApiVote(params);
@@ -99,26 +91,26 @@ function Vote(props: IQuestionId) {
     );
     //check da co user nay duoi local chua
     if (voteUser) {
-      if (voteUser.status === VOTE_PAGE.DOWN_VOTE) {
+      if (voteUser.status === "DOWN_VOTE") {
         setVoteType("");
         type = "";
       }
-      if (voteUser.status === VOTE_PAGE.UP_VOTE || voteUser.status === "") {
-        setVoteType(VOTE_PAGE.DOWN_VOTE);
-        type = VOTE_PAGE.DOWN_VOTE;
+      if (voteUser.status === "UP_VOTE" || voteUser.status === "") {
+        setVoteType("DOWN_VOTE");
+        type = "DOWN_VOTE";
       }
       const tmp = [...voteNoteLocal];
       tmp[idxUser].status = type;
-      localStorage.setItem(VOTE_PAGE.userStatus, JSON.stringify(tmp));
+      localStorage.setItem("userStatus", JSON.stringify(tmp));
     } else {
-      setVoteType(VOTE_PAGE.DOWN_VOTE);
-      type = VOTE_PAGE.DOWN_VOTE;
+      setVoteType("DOWN_VOTE");
+      type = "DOWN_VOTE";
       const obj = {
         username: user.username,
         status: type,
       };
       voteNoteLocal.push(obj);
-      localStorage.setItem(VOTE_PAGE.userStatus, JSON.stringify(voteNoteLocal));
+      localStorage.setItem("userStatus", JSON.stringify(voteNoteLocal));
     }
     postApiDownVote();
   };
@@ -128,14 +120,14 @@ function Vote(props: IQuestionId) {
       <div>
         <i
           className={`${style.linkImprove} ${
-            voteType === VOTE_PAGE.UP_VOTE ? style.activeBtnVote : null
+            voteType === "UP_VOTE" ? style.activeBtnVote : null
           } bi bi-caret-up-fill fs-2 `}
           onClick={handleUpVote}
         ></i>
         <div className={`${style.iconText}`}>{voteNumber.count}</div>
         <i
           className={`${style.linkImprove} ${
-            voteType === VOTE_PAGE.DOWN_VOTE ? style.activeBtnVote : null
+            voteType === "DOWN_VOTE" ? style.activeBtnVote : null
           } bi bi-caret-down-fill fs-2`}
           onClick={handleDownVote}
         ></i>
