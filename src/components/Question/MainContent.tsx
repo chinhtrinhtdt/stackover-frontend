@@ -9,10 +9,12 @@ import {
   IQuestionDetail,
   ICommentDetail,
   IComment,
-} from "../../interfaces/api.interfaces";
+  IQuestionId,
+} from "../../interfaces/question.interface";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 
-function Maincontent() {
+function Maincontent(props: IQuestionId) {
+  const { questionId } = props;
   const [posts, setPosts] = useState([]);
   const [isComment, setIsComment] = useState<boolean>(false);
   const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(
@@ -38,7 +40,7 @@ function Maincontent() {
   const handleSunmitCmt = () => {
     const params = {
       content: contentComment,
-      postId: postId,
+      postId: questionId,
     };
     document
       .querySelector(".form-add-question")

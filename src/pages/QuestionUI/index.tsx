@@ -7,7 +7,7 @@ import styles from "./questionUI.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { questionApi } from "../../api";
-import { IQuestionDetail } from "../../interfaces/api.interfaces";
+import { IQuestionDetail } from "../../interfaces/question.interface";
 
 function QuestionPage() {
   const renderTime = (name: string, value: string) => {
@@ -87,7 +87,7 @@ function QuestionPage() {
             <Vote questionId={data[9]?.id} />
           </div>
           <div className="p-2">
-            <MainContent />
+            <MainContent questionId={data[9]?.id} />
           </div>
         </div>
         <div className="p-2 w-25">{renderListQuestion(data)}</div>
