@@ -34,6 +34,7 @@ export const LIST_QUESTIONS = [
 ];
 
 export const DATADETAIL_GET_QUESTION = {
+  id:'',
   title: "",
   textContent: "",
   codeContent: "",
@@ -180,3 +181,8 @@ export const LIST_IMAGE_USER = [
     img: "https://lh6.googleusercontent.com/-Gl-nJEoGg3E/AAAAAAAAAAI/AAAAAAAAACU/1HdWVbcGchQ/photo.jpg?sz=96",
   },
 ];
+
+export const DEFAULT_GET_VOTE_TYPE = {
+  count: 0,
+  row: [],
+};

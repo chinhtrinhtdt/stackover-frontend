@@ -18,16 +18,18 @@ function Maincontent() {
   const [quesdataDetail, setQuesdataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
-  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
+    []
+  );
   const [contentComment, setContentComment] = useState<string>("");
   const [postId, setPostId] = useState<string>("3");
 
   useEffect(() => {
     questionApi
       .getApiQuestion()
-      .then((res) => setQuesdataDetail(res.data[0]))
+      .then((res) => setQuesdataDetail(res.data[14]))
       .catch((e) => console.log(e));
-      questionApi
+    questionApi
       .getApiComment()
       .then((res) => setCommentDataDetail(res.data))
       .catch((e) => console.log(e));
@@ -68,9 +70,7 @@ function Maincontent() {
                     onChange={(e) => setContentComment(e.target.value)}
                     required
                   />
-                  <div className="invalid-feedback">
-                    Please fill a comment.
-                  </div>
+                  <div className="invalid-feedback">Please fill a comment.</div>
                 </div>
               </form>
             </div>
@@ -103,10 +103,10 @@ function Maincontent() {
   };
   return (
     <div>
-      <div>{quesdataDetail.textContent}</div>
+      <div>{quesdataDetail?.textContent}</div>
       <br />
       <div className={`overflow-auto ${style.containerCode}`}>
-        <p>{quesdataDetail.codeContent}</p>
+        <p>{quesdataDetail?.codeContent}</p>
       </div>
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
@@ -158,21 +158,23 @@ function Maincontent() {
           </div>
         </div>
       </div>
-      <div className={`${style.textComment}pl-4`}>
+      {/* <div className={`${style.textComment}pl-4`}>
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
-            {item.content} - {" "}
+            {item.content} -{" "}
             <a href="#" className={`${style.textComment}`}>
               {item.user.username}
-            </a>-<span className={`${style.textComment} ${style.linkImprove}`}>
+            </a>
+            -
+            <span className={`${style.textComment} ${style.linkImprove}`}>
               {item.createdAt}
             </span>
           </div>
         ))}
         <hr />
-      </div>
-      <div>{renderAddComment()}</div>
+      </div> */}
+      {/* <div>{renderAddComment()}</div> */}
     </div>
   );
 }

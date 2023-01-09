@@ -16,6 +16,7 @@ export interface IParamLogin {
   password: string;
 }
 export interface IQuestionDetail {
+  id: string;
   title: string;
   textContent: string;
   codeContent: string;
@@ -51,4 +52,26 @@ export interface IComment {
 export interface IParamComment {
   content: string;
   postId: string;
+}
+
+export interface IVoteDetail {
+  userId: number;
+  questionId: string;
+  voteType: string;
+}
+export interface IVote {
+  count: number;
+  row: IVoteDetail[];
+}
+export interface IParamVote {
+  questionId: string;
+  voteType: string;
+}
+
+export interface IUserCheckVoteDetail {
+  user: string;
+  status: string;
+}
+export interface IUserCheckVote {
+  data: IUserCheckVoteDetail[];
 }
