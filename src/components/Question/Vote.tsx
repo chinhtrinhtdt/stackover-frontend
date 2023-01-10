@@ -20,12 +20,12 @@ function Vote(props: IQuestionId) {
   const voteNoteLocal = JSON.parse(
     localStorage.getItem(LocalStorageKey.USER_STATUS) || "[]"
   );
-  console.log(34, voteNoteLocal);
+  console.log(34, typeof voteNoteLocal[0].username);
 
   // tim dung user dang dang nhap
 
   const voteUser = voteNoteLocal.find(
-    (item: any) => item.username === user.username
+    (item: IVoteDetail) => item.username === user.username
   );
 
   const checkUserVoted = statusVote.find(
