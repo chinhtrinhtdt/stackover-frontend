@@ -12,7 +12,6 @@ import { param } from "jquery";
 import { LocalStorageKey, VOTE_PAGE } from "../../constants/general.constant";
 
 function Vote(props: IQuestionId) {
-  const [check, setCheck] = useState<string>("");
   const [voteNumber, setVoteNumber] = useState<IVote>(DEFAULT_GET_VOTE_TYPE);
   const [voteType, setVoteType] = useState<string>("");
   const { questionId } = props;
