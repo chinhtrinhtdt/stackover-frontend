@@ -19,6 +19,7 @@ function QuestionPage() {
     );
   };
 
+
   const renderHeaderContent = (data: IQuestionDetail[]) => (
     <div>
       <div className="d-flex justify-content-between p-3">
@@ -73,7 +74,8 @@ function QuestionPage() {
   useEffect(() => {
     questionApi
       .getApiQuestion()
-      .then((res) => setData(res.data))
+      .then((res) => setData(res.data),
+      )
       .catch((e) => console.log(e));
   }, [posts]);
 

@@ -12,7 +12,7 @@ import { param } from "jquery";
 import { LocalStorageKey, VOTE_PAGE } from "../../constants/general.constant";
 
 function Vote(props: IQuestionId) {
-  const [voteNumber, setVoteNumber] = useState<IVote>(DEFAULT_GET_VOTE_TYPE);
+  const [voteNumber, setVoteNumber] = useState<number>(0);
   const [voteType, setVoteType] = useState<string>("");
   const { questionId } = props;
   const user = JSON.parse(localStorage.getItem(LocalStorageKey.USER) || "{}");
@@ -20,7 +20,7 @@ function Vote(props: IQuestionId) {
   const voteNoteLocal = JSON.parse(
     localStorage.getItem(LocalStorageKey.USER_STATUS) || "[]"
   );
-
+  const [checkStatus, setCheckStatus] = useState<boolean>(false);
   // tim dung user dang dang nhap
   const voteUser = voteNoteLocal.find(
     (item: IVoteDetail) => item.username === user.username
@@ -34,20 +34,21 @@ function Vote(props: IQuestionId) {
     if (voteUser) {
       setVoteType(voteUser.status);
     }
-    getVotepApi();
-  }, [checkUserVoted?.username, voteType]);
+
+    questionId && getVotepApi();
+  }, [checkUserVoted?.username, voteType, questionId, checkStatus]);
 
   const getVotepApi = () => {
     questionApi
-      .getApiVote()
-      .then((res) => setVoteNumber(res.data))
+      .getApiVote(questionId)
+      .then((res) => setVoteNumber(res.data.upvote - res.data.downvote))
       .catch((err) => console.log(err));
   };
 
   const handleUpVote = () => {
     let type = "";
     const idxUser = voteNoteLocal.findIndex(
-      (item: any) => item.username === user.username
+      (item: IVoteDetail) => item.username === user.username
     );
     //check da co user nay duoi local chua
     if (voteUser) {
@@ -85,25 +86,30 @@ function Vote(props: IQuestionId) {
     };
     questionApi
       .postApiVote(params)
-      .then((res) => console.log(res))
+      .then((res) => {
+        setCheckStatus(!checkStatus);
+      })
       .catch((err) => console.log(err));
   };
 
   const postApiDownVote = () => {
     const params = {
       questionId: String(questionId),
-      voteType: VOTE_PAGE.UP_VOTE,
+      voteType: VOTE_PAGE.DOWN_VOTE,
     };
     questionApi
       .postApiVote(params)
-      .then((res) => console.log(res))
+      .then((res) => {
+        setCheckStatus(!checkStatus);
+      })
+
       .catch((err) => console.log(err));
   };
 
   const handleDownVote = () => {
     let type = "";
     const idxUser = voteNoteLocal.findIndex(
-      (item: any) => item.username === user.username
+      (item: IVoteDetail) => item.username === user.username
     );
 
     //check da co user nay duoi local chua
@@ -145,7 +151,7 @@ function Vote(props: IQuestionId) {
           } bi bi-caret-up-fill fs-2 `}
           onClick={handleUpVote}
         ></i>
-        <div className={`${style.iconText}`}>{voteNumber.count}</div>
+        <div className={`${style.iconText}`}>{voteNumber}</div>
         <i
           className={`${style.linkImprove} ${
             voteType === VOTE_PAGE.DOWN_VOTE ? style.activeBtnVote : null
