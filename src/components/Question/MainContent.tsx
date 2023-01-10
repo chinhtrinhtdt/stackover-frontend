@@ -12,6 +12,7 @@ import {
   IQuestionId,
 } from "../../interfaces/question.interface";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
+import moment from "moment";
 
 function Maincontent(props: IQuestionId) {
   const { questionId } = props;
@@ -20,9 +21,7 @@ function Maincontent(props: IQuestionId) {
   const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
-  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
-    []
-  );
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
 
   useEffect(() => {
@@ -166,13 +165,13 @@ function Maincontent(props: IQuestionId) {
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
-            {item.content} -{" "}
+            {item.content} - {" "}
             <a href="#" className={`${style.textComment}`}>
               {item.user.username}
             </a>
-            -
+            {" "}-{" "}
             <span className={`${style.textComment} ${style.linkImprove}`}>
-              {item.createdAt}
+              {moment(item?.createdAt).format("LLL")}
             </span>
           </div>
         ))}

@@ -9,11 +9,22 @@ export interface IVote {
   row: IVoteDetail[];
 }
 
+export interface ITagQuestionDetail{
+id: number;
+name: string;
+createdAt: string;
+updatedAt: string;
+}
 export interface IQuestionDetail {
   id: string;
   title: string;
   textContent: string;
   codeContent: string;
+  userId: number;
+  tagId: number;
+  createdAt: string;
+  updatedAt: string;
+  tag: ITagQuestionDetail
 }
 
 export interface IQuestion {
