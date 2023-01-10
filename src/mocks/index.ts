@@ -186,3 +186,10 @@ export const DEFAULT_GET_VOTE_TYPE = {
   count: 0,
   row: [],
 };
+export const GET_VOTE_DETAIL_TYPE = 
+  {
+    username: "",
+    status: "",
+  }
+
+

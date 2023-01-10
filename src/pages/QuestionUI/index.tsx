@@ -7,7 +7,7 @@ import styles from "./questionUI.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { questionApi } from "../../api";
-import { IQuestionDetail } from "../../interfaces/api.interfaces";
+import { IQuestionDetail } from "../../interfaces/question.interface";
 
 function QuestionPage() {
   const renderTime = (name: string, value: string) => {
@@ -22,7 +22,7 @@ function QuestionPage() {
   const renderHeaderContent = (data: IQuestionDetail[]) => (
     <div>
       <div className="d-flex justify-content-between p-3">
-        <h4>{data[9]?.title}</h4>
+        <h4>{data[0]?.title}</h4>
         <button
           type="button"
           className={`${styles.ask} btn btn-primary`}
@@ -84,10 +84,10 @@ function QuestionPage() {
       <div className="d-flex gap-3">
         <div className="d-flex w-75">
           <div className="p-2">
-            <Vote questionId={data[9]?.id} />
+            <Vote questionId={data[0]?.id} />
           </div>
           <div className="p-2">
-            <MainContent />
+            <MainContent questionId={data[0]?.id} />
           </div>
         </div>
         <div className="p-2 w-25">{renderListQuestion(data)}</div>
