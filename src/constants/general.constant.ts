@@ -12,10 +12,16 @@ export const MESSAGE = {
   INVALID_PASSWORD: "Your password is invalid",
 };
 
-export const VOTE_PAGE = {
+export const LocalStorageKey = {
+
   USER: "user",
   USER_STATUS: "userStatus",
+
+}
+export const VOTE_PAGE = {
+
   UP_VOTE: "UP_VOTE",
   DOWN_VOTE: "DOWN_VOTE",
   userStatus: "userStatus",
+
 };

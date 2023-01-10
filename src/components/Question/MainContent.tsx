@@ -37,8 +37,6 @@ function Maincontent(props: IQuestionId) {
   }, [isComment]);
 
   const handleSunmitCmt = () => {
-    console.log(11,typeof questionId.toString());
-    
     const params = {
       content: contentComment,
       questionId: questionId.toString(),
@@ -48,8 +46,15 @@ function Maincontent(props: IQuestionId) {
       ?.classList.add("was-validated");
     if (contentComment) {
       setContentComment("");
-      setIsComment(!isComment);
-      questionApi.postApiComment(params);
+      questionApi
+      .postApiComment(params)
+      .then((res) => {
+        if(res.status === 201){
+          setIsComment(!isComment);
+        }
+      });
+      
+
     }
   };
 
@@ -114,13 +119,13 @@ function Maincontent(props: IQuestionId) {
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
           <a href="" className={`${style.linkImprove}`}>
-            Share{" "}
+            Share
           </a>
           <a href="" className={`${style.linkImprove} mx-2`}>
-            Improve this question{" "}
+            Improve this question
           </a>
           <a href="" className={style.linkImprove}>
-            Follow{" "}
+            Follow
           </a>
         </div>
         <div

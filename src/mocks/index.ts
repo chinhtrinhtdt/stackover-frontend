@@ -191,3 +191,5 @@ export const GET_VOTE_DETAIL_TYPE =
     username: "",
     status: "",
   }
+
+
