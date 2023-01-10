@@ -77,7 +77,6 @@ function QuestionPage() {
       .then((res) => setData(res.data),
       )
       .catch((e) => console.log(e));
-      console.log(112,data);
   }, [posts]);
 
   return (

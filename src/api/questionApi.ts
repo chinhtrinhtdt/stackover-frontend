@@ -18,8 +18,8 @@ const questionApi = {
     return API.post(ApiSettings.API_POST_COMMENT, params);
   },
 
-  getApiVote(id:any){
-    return API.get(ApiSettings.API_GET_VOTE_DETAIL + id);
+  getApiVote(id: number | string){
+    return API.get(`${ApiSettings.API_GET_VOTE_DETAIL}${id}`);
   },
 
   postApiVote(params: IParamVote) { 

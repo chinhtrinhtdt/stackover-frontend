@@ -29,14 +29,12 @@ function Vote(props: IQuestionId) {
   const checkUserVoted = statusVote.find(
     ({ username }) => username === user.username
   );
-console.log(voteType);
 
   useEffect(() => {
     if (voteUser) {
       setVoteType(voteUser.status);
     }
     
-    console.log(44,voteType);
     questionId && getVotepApi();
   }, [checkUserVoted?.username, voteType, questionId, checkStatus]);
 
@@ -54,13 +52,13 @@ console.log(voteType);
     );
     //check da co user nay duoi local chua
     if (voteUser) {
-      if (voteUser.status === VOTE_PAGE.UP_VOTE && checkStatus === true) {
+      if (voteUser.status === VOTE_PAGE.UP_VOTE) {
         setVoteType("");
         type = "";
       }
       if (
         voteUser.status === VOTE_PAGE.DOWN_VOTE ||
-        (voteUser.status === "" && checkStatus === true)
+        (voteUser.status === "")
       ) {
         setVoteType(VOTE_PAGE.UP_VOTE);
         type = VOTE_PAGE.UP_VOTE;
@@ -68,7 +66,7 @@ console.log(voteType);
       const tmp = [...voteNoteLocal];
       tmp[idxUser].status = type;
       localStorage.setItem(LocalStorageKey.USER_STATUS, JSON.stringify(tmp));
-    } else if (checkStatus === true) {
+    } else{
       setVoteType(VOTE_PAGE.UP_VOTE);
       type = VOTE_PAGE.UP_VOTE;
       const obj = {
@@ -92,9 +90,9 @@ console.log(voteType);
     questionApi
       .postApiVote(params)
       .then((res) => {
-        if (res.status === 201) {
+       
           setCheckStatus(!checkStatus);
-        }
+        
       })
 
       .catch((err) => console.log(err));
@@ -108,9 +106,7 @@ console.log(voteType);
     questionApi
       .postApiVote(params)
       .then((res) => {
-        if (res.status === 201) {
-          setCheckStatus(!checkStatus);
-        }
+          setCheckStatus(!checkStatus) ;
       })
 
       .catch((err) => console.log(err));
@@ -124,13 +120,13 @@ console.log(voteType);
 
     //check da co user nay duoi local chua
     if (voteUser) {
-      if (voteUser.status === VOTE_PAGE.DOWN_VOTE && checkStatus === true) {
+      if (voteUser.status === VOTE_PAGE.DOWN_VOTE ) {
         setVoteType("");
         type = "";
       }
       if (
         voteUser.status === VOTE_PAGE.UP_VOTE ||
-        (voteUser.status === "" && checkStatus === true)
+        (voteUser.status === "")
       ) {
         setVoteType(VOTE_PAGE.DOWN_VOTE);
         type = VOTE_PAGE.DOWN_VOTE;
@@ -138,7 +134,7 @@ console.log(voteType);
       const tmp = [...voteNoteLocal];
       tmp[idxUser].status = type;
       localStorage.setItem(LocalStorageKey.USER_STATUS, JSON.stringify(tmp));
-    } else if (checkStatus === true) {
+    } else {
       setVoteType(VOTE_PAGE.DOWN_VOTE);
       type = VOTE_PAGE.DOWN_VOTE;
       const obj = {

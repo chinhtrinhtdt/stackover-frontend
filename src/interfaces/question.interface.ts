@@ -15,6 +15,7 @@ name: string;
 createdAt: string;
 updatedAt: string;
 }
+
 export interface IQuestionDetail {
   id: string;
   title: string;
@@ -24,7 +25,7 @@ export interface IQuestionDetail {
   tagId: number;
   createdAt: string;
   updatedAt: string;
-  tag: ITagQuestionDetail
+  tag: ITagQuestionDetail;
 }
 
 export interface IQuestion {
