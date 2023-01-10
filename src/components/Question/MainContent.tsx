@@ -46,15 +46,11 @@ function Maincontent(props: IQuestionId) {
       ?.classList.add("was-validated");
     if (contentComment) {
       setContentComment("");
-      questionApi
-      .postApiComment(params)
-      .then((res) => {
-        if(res.status === 201){
+      questionApi.postApiComment(params).then((res) => {
+        if (res.status === 201) {
           setIsComment(!isComment);
         }
       });
-      
-
     }
   };
 

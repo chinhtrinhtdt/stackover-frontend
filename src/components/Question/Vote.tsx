@@ -2,11 +2,14 @@ import * as React from "react";
 import { questionApi } from "../../api";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
-import { IVote, IQuestionId, IVoteDetail } from "../../interfaces/question.interface";
+import {
+  IVote,
+  IQuestionId,
+  IVoteDetail,
+} from "../../interfaces/question.interface";
 import { DEFAULT_GET_VOTE_TYPE, GET_VOTE_DETAIL_TYPE } from "../../mocks";
 import { param } from "jquery";
 import { LocalStorageKey, VOTE_PAGE } from "../../constants/general.constant";
-
 
 function Vote(props: IQuestionId) {
   const [check, setCheck] = useState<string>("");
@@ -15,10 +18,12 @@ function Vote(props: IQuestionId) {
   const { questionId } = props;
   const user = JSON.parse(localStorage.getItem(LocalStorageKey.USER) || "{}");
   const [statusVote, setStatusVote] = useState<IVoteDetail[]>([]);
-  const voteNoteLocal = JSON.parse(localStorage.getItem(LocalStorageKey.USER_STATUS) || "[]");
+  const voteNoteLocal = JSON.parse(
+    localStorage.getItem(LocalStorageKey.USER_STATUS) || "[]"
+  );
 
   // tim dung user dang dang nhap
-  
+
   const voteUser = voteNoteLocal.find(
     (item: any) => item.username === user.username
   );
@@ -31,18 +36,17 @@ function Vote(props: IQuestionId) {
     if (voteUser) {
       setVoteType(voteUser.status);
     }
-    questionApi.getApiVote()
-    .then((res) => setVoteNumber(res.data))
-    .catch((err) => console.log(err))
-  }, [checkUserVoted?.username,voteType]);
+    questionApi
+      .getApiVote()
+      .then((res) => setVoteNumber(res.data))
+      .catch((err) => console.log(err));
+  }, [checkUserVoted?.username, voteType]);
 
   const handleUpVote = () => {
-
     let type = "";
     const idxUser = voteNoteLocal.findIndex(
       (item: any) => item.username === user.username
     );
-
     //check da co user nay duoi local chua
     if (voteUser) {
       if (voteUser.status === VOTE_PAGE.UP_VOTE) {
@@ -64,7 +68,10 @@ function Vote(props: IQuestionId) {
         status: type,
       };
       voteNoteLocal.push(obj);
-      localStorage.setItem(LocalStorageKey.USER_STATUS, JSON.stringify(voteNoteLocal));
+      localStorage.setItem(
+        LocalStorageKey.USER_STATUS,
+        JSON.stringify(voteNoteLocal)
+      );
     }
     postApiUpVote();
   };
@@ -113,7 +120,10 @@ function Vote(props: IQuestionId) {
         status: type,
       };
       voteNoteLocal.push(obj);
-      localStorage.setItem(LocalStorageKey.USER_STATUS, JSON.stringify(voteNoteLocal));
+      localStorage.setItem(
+        LocalStorageKey.USER_STATUS,
+        JSON.stringify(voteNoteLocal)
+      );
     }
     postApiDownVote();
   };
@@ -130,7 +140,7 @@ function Vote(props: IQuestionId) {
         <div className={`${style.iconText}`}>{voteNumber.count}</div>
         <i
           className={`${style.linkImprove} ${
-            voteType === VOTE_PAGE.DOWN_VOTE? style.activeBtnVote : null
+            voteType === VOTE_PAGE.DOWN_VOTE ? style.activeBtnVote : null
           } bi bi-caret-down-fill fs-2`}
           onClick={handleDownVote}
         ></i>
