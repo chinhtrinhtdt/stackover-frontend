@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
-import styles from './register.module.css';
-import { MESSAGE, STATUS_CODE } from '../../constants/general.constant';
+import { MESSAGE } from '../../constants/general.constant';
 import { passwordValidation } from '../../helper/utils';
+import styles from './register.module.css';
 
 function Register() {
   const navigate = useNavigate();
@@ -11,8 +11,9 @@ function Register() {
   const [username, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [showPassword, setShowPassword] = useState(false)
-  const [msgInvalidPassword, setMsgInvalidPassword] = useState('')
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [msgInvalidPassword, setMsgInvalidPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -28,10 +29,18 @@ function Register() {
       setMsgInvalidPassword(MESSAGE.INVALID_PASSWORD);
       return;
     };
-
+    setLoading(true)
     setMsgInvalidPassword("");
     authApi.postApiRegister(registerObject)
-      .then(res => res.status === STATUS_CODE.CREATED && navigate('/login'));
+      .then(res => {
+        setLoading(false);
+        alert(res.data?.message);
+        navigate('/login');
+      })
+      .catch(err => {
+        setLoading(false);
+        alert(err.response?.data?.message);
+      })
   }
 
   return (
@@ -62,10 +71,13 @@ function Register() {
           </div>
           <div className="invalid-feedback"> Please fill a password.</div>
           <div className={`${styles.font14} invalid-password text-danger`}> {msgInvalidPassword} </div>
-          <span className={`${styles.note} text-danger`}>Passwords must contain at least eight characters, including at least 1 letter and 1 number.</span>
+          <span className={`${styles.note}`}>Passwords must contain at least eight characters, including at least 1 letter and 1 number.</span>
         </div>
 
-        <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>Register</button>
+        <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>
+          <span>Register</span>
+          {loading && <span className="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>}
+        </button>
       </form>
 
       <div className="text-center px-4">

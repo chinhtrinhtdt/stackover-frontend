@@ -1,15 +1,14 @@
 import { memo, useState } from 'react';
 import { questionApi } from '../../api';
-import styles from './ModalAddQuestion.module.css'
-import { IQuestionDetail } from '../../interfaces/api.interfaces';
-import { sortListDecrease } from '../../helper/utils';
+import { STATUS_CODE } from '../../constants/general.constant';
+import styles from './ModalAddQuestion.module.css';
 
 interface IPropsModalAddQuestion {
-    setData: (item: IQuestionDetail[]) => void;
+    getReloadData: () => void;
 }
 
 function ModalAddQuestion(props: IPropsModalAddQuestion) {
-    const { setData } = props;
+    const { getReloadData } = props;
 
     const [title, setTitle] = useState<string>('');
     const [textContent, setTextContent] = useState<string>('');
@@ -22,13 +21,13 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
     };
 
     const resetStateInput = () => {
-        setTitle('')
-        setTextContent('')
-        setCodeContent('')
-        setTagName('')
-    }
+        setTitle('');
+        setTextContent('');
+        setCodeContent('');
+        setTagName('');
+    };
 
-    const handleSubmit = async() => {
+    const handleSubmit = () => {
         const question = {
             title,
             textContent,
@@ -37,16 +36,16 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         };
         document.querySelector(".modal-add-question")?.classList.add("was-validated");
 
-        if(!validation()) return
+        if (!validation()) return;
 
         document.querySelector(".modal-add-question")?.classList.remove("was-validated");
-        resetStateInput()
-        await questionApi.postApiQuestion(question)
-        questionApi.getApiQuestion()
+        resetStateInput();
+
+        questionApi.postApiQuestion(question)
             .then(res => {
-                setData(sortListDecrease(res.data));
+                res.status === STATUS_CODE.CREATED && getReloadData();
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
     };
 
     return (
@@ -88,8 +87,8 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
                     </div>
 
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" data-bs-dismiss={validation() ? "modal" : ""} onClick={handleSubmit}>Add</button>
+                        <button type="button" className="btn btn-primary" data-bs-dismiss={validation() ? "modal" : ""} onClick={handleSubmit}>Submit</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>

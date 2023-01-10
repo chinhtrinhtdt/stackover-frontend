@@ -6,9 +6,23 @@ export const STATUS_CODE = {
     FOR_BIDDEN: 403,
     NOT_FOUND: 404,
     CONFLICT: 409,
-}
+    ERR_NETWORK: "ERR_NETWORK"
+};
 
 export const MESSAGE = {
     INVALID_PASSWORD: "Your password is invalid",
-}
+    INVALID_REGISTER:  "Your username or email is used!",
+    INVALID_LOGIN:  "Your username or password is incorrect!",
+    ERR_NETWORK: "Network error, please try again later!"
+};
 
+export const LocalStorageKey = {
+    TOKEN: "token",
+    USER: "user",
+    POST_QUESTIONS: "post-questions"
+};
+
+export const Questions = {
+    PerPage: 2,
+    ItemOffset: 0,
+}

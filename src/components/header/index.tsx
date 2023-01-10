@@ -1,18 +1,13 @@
-import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './header.module.css';
-import { LOGO_IMAGE_URL } from '../../mocks';
 import { checkToken, getUserInfo } from '../../helper/utils';
-import { AuthContext } from '../../App';
+import { LOGO_IMAGE_URL } from '../../mocks';
+import styles from './header.module.css';
 
 function Header() {
-  const { setAuthed } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setAuthed(false);
+    localStorage.clear();
     navigate("/login");
   };
 
@@ -38,7 +33,7 @@ function Header() {
           <div className="text-end">
             {checkToken() ?
               <div className='d-flex align-items-center'>
-                <span className='me-3 fw-bold'>{getUserInfo().username}</span>
+                <span className='me-3 fw-bold'>{getUserInfo()}</span>
                 <button type="button" className="btn btn-outline-secondary me-2  btn-sm" onClick={handleLogout}>Logout</button>
               </div> :
               <div>

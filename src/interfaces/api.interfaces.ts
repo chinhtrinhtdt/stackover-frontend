@@ -15,37 +15,3 @@ export interface IParamLogin {
     username: string;
     password: string;
 }
-export interface IQuestionDetail{
-    id: number;
-    title: string;
-    textContent: string;
-    codeContent: string;
-    tag?: ITag;
-    createdAt?: string;
-}
-
-export interface IQuestion{
-    data: IQuestionDetail[]
-}
-
-export interface ITag {
-    id?: number;
-    name: string;
-}
-
-export interface IParamAuthContext {
-    authed: boolean;
-    setAuthed: (item: boolean) => void;
-  }
-
-export interface IPropsMainContent {
-    postDetail: {
-      id: number;
-      title: string;
-      textContent: string;
-      codeContent: string;
-      tag?: object;
-      createdAt?: string;
-    }
-  }
-  
