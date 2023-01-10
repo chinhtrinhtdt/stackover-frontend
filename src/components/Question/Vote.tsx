@@ -34,7 +34,7 @@ function Vote(props: IQuestionId) {
     if (voteUser) {
       setVoteType(voteUser.status);
     }
-    
+
     questionId && getVotepApi();
   }, [checkUserVoted?.username, voteType, questionId, checkStatus]);
 
@@ -56,17 +56,14 @@ function Vote(props: IQuestionId) {
         setVoteType("");
         type = "";
       }
-      if (
-        voteUser.status === VOTE_PAGE.DOWN_VOTE ||
-        (voteUser.status === "")
-      ) {
+      if (voteUser.status === VOTE_PAGE.DOWN_VOTE || voteUser.status === "") {
         setVoteType(VOTE_PAGE.UP_VOTE);
         type = VOTE_PAGE.UP_VOTE;
       }
       const tmp = [...voteNoteLocal];
       tmp[idxUser].status = type;
       localStorage.setItem(LocalStorageKey.USER_STATUS, JSON.stringify(tmp));
-    } else{
+    } else {
       setVoteType(VOTE_PAGE.UP_VOTE);
       type = VOTE_PAGE.UP_VOTE;
       const obj = {
@@ -90,11 +87,8 @@ function Vote(props: IQuestionId) {
     questionApi
       .postApiVote(params)
       .then((res) => {
-       
-          setCheckStatus(!checkStatus);
-        
+        setCheckStatus(!checkStatus);
       })
-
       .catch((err) => console.log(err));
   };
 
@@ -106,7 +100,7 @@ function Vote(props: IQuestionId) {
     questionApi
       .postApiVote(params)
       .then((res) => {
-          setCheckStatus(!checkStatus) ;
+        setCheckStatus(!checkStatus);
       })
 
       .catch((err) => console.log(err));
@@ -120,14 +114,11 @@ function Vote(props: IQuestionId) {
 
     //check da co user nay duoi local chua
     if (voteUser) {
-      if (voteUser.status === VOTE_PAGE.DOWN_VOTE ) {
+      if (voteUser.status === VOTE_PAGE.DOWN_VOTE) {
         setVoteType("");
         type = "";
       }
-      if (
-        voteUser.status === VOTE_PAGE.UP_VOTE ||
-        (voteUser.status === "")
-      ) {
+      if (voteUser.status === VOTE_PAGE.UP_VOTE || voteUser.status === "") {
         setVoteType(VOTE_PAGE.DOWN_VOTE);
         type = VOTE_PAGE.DOWN_VOTE;
       }
