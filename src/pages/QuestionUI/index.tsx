@@ -1,7 +1,6 @@
 import moment from "moment";
-import { useEffect, useState, memo } from "react";
+import { memo, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-
 import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
@@ -101,7 +100,7 @@ function QuestionPage() {
       <div className="d-flex gap-3">
         <div className="d-flex w-75">
           <div className="p-2">
-            <Vote />
+            <Vote questionId={data[0]?.id.toString()} />
           </div>
           <div className="p-2">
             <MainContent postDetail={postDetail} />

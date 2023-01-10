@@ -19,10 +19,17 @@ export const MESSAGE = {
 export const LocalStorageKey = {
     TOKEN: "token",
     USER: "user",
-    POST_QUESTIONS: "post-questions"
+    POST_QUESTIONS: "post-questions",
+    USER_STATUS: "userStatus",
+
 };
 
 export const Questions = {
     PerPage: 2,
     ItemOffset: 0,
 }
+
+export const VOTE_PAGE = {
+  UP_VOTE: "UP_VOTE",
+  DOWN_VOTE: "DOWN_VOTE",
+};

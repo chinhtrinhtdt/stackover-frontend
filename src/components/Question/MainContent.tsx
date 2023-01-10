@@ -1,13 +1,44 @@
-import * as React from "react";
-import { useState } from "react";
-import { IPropsMainContent } from "../../interfaces/props.interfaces";
-import style from "./Question.module.css";
+import { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
+import { questionApi } from "../../api";
+import { IPropsMainContent } from "../../interfaces/props.interfaces";
+import {
+  ICommentDetail
+} from "../../interfaces/question.interface";
+import style from "./Question.module.css";
 
 function Maincontent(props: IPropsMainContent) {
   const { postDetail } = props;
-
   const [isComment, setIsComment] = useState<boolean>(false);
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
+    []
+  );
+  const [contentComment, setContentComment] = useState<string>("");
+
+  useEffect(() => {
+    questionApi
+      .getApiComment()
+      .then((res) => setCommentDataDetail(res.data))
+      .catch((e) => console.log(e));
+  }, [isComment]);
+
+  const handleSunmitCmt = () => {
+    const params = {
+      content: contentComment,
+      questionId: postDetail.id.toString(),
+    };
+    document
+      .querySelector(".form-add-question")
+      ?.classList.add("was-validated");
+    if (contentComment) {
+      setContentComment("");
+      questionApi.postApiComment(params).then((res) => {
+        if (res.status === 201) {
+          setIsComment(!isComment);
+        }
+      });
+    }
+  };
 
   const renderAddComment = () => {
     return (
@@ -15,24 +46,35 @@ function Maincontent(props: IPropsMainContent) {
         {isComment ? (
           <div>
             <div className="form-floating mt-4 mb-4">
-              <textarea
-                className={`form-control ${style.textComment}`}
-                placeholder="Leave a comment here"
-                id="floatingTextarea2"
-              ></textarea>
-              <label htmlFor="floatingTextarea">Comments</label>
+              <form className="form-add-question">
+                <div className="mb-3">
+                  <label htmlFor="codeContent" className="form-label">
+                    Comment
+                  </label>
+                  <textarea
+                    className="form-control"
+                    rows={3}
+                    id="codeContent"
+                    name="codeContent"
+                    value={contentComment}
+                    onChange={(e) => setContentComment(e.target.value)}
+                    required
+                  />
+                  <div className="invalid-feedback">Please fill a comment.</div>
+                </div>
+              </form>
             </div>
             <button
               type="button"
               className="btn btn-primary mt-4"
-              onClick={() => setIsComment(false)}
+              onClick={handleSunmitCmt}
             >
               Add a comment
             </button>
             <button
               type="button"
               className="btn btn-secondary mt-4 ms-2"
-              onClick={() => setIsComment(false)}
+              onClick={() => setIsComment(!isComment)}
             >
               Hide
             </button>
@@ -41,7 +83,7 @@ function Maincontent(props: IPropsMainContent) {
           <button
             type="button"
             className={`btn btn-link ${style.linkImprove}`}
-            onClick={() => setIsComment(true)}
+            onClick={() => setIsComment(!isComment)}
           >
             Add a comment
           </button>
@@ -87,9 +129,25 @@ function Maincontent(props: IPropsMainContent) {
           </div>
         </div>
       </div>
+      <div className={`${style.textComment}pl-4`}>
+        {commentDataDetail.map((item: ICommentDetail, index: number) => (
+          <div key={index}>
+            <hr />
+            {item.content} -{" "}
+            <a href="#" className={`${style.textComment}`}>
+              {item.user.username}
+            </a>
+            -
+            <span className={`${style.textComment} ${style.linkImprove}`}>
+              {item.createdAt}
+            </span>
+          </div>
+        ))}
+        <hr />
+      </div>
       <div>{renderAddComment()}</div>
     </div>
   );
 }
 
-export default React.memo(Maincontent);
+export default memo(Maincontent);

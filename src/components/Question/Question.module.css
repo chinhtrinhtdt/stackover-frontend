@@ -36,3 +36,10 @@ textarea {
 .listVote li span {
   color: black;
 }
+.textComment {
+  font-size: 15px;
+}
+
+.activeBtnVote{
+  color: rgb(239, 83, 5);
+}
