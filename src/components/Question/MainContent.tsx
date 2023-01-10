@@ -4,23 +4,51 @@ import style from "./Question.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { questionApi } from "../../api";
-import { IQuestion, IQuestionDetail } from "../../interfaces/api.interfaces";
+import {
+  IQuestion,
+  IQuestionDetail,
+  ICommentDetail,
+  IComment,
+} from "../../interfaces/api.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 
 function Maincontent() {
   const [posts, setPosts] = useState([]);
   const [isComment, setIsComment] = useState<boolean>(false);
-  const [dataDetail, setdataDetail] = useState<IQuestionDetail>(
+  const [quesdataDetail, setQuesdataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
+    []
+  );
+  const [contentComment, setContentComment] = useState<string>("");
+  const [postId, setPostId] = useState<string>("3");
 
   useEffect(() => {
     questionApi
       .getApiQuestion()
-      // .then((res) => console.log(22,res.data[1].textContent))
-      .then((res) => setdataDetail(res.data[0]))
+      .then((res) => setQuesdataDetail(res.data[14]))
       .catch((e) => console.log(e));
-  }, [posts]);
+    questionApi
+      .getApiComment()
+      .then((res) => setCommentDataDetail(res.data))
+      .catch((e) => console.log(e));
+  }, [isComment]);
+
+  const handleSunmitCmt = () => {
+    const params = {
+      content: contentComment,
+      postId: postId,
+    };
+    document
+      .querySelector(".form-add-question")
+      ?.classList.add("was-validated");
+    if (contentComment) {
+      setContentComment("");
+      setIsComment(!isComment);
+      questionApi.postApiComment(params);
+    }
+  };
 
   const renderAddComment = () => {
     return (
@@ -28,24 +56,35 @@ function Maincontent() {
         {isComment ? (
           <div>
             <div className="form-floating mt-4 mb-4">
-              <textarea
-                className={`form-control ${style.textComment}`}
-                placeholder="Leave a comment here"
-                id="floatingTextarea2"
-              ></textarea>
-              <label htmlFor="floatingTextarea">Comments</label>
+              <form className="form-add-question">
+                <div className="mb-3">
+                  <label htmlFor="codeContent" className="form-label">
+                    Comment
+                  </label>
+                  <textarea
+                    className="form-control"
+                    rows={3}
+                    id="codeContent"
+                    name="codeContent"
+                    value={contentComment}
+                    onChange={(e) => setContentComment(e.target.value)}
+                    required
+                  />
+                  <div className="invalid-feedback">Please fill a comment.</div>
+                </div>
+              </form>
             </div>
             <button
               type="button"
               className="btn btn-primary mt-4"
-              onClick={() => setIsComment(false)}
+              onClick={handleSunmitCmt}
             >
               Add a comment
             </button>
             <button
               type="button"
               className="btn btn-secondary mt-4 ms-2"
-              onClick={() => setIsComment(false)}
+              onClick={() => setIsComment(!isComment)}
             >
               Hide
             </button>
@@ -54,7 +93,7 @@ function Maincontent() {
           <button
             type="button"
             className={`btn btn-link ${style.linkImprove}`}
-            onClick={() => setIsComment(true)}
+            onClick={() => setIsComment(!isComment)}
           >
             Add a comment
           </button>
@@ -64,10 +103,10 @@ function Maincontent() {
   };
   return (
     <div>
-      <div>{dataDetail.textContent}</div>
+      <div>{quesdataDetail?.textContent}</div>
       <br />
       <div className={`overflow-auto ${style.containerCode}`}>
-        <p>{dataDetail.codeContent}</p>
+        <p>{quesdataDetail?.codeContent}</p>
       </div>
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
@@ -119,15 +158,23 @@ function Maincontent() {
           </div>
         </div>
       </div>
-      <div className={`pl-4`}>
-        <div>
-          <hr />
-          Very nice, simple, elegant. – <a href="#">Michel Floyd</a>
-          <span className={style.linkImprove}> Aug 16, 2021 at 22:04</span>
-        </div>
+      {/* <div className={`${style.textComment}pl-4`}>
+        {commentDataDetail.map((item: ICommentDetail, index: number) => (
+          <div key={index}>
+            <hr />
+            {item.content} -{" "}
+            <a href="#" className={`${style.textComment}`}>
+              {item.user.username}
+            </a>
+            -
+            <span className={`${style.textComment} ${style.linkImprove}`}>
+              {item.createdAt}
+            </span>
+          </div>
+        ))}
         <hr />
-      </div>
-      <div>{renderAddComment()}</div>
+      </div> */}
+      {/* <div>{renderAddComment()}</div> */}
     </div>
   );
 }
