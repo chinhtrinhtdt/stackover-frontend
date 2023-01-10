@@ -20,6 +20,7 @@ function Vote(props: IQuestionId) {
   const voteNoteLocal = JSON.parse(
     localStorage.getItem(LocalStorageKey.USER_STATUS) || "[]"
   );
+  console.log(34, voteNoteLocal);
 
   // tim dung user dang dang nhap
 
@@ -35,11 +36,15 @@ function Vote(props: IQuestionId) {
     if (voteUser) {
       setVoteType(voteUser.status);
     }
+    getVotepApi();
+  }, [checkUserVoted?.username, voteType]);
+
+  const getVotepApi = () => {
     questionApi
       .getApiVote()
       .then((res) => setVoteNumber(res.data))
       .catch((err) => console.log(err));
-  }, [checkUserVoted?.username, voteType]);
+  };
 
   const handleUpVote = () => {
     let type = "";
@@ -80,8 +85,10 @@ function Vote(props: IQuestionId) {
       questionId: String(questionId),
       voteType: VOTE_PAGE.UP_VOTE,
     };
-
-    questionApi.postApiVote(params);
+    questionApi
+      .postApiVote(params)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   const postApiDownVote = () => {
@@ -89,8 +96,10 @@ function Vote(props: IQuestionId) {
       questionId: String(questionId),
       voteType: VOTE_PAGE.UP_VOTE,
     };
-
-    questionApi.postApiVote(params);
+    questionApi
+      .postApiVote(params)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   const handleDownVote = () => {
@@ -98,6 +107,7 @@ function Vote(props: IQuestionId) {
     const idxUser = voteNoteLocal.findIndex(
       (item: any) => item.username === user.username
     );
+
     //check da co user nay duoi local chua
     if (voteUser) {
       if (voteUser.status === VOTE_PAGE.DOWN_VOTE) {
@@ -124,6 +134,7 @@ function Vote(props: IQuestionId) {
         JSON.stringify(voteNoteLocal)
       );
     }
+
     postApiDownVote();
   };
 

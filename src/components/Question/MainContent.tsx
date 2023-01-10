@@ -28,7 +28,7 @@ function Maincontent(props: IQuestionId) {
   useEffect(() => {
     questionApi
       .getApiQuestion()
-      .then((res) => setQuesDataDetail(res.data[19]))
+      .then((res) => setQuesDataDetail(res.data[0]))
       .catch((e) => console.log(e));
     questionApi
       .getApiComment()

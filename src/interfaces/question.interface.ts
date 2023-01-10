@@ -3,10 +3,12 @@ export interface IVoteDetail {
   questionId: string;
   voteType: string;
 }
+
 export interface IVote {
   count: number;
   row: IVoteDetail[];
 }
+
 export interface IQuestionDetail {
   id: string;
   title: string;
@@ -17,6 +19,7 @@ export interface IQuestionDetail {
 export interface IQuestion {
   data: IQuestionDetail[];
 }
+
 export interface IUserInfor {
   username: string;
   password: string;
@@ -28,6 +31,7 @@ export interface IUserInfor {
   interestedTags: string;
   isEnabledTwoFactorAuth: boolean;
 }
+
 export interface ICommentDetail {
   content: string;
   commentId: number;
@@ -36,13 +40,16 @@ export interface ICommentDetail {
   user: IUserInfor;
   createdAt: string;
 }
+
 export interface IComment {
   data: ICommentDetail[];
 }
+
 export interface IUserCheckVoteDetail {
   user: string;
   status: string;
 }
+
 export interface IUserCheckVote {
   data: IUserCheckVoteDetail[];
 }
