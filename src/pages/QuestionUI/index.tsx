@@ -34,8 +34,6 @@ function QuestionPage() {
   const getApiQuestion = () => {
     questionApi.getApiQuestion()
       .then((res) => {
-        console.log(11,res);
-        
         const listDataSort = sortListDecrease(res.data);
         localStorage.setItem("post-questions", JSON.stringify(listDataSort));
         setData(listDataSort);
@@ -49,8 +47,10 @@ function QuestionPage() {
   };
 
   const handleClick = (postId: number) => {
-    const post = data.find(post => post.id === postId) || DATADETAIL_GET_QUESTION;
-    setPostDetail(post);
+    const post = data.find(post => post.id === postId);
+    if (post) {
+      setPostDetail(post);
+    };
   };
 
   const handleClickPagination = (event: any) => {
@@ -100,7 +100,7 @@ function QuestionPage() {
       <div className="d-flex gap-3">
         <div className="d-flex w-75">
           <div className="p-2">
-            <Vote questionId={data[0]?.id.toString()} />
+            <Vote questionId={postDetail?.id} />
           </div>
           <div className="p-2">
             <MainContent postDetail={postDetail} />
@@ -113,19 +113,15 @@ function QuestionPage() {
           <ReactPaginate
             onPageChange={handleClickPagination}
             pageCount={totalPage}
-            previousLabel="<"
-            nextLabel=">"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            previousLinkClassName="page-link"
-            nextClassName="page-item"
-            nextLinkClassName="page-link"
-            breakLabel="..."
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
             containerClassName="pagination"
+            pageLinkClassName="page-link"
             activeClassName="active"
+            previousLabel="<"
+            previousLinkClassName="page-link"
+            breakLabel="..."
+            breakLinkClassName="page-link"
+            nextLabel=">"
+            nextLinkClassName="page-link"
           />
         </div>
       </div>

@@ -85,7 +85,7 @@ function Register() {
           <Link to="./#"> terms of service, privacy policy and cookie policy</Link>
         </p>
         <p className='m-0'>Already have an account?
-          <Link className='text-decoration-none' to="/login"> login</Link>
+          <Link className='text-decoration-none' to="/login"> Login</Link>
         </p>
       </div>
     </div>

@@ -38,8 +38,16 @@ export const DATADETAIL_GET_QUESTION = {
   title: "",
   textContent: "",
   codeContent: "",
-  createdAt: "",
-  tags: {}
+  userId: 0,
+  tagId: 0,
+  createdAt: '',
+  updatedAt: '',
+  tag: {
+    id: 0,
+  name: '',
+  createdAt: '',
+  updatedAt: ''
+  }
 };
 
 export const LIST_TAGS = [

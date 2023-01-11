@@ -22,7 +22,6 @@ const myClient = {
   get(endpoint: string, config?: any) {
     return client.get(endpoint, { ...config, ...configHeader() });
   },
-
   delete(endpoint: string, params?: any, config?: any) {
     return client.delete(endpoint, {
       ...config,

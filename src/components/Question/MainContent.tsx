@@ -1,18 +1,15 @@
-import { useEffect, useState, memo } from "react";
+import moment from "moment";
+import { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { questionApi } from "../../api";
 import { IPropsMainContent } from "../../interfaces/props.interfaces";
-import {
-  ICommentDetail
-} from "../../interfaces/question.interface";
+import { ICommentDetail } from "../../interfaces/question.interface";
 import style from "./Question.module.css";
 
 function Maincontent(props: IPropsMainContent) {
   const { postDetail } = props;
   const [isComment, setIsComment] = useState<boolean>(false);
-  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
-    []
-  );
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
 
   useEffect(() => {
@@ -133,13 +130,13 @@ function Maincontent(props: IPropsMainContent) {
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
-            {item.content} -{" "}
+            {item.content} - {" "}
             <a href="#" className={`${style.textComment}`}>
               {item.user.username}
             </a>
-            -
+            {" "}-{" "}
             <span className={`${style.textComment} ${style.linkImprove}`}>
-              {item.createdAt}
+              {moment(item?.createdAt).format("LLL")}
             </span>
           </div>
         ))}
