@@ -1,8 +1,14 @@
 import { memo, useState } from 'react';
 import { questionApi } from '../../api';
-import styles from './ModalAddQuestion.module.css'
+import styles from './ModalAddQuestion.module.css';
 
-function ModalAddQuestion() {
+interface IPropsModalAddQuestion {
+    getReloadData: () => void;
+}
+
+function ModalAddQuestion(props: IPropsModalAddQuestion) {
+    const { getReloadData } = props;
+
     const [title, setTitle] = useState<string>('');
     const [textContent, setTextContent] = useState<string>('');
     const [codeContent, setCodeContent] = useState<string>('');
@@ -11,6 +17,13 @@ function ModalAddQuestion() {
     const validation = () => {
         if (title && textContent && codeContent && tagName) return true;
         return false;
+    };
+
+    const resetStateInput = () => {
+        setTitle('');
+        setTextContent('');
+        setCodeContent('');
+        setTagName('');
     };
 
     const handleSubmit = () => {
@@ -22,13 +35,14 @@ function ModalAddQuestion() {
         };
         document.querySelector(".modal-add-question")?.classList.add("was-validated");
 
-        if (validation()) {
-            setTitle('')
-            setTextContent('')
-            setCodeContent('')
-            setTagName('')
-            questionApi.postApiQuestion(question);
-        };
+        if (!validation()) return;
+
+        document.querySelector(".modal-add-question")?.classList.remove("was-validated");
+        resetStateInput();
+
+        questionApi.postApiQuestion(question)
+            .then(res => getReloadData())
+            .catch(err => console.log(err))
     };
 
     return (
@@ -70,8 +84,8 @@ function ModalAddQuestion() {
                     </div>
 
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" data-bs-dismiss={validation() ? "modal" : ""} onClick={handleSubmit}>Add</button>
+                        <button type="button" className="btn btn-primary" data-bs-dismiss={validation() ? "modal" : ""} onClick={handleSubmit}>Submit</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
