@@ -30,8 +30,9 @@ export interface IUserQuestionDetail {
   createdAt: string;
   updatedAt: string;
 }
+
 export interface IQuestionDetail {
-  id: string;
+  id: number;
   title: string;
   textContent: string;
   codeContent: string;
@@ -81,10 +82,15 @@ export interface IUserCheckVote {
 }
 
 export interface IQuestionId {
-  questionId: string;
+  questionId: string | number;
 }
 
 export interface IVoteDetail {
   username: string;
   status: string;
+}
+
+export interface ITag {
+  id?: number;
+  name: string;
 }

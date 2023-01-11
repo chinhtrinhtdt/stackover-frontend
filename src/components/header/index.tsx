@@ -1,17 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom'
-import styles from './header.module.css'
-import { LOGO_IMAGE_URL } from '../../mocks'
-import { checkToken, getUserInfo } from '../../utils'
+import { Link, useNavigate } from 'react-router-dom';
+import { checkToken, getUserInfo } from '../../helper/utils';
+import { LOGO_IMAGE_URL } from '../../mocks';
+import styles from './header.module.css';
 
 function Header() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-    navigate("/login")
-  }
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <header className={`${styles.header} p-2 bg-white position-fixed w-100 top-0 text-black border-bottom`}>
@@ -35,14 +33,14 @@ function Header() {
           <div className="text-end">
             {checkToken() ?
               <div className='d-flex align-items-center'>
-                <span className='me-3 fw-bold'>{getUserInfo().username}</span>
+                <span className='me-3 fw-bold'>{getUserInfo()}</span>
                 <button type="button" className="btn btn-outline-secondary me-2  btn-sm" onClick={handleLogout}>Logout</button>
               </div> :
               <div>
-                <Link to="./login">
+                <Link to="/login">
                   <button type="button" className={`${styles.ctButton} btn btn-outline-primary me-2  btn-sm`}>Login</button>
                 </Link>
-                <Link to="./register">
+                <Link to="/register">
                   <button type="button" className="btn btn-primary  btn-sm">Sign-up</button>
                 </Link>
               </div>
