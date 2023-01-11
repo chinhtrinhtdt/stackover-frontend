@@ -18,22 +18,28 @@ function Maincontent(props: IQuestionId) {
   const { questionId } = props;
   const [posts, setPosts] = useState([]);
   const [isComment, setIsComment] = useState<boolean>(false);
-  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(
-    DATADETAIL_GET_QUESTION
-  );
+  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
 
   useEffect(() => {
-    questionApi
-      .getApiQuestion()
-      .then((res) => setQuesDataDetail(res.data[0]))
-      .catch((e) => console.log(e));
+    questionId && getApiQuestionDetail();
+    getApiComment();
+  }, [isComment, questionId]);
+
+  const getApiComment = () => {
     questionApi
       .getApiComment()
       .then((res) => setCommentDataDetail(res.data))
       .catch((e) => console.log(e));
-  }, [isComment]);
+  };
+
+  const getApiQuestionDetail = () => {
+    questionApi
+      .getApiQuestionDetail(questionId)
+      .then((res) => setQuesDataDetail(res.data))
+      .catch((e) => console.log(e));
+  };
 
   const handleSunmitCmt = () => {
     const params = {
@@ -104,6 +110,7 @@ function Maincontent(props: IQuestionId) {
       </div>
     );
   };
+
   return (
     <div>
       <div>{quesdataDetail?.textContent}</div>
@@ -128,7 +135,10 @@ function Maincontent(props: IQuestionId) {
         >
           <div className="row g-0 d-flex m-2 ">
             <div className="p-2 fs-6">
-              <small>asked Feb 11, 2019 at 15:18</small>
+              <small>
+                asked
+                <span> {moment(quesdataDetail?.createdAt).format("LLL")}</span>
+              </small>
             </div>
             <div className="col-md-2 m-2">
               <img
@@ -139,19 +149,21 @@ function Maincontent(props: IQuestionId) {
             </div>
             <div className="col-md-8 ">
               <div className="m-2">
-                <h5 className="card-title fs-6">devserkan</h5>
+                <h5 className="card-title fs-6">
+                  {quesdataDetail?.user.username}
+                </h5>
                 <div className="d-flex">
-                  <div>16.3k</div>
+                  <div>-</div>
                   <div className={`d-flex ${style.listVoteCotainer}`}>
                     <ul className={`d-flex ${style.listVote}`}>
                       <li>
-                        <span>1</span>
+                        <span>-</span>
                       </li>
                       <li>
-                        <span>222</span>
+                        <span>-</span>
                       </li>
                       <li>
-                        <span>222</span>
+                        <span>-</span>
                       </li>
                     </ul>
                   </div>
@@ -165,11 +177,11 @@ function Maincontent(props: IQuestionId) {
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
-            {item.content} - {" "}
-            <a href="#" className={`${style.textComment}`}>
+            {item.content} -{" "}
+            <a href="" className={`${style.textComment}`}>
               {item.user.username}
-            </a>
-            {" "}-{" "}
+            </a>{" "}
+            -{" "}
             <span className={`${style.textComment} ${style.linkImprove}`}>
               {moment(item?.createdAt).format("LLL")}
             </span>

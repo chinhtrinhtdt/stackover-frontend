@@ -22,9 +22,9 @@ function Header() {
           </Link>
 
           <ul className="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
-            <li><a href="/#" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>About</a></li>
-            <li><a href="/#" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>Products</a></li>
-            <li><a href="/#" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>For Teams</a></li>
+            <li><a href="/" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>About</a></li>
+            <li><a href="/" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>Products</a></li>
+            <li><a href="/" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>For Teams</a></li>
           </ul>
 
           <form className="mx-3 position-relative flex-fill">

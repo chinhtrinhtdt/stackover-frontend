@@ -9,13 +9,27 @@ export interface IVote {
   row: IVoteDetail[];
 }
 
-export interface ITagQuestionDetail{
-id: number;
-name: string;
-createdAt: string;
-updatedAt: string;
+export interface ITagQuestionDetail {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
+export interface IUserQuestionDetail {
+  id: string;
+  username: string;
+  password: string;
+  email: string;
+  name: string;
+  isActive: boolean;
+  codeVerify: string;
+  interestedTags: string;
+  location: string;
+  isEnabled2FA: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
 export interface IQuestionDetail {
   id: string;
   title: string;
@@ -25,7 +39,7 @@ export interface IQuestionDetail {
   tagId: number;
   createdAt: string;
   updatedAt: string;
-  tag: ITagQuestionDetail;
+  user: IUserQuestionDetail;
 }
 
 export interface IQuestion {

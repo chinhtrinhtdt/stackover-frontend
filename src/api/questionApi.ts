@@ -7,9 +7,14 @@ const questionApi = {
     return API.get(ApiSettings.API_GET_QUESTION);
   },
 
+  getApiQuestionDetail( id: number | string ) {
+    return API.get(`${ApiSettings.API_GET_QUESTION_DETAIL}${id}`);
+  },
+
   postApiQuestion(params: IParamQuestion) {
     return API.post(ApiSettings.API_POST_QUESTION, params);
   },
+  
   getApiComment() {
     return API.get(ApiSettings.API_GET_COMMENT);
   },
