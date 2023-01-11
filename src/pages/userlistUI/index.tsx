@@ -11,12 +11,15 @@ function UserList() {
   const [check, setCheck] = useState<boolean>(false);
   const [listUser, setListUser] = useState<IListUserDetail[]>([]);
   useEffect(() => {
+    getUserApi();
+  }, [check]);
+
+  const getUserApi = () => {
     userApi
       .getUserApi()
       .then((res) => setListUser(res.data))
       .catch((e) => console.log(e));
-    console.log(24, listUser);
-  }, [check]);
+  };
 
   const renderButtonUserType = (id: number, htmlfor: string, label: string) => {
     return (
@@ -33,6 +36,7 @@ function UserList() {
       </>
     );
   };
+
   const renderButtonUserTime = (id: number, htmlfor: string, label: string) => {
     return (
       <>
@@ -48,15 +52,20 @@ function UserList() {
       </>
     );
   };
+
   const renderUserDetail = () => {
-    return listUser.map((user:IListUserDetail, index:number) => (
+    return listUser.map((user: IListUserDetail, index: number) => (
       <div
         className={`d-flex flex-row-reverse card mb-5 me-4  card-roll ${styles.cardBox}`}
         key={index}
       >
         <div className={`${styles.containUser} row g-0 d-flex`}>
           <div className={`${styles.imgSize} col-md-2 m-2`}>
-            <img src={DEFAULT_AVATAR_USERLIST} className="img-fluid rounded-start" alt="..." />
+            <img
+              src={DEFAULT_AVATAR_USERLIST}
+              className="img-fluid rounded-start"
+              alt="avatar"
+            />
           </div>
           <div className="col-md-8">
             <div className="fs-6">
@@ -74,6 +83,7 @@ function UserList() {
       </div>
     ));
   };
+
   return (
     <>
       <div className="ms-2 mb-2">
