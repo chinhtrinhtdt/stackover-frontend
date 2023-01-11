@@ -1,3 +1,4 @@
+import { LocalStorageKey } from './../constants/general.constant';
 export const passwordValidation = (password: string) => {
     const regExDigit = /^(?=.*\d)/;
     const regExLowerCase = /^(?=.*[a-z])/;
@@ -15,10 +16,14 @@ export const passwordValidation = (password: string) => {
 };
 
 export const checkToken = () => {
-    return localStorage.getItem("token") ? true : false;
+    return localStorage.getItem(LocalStorageKey.TOKEN) ? true : false;
 };
 
 export const getUserInfo = () => {
-    const userInfo = localStorage.getItem("user");
+    const userInfo = localStorage.getItem(LocalStorageKey.USER);
     return userInfo && JSON.parse(userInfo);
 };
+
+export const sortListDecrease = (list: any[]) => {
+    return list.sort((a, b) => a?.id - b?.id);
+}

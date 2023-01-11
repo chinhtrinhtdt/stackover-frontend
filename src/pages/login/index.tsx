@@ -1,38 +1,48 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './login.module.css';
 import { authApi } from '../../api';
+import { LocalStorageKey, MESSAGE } from '../../constants/general.constant';
+import { IParamLogin } from '../../interfaces/api.interfaces';
 import { LOGO_SECONDARY_IMAGE_URL } from '../../mocks';
-import { STATUS_CODE } from '../../constants/general.constant';
+import styles from './login.module.css';
 
 function Login() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const postApiLogin = (formData: IParamLogin) => {
+    authApi.postApiLogin(formData)
+      .then(res => {
+        navigate('/');
+        localStorage.setItem(LocalStorageKey.USER, JSON.stringify(res.data.user.username))
+        localStorage.setItem(LocalStorageKey.TOKEN, res.data.access_token);
+      })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+        alert(err.response?.data?.message || MESSAGE.INVALID_LOGIN);
+      })
+  }
 
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-
-    const loginObject = {
+    
+    const formData = {
       username,
       password
     };
 
-    document.querySelector("form")?.classList.add("was-validated")
+    document.querySelector("form")?.classList.add("was-validated");
     if (!username || !password) return;
 
-    authApi.postApiLogin(loginObject)
-      .then(res => {
-        if (res.status === STATUS_CODE.DONE || STATUS_CODE.CREATED) {
-          localStorage.setItem('user', JSON.stringify(res.data.user))
-          localStorage.setItem('token', res.data.access_token);
-          navigate('/');
-        };
-      })
-      .catch(err => console.log(err))
-  }
+    setLoading(true);
+    postApiLogin(formData);
+
+  };
 
   return (
     <div className='d-grid gap-2 col-4 mx-auto mt-5 p-3'>
@@ -55,11 +65,14 @@ function Login() {
             <span className={styles.passwordIcon} onClick={() => setShowPassword(!showPassword)}>
               <i className="bi bi-eye-fill"></i>
             </span>
+            <div className="invalid-feedback"> Please fill a password.</div>
           </div>
-          <div className="invalid-feedback"> Please fill a password.</div>
         </div>
 
-        <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>Login</button>
+        <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>
+          <span>Login</span>
+          {loading && <span className="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>}
+        </button>
       </form>
 
       <div className='text-center'>

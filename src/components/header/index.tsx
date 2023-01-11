@@ -1,17 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom'
-import styles from './header.module.css'
-import { LOGO_IMAGE_URL } from '../../mocks'
-import { checkToken, getUserInfo } from '../../helper/utils'
+import { Link, useNavigate } from 'react-router-dom';
+import { checkToken, getUserInfo } from '../../helper/utils';
+import { LOGO_IMAGE_URL } from '../../mocks';
+import styles from './header.module.css';
 
 function Header() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-    navigate("/login")
-  }
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <header className={`${styles.header} p-2 bg-white position-fixed w-100 top-0 text-black border-bottom`}>
@@ -22,9 +20,9 @@ function Header() {
           </Link>
 
           <ul className="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
-            <li><a href="/#" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>About</a></li>
-            <li><a href="/#" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>Products</a></li>
-            <li><a href="/#" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>For Teams</a></li>
+            <li><Link to="" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>About</Link></li>
+            <li><Link to="" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>Products</Link></li>
+            <li><Link to="" className={`${styles.link} nav-link px-2 py-1 text-secondary`}>For Teams</Link></li>
           </ul>
 
           <form className="mx-3 position-relative flex-fill">
@@ -35,7 +33,7 @@ function Header() {
           <div className="text-end">
             {checkToken() ?
               <div className='d-flex align-items-center'>
-                <span className='me-3 fw-bold'>{getUserInfo().username}</span>
+                <span className='me-3 fw-bold'>{getUserInfo()}</span>
                 <button type="button" className="btn btn-outline-secondary me-2  btn-sm" onClick={handleLogout}>Logout</button>
               </div> :
               <div>
