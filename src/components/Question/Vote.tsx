@@ -31,12 +31,7 @@ function Vote(props: IQuestionId) {
   );
 
   useEffect(() => {
-    console.log(26,voteUser);
-    
-    if (voteUser) {
-      setVoteType(voteUser.status);
-    }
-
+    if (voteUser) setVoteType(voteUser.status);
     questionId && getVotepApi();
   }, [checkUserVoted?.username, voteType, questionId, checkStatus]);
 
@@ -44,8 +39,6 @@ function Vote(props: IQuestionId) {
     questionApi
       .getApiVote(questionId)
       .then((res) => setVoteNumber(res.data.upvote - res.data.downvote))
-      // .then((res) => console.log(res.data))
-
       .catch((err) => console.log(err));
   };
 

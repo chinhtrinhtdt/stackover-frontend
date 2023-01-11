@@ -1,7 +1,5 @@
-import questionApi from './questionApi'
-import authApi from './authApi'
+import questionApi from "./questionApi";
+import authApi from "./authApi";
+import userApi from "./userApi";
 
-export {
-    questionApi,
-    authApi
-}
+export { questionApi, authApi, userApi };

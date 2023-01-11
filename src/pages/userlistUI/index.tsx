@@ -2,7 +2,7 @@ import * as React from "react";
 import { DEFAULT_AVATAR_USERLIST, LIST_IMAGE_USER } from "../../mocks";
 import styles from "./UserUI.module.css";
 import { useState, useEffect } from "react";
-import userApi from "../../api/userApi";
+import { userApi } from "../../api";
 import { IListUser, IListUserDetail } from "../../interfaces/user.interface";
 
 function UserList() {

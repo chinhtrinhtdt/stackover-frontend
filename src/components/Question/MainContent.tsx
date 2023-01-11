@@ -31,8 +31,6 @@ function Maincontent(props: IQuestionId) {
     questionApi
       .getApiComment()
       .then((res) => setCommentDataDetail(res.data))
-      // .then((res) => console.log(23,res.data))
-
       .catch((e) => console.log(e));
   };
 
