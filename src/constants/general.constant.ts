@@ -25,10 +25,6 @@ export const LocalStorageKey = {
 
 export const DEFAULT_PAGE_SIZE = 5;
 
-export const DEFAULT_INDEX_OF_FIRST = 0;
-
-export const DEFAULT_PAGE_COUNT = 0;
-
 export const DEFAULT_CURRENT_PAGE = 0;
 
 export const VOTE_PAGE = {

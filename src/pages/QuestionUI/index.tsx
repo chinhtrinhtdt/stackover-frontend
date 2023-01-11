@@ -5,7 +5,7 @@ import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import { DEFAULT_CURRENT_PAGE, DEFAULT_INDEX_OF_FIRST, DEFAULT_PAGE_COUNT, DEFAULT_PAGE_SIZE, LocalStorageKey } from "../../constants/general.constant";
+import { DEFAULT_CURRENT_PAGE, DEFAULT_PAGE_SIZE, LocalStorageKey } from "../../constants/general.constant";
 import { sortListDecrease } from "../../helper/utils";
 import { IQuestionDetail } from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
@@ -17,8 +17,8 @@ function QuestionPage() {
   const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
-  const [indexOfFirst, setIndexOfFirst] = useState<number>(DEFAULT_INDEX_OF_FIRST);
-  const [pageCount, setPageCount] = useState<number>(DEFAULT_PAGE_COUNT);
+  const [indexOfFirst, setIndexOfFirst] = useState<number>(0);
+  const [pageCount, setPageCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
 
   useEffect(() => {
@@ -26,19 +26,17 @@ function QuestionPage() {
   }, [isCreatePost]);
 
   useEffect(() => {
+    handlePagination();
+  }, [data, currentPage]);
+
+  const handlePagination = () => {
+    const indexOfLast = indexOfFirst + pageSize;
+    const newIndexOfFirst = (currentPage * pageSize) % data.length;
     const pageCount = Math.ceil(data.length / pageSize);
     setPageCount(pageCount);
-  }, [data])
-
-  useEffect(() => {
-    const indexOfLast = indexOfFirst + pageSize;
     setCurrentQuestions(data.slice(indexOfFirst, indexOfLast));
-  }, [data, indexOfFirst]);
-
-  useEffect(() => {
-    const newIndexOfFirst = (currentPage * pageSize) % data.length;
     setIndexOfFirst(newIndexOfFirst);
-  }, [currentPage]);
+  };
 
   const getApiQuestion = () => {
     questionApi.getApiQuestion()
@@ -57,9 +55,7 @@ function QuestionPage() {
 
   const handleClick = (postId: number) => {
     const post = data.find(post => post.id === postId);
-    if (post) {
-      setPostDetail(post);
-    };
+    post && setPostDetail(post);
   };
 
   const handleClickPagination = (event: any) => {
