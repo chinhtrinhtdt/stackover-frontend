@@ -32,7 +32,7 @@ function Vote(props: IQuestionId) {
 
   useEffect(() => {
     if (voteUser) setVoteType(voteUser.status);
-    questionId && getVotepApi();
+    if (questionId) getVotepApi();
   }, [checkUserVoted?.username, voteType, questionId, checkStatus]);
 
   const getVotepApi = () => {

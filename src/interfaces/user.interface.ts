@@ -19,12 +19,14 @@ export interface IUserQuestion {
   createdAt: string;
   updatedAt: string;
 }
+
 export interface IListUserDetail {
   user: IUserQuestionDetail;
   votes: IUserVote[];
   questions: IUserQuestion[],
   reputation: number
 }
+
 export interface IListUser {
   data: IListUserDetail[];
 }
