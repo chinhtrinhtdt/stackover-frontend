@@ -1,6 +1,5 @@
 import { memo, useState } from 'react';
 import { questionApi } from '../../api';
-import { STATUS_CODE } from '../../constants/general.constant';
 import styles from './ModalAddQuestion.module.css';
 
 interface IPropsModalAddQuestion {
@@ -42,9 +41,7 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         resetStateInput();
 
         questionApi.postApiQuestion(question)
-            .then(res => {
-                res.status === STATUS_CODE.CREATED && getReloadData();
-            })
+            .then(res => getReloadData())
             .catch(err => console.log(err))
     };
 

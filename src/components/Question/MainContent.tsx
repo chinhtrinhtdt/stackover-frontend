@@ -5,6 +5,7 @@ import { questionApi } from "../../api";
 import { IPropsMainContent } from "../../interfaces/props.interfaces";
 import { ICommentDetail } from "../../interfaces/question.interface";
 import style from "./Question.module.css";
+import { LIST_IMAGE_USER } from "../../mocks";
 
 function Maincontent(props: IPropsMainContent) {
   const { postDetail } = props;
@@ -97,12 +98,8 @@ function Maincontent(props: IPropsMainContent) {
       </div>
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
-          <Link to="./#" className={`${style.linkImprove} mx-2`}>
-            Improve this question
-          </Link>
-          <Link to="./#" className={`${style.linkImprove} mx-2`}>
-            Follow
-          </Link>
+          <span className={`${style.linkImprove} mx-2`}>-</span>
+          <span className={`${style.linkImprove} mx-2`}>-</span>
         </div>
         <div className={`d-flex flex-row-reverse card mb-3 card-roll ${style.card_box}`}        >
           <div className="row g-0 d-flex m-2 ">
@@ -110,7 +107,7 @@ function Maincontent(props: IPropsMainContent) {
               <small>asked Feb 11, 2019 at 15:18</small>
             </div>
             <div className="col-md-2 m-2">
-              <img src="https://i.stack.imgur.com/kKetn.jpg?s=64&g=1" className="img-fluid rounded-start" alt="avatar" />
+              <img src={LIST_IMAGE_USER[0].img} className="img-fluid rounded-start" alt="avatar" />
             </div>
             <div className="col-md-8 m-2">
               <h5 className="card-title fs-6">devserkan</h5>
@@ -131,9 +128,9 @@ function Maincontent(props: IPropsMainContent) {
           <div key={index}>
             <hr />
             {item.content} - {" "}
-            <a href="#" className={`${style.textComment}`}>
+            <span className={`${style.textComment}`}>
               {item.user.username}
-            </a>
+            </span>
             {" "}-{" "}
             <span className={`${style.textComment} ${style.linkImprove}`}>
               {moment(item?.createdAt).format("LLL")}
