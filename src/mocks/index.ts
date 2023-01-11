@@ -208,3 +208,6 @@ export const GET_VOTE_DETAIL_TYPE = {
   username: "",
   status: "",
 };
+
+export const DEFAULT_AVATAR_USERLIST =
+  "https://www.gravatar.com/avatar/bcad6c8d7a64b0e16fd59996e3835ee9?s=96&d=identicon&r=PG";
