@@ -7,7 +7,7 @@ import styles from "./questionUI.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { questionApi } from "../../api";
-import { IQuestionDetail } from "../../interfaces/question.interface";
+import { IQuestionDetail } from "../../interfaces/question.interfaces";
 
 function QuestionPage() {
   const renderTime = (name: string, value: string) => {

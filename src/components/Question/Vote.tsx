@@ -6,7 +6,7 @@ import {
   IVote,
   IQuestionId,
   IVoteDetail,
-} from "../../interfaces/question.interface";
+} from "../../interfaces/question.interfaces";
 import { DEFAULT_GET_VOTE_TYPE, GET_VOTE_DETAIL_TYPE } from "../../mocks";
 import { param } from "jquery";
 import { LocalStorageKey, VOTE_PAGE } from "../../constants/general.constant";

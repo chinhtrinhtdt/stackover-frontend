@@ -10,7 +10,7 @@ import {
   ICommentDetail,
   IComment,
   IQuestionId,
-} from "../../interfaces/question.interface";
+} from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import moment from "moment";
 

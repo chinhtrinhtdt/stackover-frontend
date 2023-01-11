@@ -1,4 +1,4 @@
-import { IUserQuestionDetail } from "./question.interface";
+import { IUserQuestionDetail } from "./question.interfaces";
 
 export interface IUserVote {
   id: number;
