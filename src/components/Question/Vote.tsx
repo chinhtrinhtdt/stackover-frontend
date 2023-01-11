@@ -3,7 +3,6 @@ import { questionApi } from "../../api";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
 import {
-  IVote,
   IQuestionId,
   IVoteDetail,
 } from "../../interfaces/question.interface";
