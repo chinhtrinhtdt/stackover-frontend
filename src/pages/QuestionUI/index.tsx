@@ -5,7 +5,7 @@ import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import { LocalStorageKey, Questions } from "../../constants/general.constant";
+import { DEFAULT_CURRENT_PAGE, DEFAULT_INDEX_OF_FIRST, DEFAULT_PAGE_COUNT, DEFAULT_PAGE_SIZE, LocalStorageKey } from "../../constants/general.constant";
 import { sortListDecrease } from "../../helper/utils";
 import { IQuestionDetail } from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
@@ -16,20 +16,29 @@ function QuestionPage() {
   const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>([]);
   const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
-  const [questionPerPage, setQuestionPerPage] = useState<number>(Questions.PerPage);
-  const [itemStart, setItemStart] = useState<number>(Questions.itemStart);
-  const [totalPage, setTotalPage] = useState<number>(0);
+  const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
+  const [indexOfFirst, setIndexOfFirst] = useState<number>(DEFAULT_INDEX_OF_FIRST);
+  const [pageCount, setPageCount] = useState<number>(DEFAULT_PAGE_COUNT);
+  const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
 
   useEffect(() => {
     getApiQuestion();
   }, [isCreatePost]);
 
   useEffect(() => {
-    const pageCount = Math.ceil(data.length / questionPerPage);
-    const itemEnd = itemStart + questionPerPage;
-    setTotalPage(pageCount);
-    setCurrentQuestions(data.slice(itemStart, itemEnd));
-  }, [data, itemStart]);
+    const pageCount = Math.ceil(data.length / pageSize);
+    setPageCount(pageCount);
+  }, [data])
+
+  useEffect(() => {
+    const indexOfLast = indexOfFirst + pageSize;
+    setCurrentQuestions(data.slice(indexOfFirst, indexOfLast));
+  }, [data, indexOfFirst]);
+
+  useEffect(() => {
+    const newIndexOfFirst = (currentPage * pageSize) % data.length;
+    setIndexOfFirst(newIndexOfFirst);
+  }, [currentPage]);
 
   const getApiQuestion = () => {
     questionApi.getApiQuestion()
@@ -54,9 +63,8 @@ function QuestionPage() {
   };
 
   const handleClickPagination = (event: any) => {
-    const newItemStart = (event.selected * questionPerPage) % data.length;
-    setItemStart(newItemStart);
-  }
+    setCurrentPage(event.selected);
+  };
 
   const renderListQuestion = () => {
     return currentQuestions.map((question: IQuestionDetail) => (
@@ -112,7 +120,7 @@ function QuestionPage() {
 
           <ReactPaginate
             onPageChange={handleClickPagination}
-            pageCount={totalPage}
+            pageCount={pageCount}
             containerClassName="pagination"
             pageLinkClassName="page-link"
             activeClassName="active"
