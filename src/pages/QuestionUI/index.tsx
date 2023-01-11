@@ -17,7 +17,6 @@ function QuestionPage() {
   const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
-  const [indexOfFirst, setIndexOfFirst] = useState<number>(0);
   const [pageCount, setPageCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
 
@@ -26,16 +25,15 @@ function QuestionPage() {
   }, [isCreatePost]);
 
   useEffect(() => {
-    handlePagination();
+    processPagination();
   }, [data, currentPage]);
 
-  const handlePagination = () => {
-    const indexOfLast = indexOfFirst + pageSize;
-    const newIndexOfFirst = (currentPage * pageSize) % data.length;
+  const processPagination = () => {
     const pageCount = Math.ceil(data.length / pageSize);
+    const indexOfFirst = (currentPage * pageSize) % data.length;
+    const indexOfLast = indexOfFirst + pageSize;
     setPageCount(pageCount);
     setCurrentQuestions(data.slice(indexOfFirst, indexOfLast));
-    setIndexOfFirst(newIndexOfFirst);
   };
 
   const getApiQuestion = () => {
