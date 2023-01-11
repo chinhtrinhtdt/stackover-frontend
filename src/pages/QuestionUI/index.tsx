@@ -67,7 +67,7 @@ function QuestionPage() {
           <h6 className={styles.title}>{question.title}</h6>
           <p className={styles.textContent}>{question.textContent}</p>
           <div className="">
-            <span className={`${styles.font12} ${styles.tags}`}>{question.tag?.name}</span>
+            {/* <span className={`${styles.font12} ${styles.tags}`}>{question.tag?.name}</span> */}
           </div>
           <span className={styles.font12}>{moment(question?.createdAt).format("LLL")}</span>
         </div>
@@ -93,7 +93,7 @@ function QuestionPage() {
           </div>
           <div className="flex p-2">
             <small className="text-muted p-2">Tag </small>
-            {postDetail?.tag?.name}
+            {/* {postDetail?.tag?.name} */}
           </div>
         </div>
       </header>

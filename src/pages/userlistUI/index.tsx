@@ -1,11 +1,25 @@
 import * as React from "react";
-import { LIST_IMAGE_USER } from "../../mocks";
+import { DEFAULT_AVATAR_USERLIST, LIST_IMAGE_USER } from "../../mocks";
 import styles from "./UserUI.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { userApi } from "../../api";
+import { IListUser, IListUserDetail } from "../../interfaces/user.interface";
 
 function UserList() {
   const [checkButtonUserType, setCheckButtonUserType] = useState<number>(0);
   const [checkButtonUserTime, setCheckButtonUserTime] = useState<number>(0);
+  const [check, setCheck] = useState<boolean>(false);
+  const [listUser, setListUser] = useState<IListUserDetail[]>([]);
+  useEffect(() => {
+    getUserApi();
+  }, [check]);
+
+  const getUserApi = () => {
+    userApi
+      .getUserApi()
+      .then((res) => setListUser(res.data))
+      .catch((e) => console.log(e));
+  };
 
   const renderButtonUserType = (id: number, htmlfor: string, label: string) => {
     return (
@@ -22,6 +36,7 @@ function UserList() {
       </>
     );
   };
+
   const renderButtonUserTime = (id: number, htmlfor: string, label: string) => {
     return (
       <>
@@ -37,24 +52,30 @@ function UserList() {
       </>
     );
   };
+
   const renderUserDetail = () => {
-    return LIST_IMAGE_USER.map((user) => (
+    return listUser.map((user: IListUserDetail, index: number) => (
       <div
         className={`d-flex flex-row-reverse card mb-5 me-4  card-roll ${styles.cardBox}`}
+        key={index}
       >
         <div className={`${styles.containUser} row g-0 d-flex`}>
           <div className={`${styles.imgSize} col-md-2 m-2`}>
-            <img src={user.img} className="img-fluid rounded-start" alt="..." />
+            <img
+              src={DEFAULT_AVATAR_USERLIST}
+              className="img-fluid rounded-start"
+              alt="avatar"
+            />
           </div>
           <div className="col-md-8">
             <div className="fs-6">
-              <a href="#">{user.nameUser}</a>
-              <div className={`${styles.techType}`}>{user.nationality}</div>
+              <a href="">{user.user.username}</a>
+              <div className={`${styles.techType}`}>{user.reputation}</div>
               <div className={`${styles.techType}`}>
-                <b>1,231</b>
+                <b>-</b>
               </div>
               <div className={`${styles.techType}`}>
-                <a href="#">{user.techType}</a>
+                <a href="">-</a>
               </div>
             </div>
           </div>
@@ -62,6 +83,7 @@ function UserList() {
       </div>
     ));
   };
+
   return (
     <>
       <div className="ms-2 mb-2">

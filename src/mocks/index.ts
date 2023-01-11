@@ -40,14 +40,22 @@ export const DATADETAIL_GET_QUESTION = {
   codeContent: "",
   userId: 0,
   tagId: 0,
-  createdAt: '',
-  updatedAt: '',
-  tag: {
-    id: 0,
-  name: '',
-  createdAt: '',
-  updatedAt: ''
-  }
+  createdAt: "",
+  updatedAt: "",
+  user: {
+    id: "",
+    username: "",
+    password: "",
+    email: "",
+    name: "",
+    isActive: false,
+    codeVerify: "",
+    interestedTags: "",
+    location: "",
+    isEnabled2FA: false,
+    createdAt: "",
+    updatedAt: "",
+  },
 };
 
 export const LIST_TAGS = [
@@ -196,10 +204,10 @@ export const DEFAULT_GET_VOTE_TYPE = {
   count: 0,
   row: [],
 };
-export const GET_VOTE_DETAIL_TYPE = 
-  {
-    username: "",
-    status: "",
-  }
+export const GET_VOTE_DETAIL_TYPE = {
+  username: "",
+  status: "",
+};
 
-
+export const DEFAULT_AVATAR_USERLIST =
+  "https://www.gravatar.com/avatar/bcad6c8d7a64b0e16fd59996e3835ee9?s=96&d=identicon&r=PG";

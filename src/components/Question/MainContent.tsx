@@ -1,24 +1,48 @@
-import moment from "moment";
-import { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { questionApi } from "../../api";
-import { IPropsMainContent } from "../../interfaces/props.interfaces";
-import { ICommentDetail } from "../../interfaces/question.interface";
 import style from "./Question.module.css";
-import { LIST_IMAGE_USER } from "../../mocks";
+import { DATADETAIL_GET_QUESTION, LIST_IMAGE_USER } from "../../mocks";
 
+import { memo, useState, useEffect } from "react";
+import axios from "axios";
+import { questionApi } from "../../api";
+import {
+  IQuestion,
+  IQuestionDetail,
+  ICommentDetail,
+  IComment,
+  IQuestionId,
+} from "../../interfaces/question.interfaces";
+import moment from "moment";
+
+
+interface IPropsMainContent {
+  postDetail: IQuestionDetail;
+}
 function Maincontent(props: IPropsMainContent) {
   const { postDetail } = props;
   const [isComment, setIsComment] = useState<boolean>(false);
+  const [quesdataDetail, setQuesDataDetail] = useState<any>(DATADETAIL_GET_QUESTION);
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
 
   useEffect(() => {
+    postDetail.id && getApiQuestionDetail();
+    getApiComment();
+  }, [isComment, postDetail.id]);
+
+  const getApiComment = () => {
     questionApi
       .getApiComment()
       .then((res) => setCommentDataDetail(res.data))
       .catch((e) => console.log(e));
-  }, [isComment]);
+  };
+
+  const getApiQuestionDetail = () => {
+    questionApi
+      .getApiQuestionDetail(postDetail.id)
+      .then((res) => setQuesDataDetail(res.data))
+      .catch((e) => console.log(e));
+  };
 
   const handleSunmitCmt = () => {
     const params = {
@@ -89,6 +113,7 @@ function Maincontent(props: IPropsMainContent) {
       </div>
     );
   };
+
   return (
     <div>
       <div>{postDetail?.textContent}</div>
@@ -104,20 +129,33 @@ function Maincontent(props: IPropsMainContent) {
         <div className={`d-flex flex-row-reverse card mb-3 card-roll ${style.card_box}`}        >
           <div className="row g-0 d-flex m-2 ">
             <div className="p-2 fs-6">
-              <small>asked Feb 11, 2019 at 15:18</small>
+              <small>
+                asked
+                <span> {moment(quesdataDetail?.createdAt).format("LLL")}</span>
+              </small>
             </div>
             <div className="col-md-2 m-2">
               <img src={LIST_IMAGE_USER[0].img} className="img-fluid rounded-start" alt="avatar" />
             </div>
-            <div className="col-md-8 m-2">
-              <h5 className="card-title fs-6">devserkan</h5>
-              <div className="d-flex">
-                <span>16.3k</span>
-                <ul className={`d-flex ${style.listVote}`}>
-                  <li><span>1</span></li>
-                  <li><span>222</span></li>
-                  <li><span>222</span></li>
-                </ul>
+            <div className="col-md-8 ">
+              <div className="m-2">
+                <h5 className="card-title fs-6">devserkan</h5>
+                <div className="d-flex">
+                  <div>16.3k</div>
+                  <div className={`d-flex ${style.listVoteCotainer}`}>
+                    <ul className={`d-flex ${style.listVote}`}>
+                      <li>
+                        <span>1</span>
+                      </li>
+                      <li>
+                        <span>222</span>
+                      </li>
+                      <li>
+                        <span>222</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -128,9 +166,9 @@ function Maincontent(props: IPropsMainContent) {
           <div key={index}>
             <hr />
             {item.content} - {" "}
-            <span className={`${style.textComment}`}>
+            <a href="#" className={`${style.textComment}`}>
               {item.user.username}
-            </span>
+            </a>
             {" "}-{" "}
             <span className={`${style.textComment} ${style.linkImprove}`}>
               {moment(item?.createdAt).format("LLL")}
