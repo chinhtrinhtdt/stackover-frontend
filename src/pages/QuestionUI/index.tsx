@@ -5,7 +5,7 @@ import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import { Questions } from "../../constants/general.constant";
+import { LocalStorageKey, Questions } from "../../constants/general.constant";
 import { sortListDecrease } from "../../helper/utils";
 import { IQuestionDetail } from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
@@ -17,7 +17,7 @@ function QuestionPage() {
   const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
   const [questionPerPage, setQuestionPerPage] = useState<number>(Questions.PerPage);
-  const [itemOffset, setItemOffset] = useState<number>(Questions.ItemOffset);
+  const [itemStart, setItemStart] = useState<number>(Questions.itemStart);
   const [totalPage, setTotalPage] = useState<number>(0);
 
   useEffect(() => {
@@ -26,16 +26,16 @@ function QuestionPage() {
 
   useEffect(() => {
     const pageCount = Math.ceil(data.length / questionPerPage);
-    const endOffset = itemOffset + questionPerPage;
+    const itemEnd = itemStart + questionPerPage;
     setTotalPage(pageCount);
-    setCurrentQuestions(data.slice(itemOffset, endOffset));
-  }, [data, itemOffset]);
+    setCurrentQuestions(data.slice(itemStart, itemEnd));
+  }, [data, itemStart]);
 
   const getApiQuestion = () => {
     questionApi.getApiQuestion()
       .then((res) => {
         const listDataSort = sortListDecrease(res.data);
-        localStorage.setItem("post-questions", JSON.stringify(listDataSort));
+        localStorage.setItem(LocalStorageKey.POST_QUESTIONS, JSON.stringify(listDataSort));
         setData(listDataSort);
         setPostDetail(listDataSort[0]);
       })
@@ -54,8 +54,8 @@ function QuestionPage() {
   };
 
   const handleClickPagination = (event: any) => {
-    const newOffset = (event.selected * questionPerPage) % data.length;
-    setItemOffset(newOffset);
+    const newItemStart = (event.selected * questionPerPage) % data.length;
+    setItemStart(newItemStart);
   }
 
   const renderListQuestion = () => {

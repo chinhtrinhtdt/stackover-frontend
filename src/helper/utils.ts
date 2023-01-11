@@ -25,5 +25,5 @@ export const getUserInfo = () => {
 };
 
 export const sortListDecrease = (list: any[]) => {
-    return list.sort((a, b) => (a.id < b.id) ? 1 : -1)
+    return list.sort((a, b) => a?.id - b?.id);
 }

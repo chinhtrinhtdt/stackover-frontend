@@ -4,7 +4,7 @@ import { checkToken } from "./helper/utils";
 
 const App = () => {
   if(checkToken() && (window.location.pathname === "/login" || window.location.pathname === "/register")) {
-    window.location.href='/';
+    window.location.href='/questions';
   };
 
   return (
