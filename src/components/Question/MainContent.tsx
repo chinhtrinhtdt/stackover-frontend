@@ -12,7 +12,11 @@ import {
   IQuestionId,
 } from "../../interfaces/question.interfaces";
 import moment from "moment";
-
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface IPropsMainContent {
   postDetail: IQuestionDetail;
 }
@@ -20,19 +24,16 @@ function Maincontent(props: IPropsMainContent) {
   const { postDetail } = props;
   const [isComment, setIsComment] = useState<boolean>(false);
   const [isDeleteComment, setIsDeleteComment] = useState<boolean>(false);
-
-  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(
-    DATADETAIL_GET_QUESTION
-  );
-  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
-    []
-  );
+  const [getIdDelete, setIdDelete] = useState<number>(0);
+  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     postDetail.id && getApiQuestionDetail();
     getApiComment();
-  }, [isComment, postDetail.id, isDeleteComment]);
+  }, [isComment, isDeleteComment]);
 
   const getApiComment = () => {
     questionApi
@@ -61,6 +62,7 @@ function Maincontent(props: IPropsMainContent) {
       questionApi.postApiComment(params).then((res) => {
         if (res.status === 201) {
           setIsComment(!isComment);
+          toast.success("Add success!", { autoClose: 3000 });
         }
       });
     }
@@ -118,13 +120,16 @@ function Maincontent(props: IPropsMainContent) {
     );
   };
 
-  const handleDeleteComment = (item: ICommentDetail) => {
+  const handleDeleteComment = (item: number) => {
     questionApi
-      .deleteApiComment(item.id)
-      .then((res) => setIsDeleteComment(!isDeleteComment))
+      .deleteApiComment(item)
+      .then((res) => {
+        toast.error("Delete success!", { autoClose: 3000 });
+        setIsDeleteComment(!isDeleteComment);
+      })
       .catch((err) => console.log(err));
   };
-
+  
   return (
     <div>
       <div>{postDetail?.textContent}</div>
@@ -200,10 +205,60 @@ function Maincontent(props: IPropsMainContent) {
                 <button
                   type="button"
                   className="btn btn-light"
-                  onClick={() => handleDeleteComment(item)}
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  onClick={() => setIdDelete(item.id)}
                 >
                   <i className="bi bi-trash3"></i>
                 </button>
+                <div
+                  className="modal fade"
+                  id="staticBackdrop"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabIndex={-1}
+                  aria-labelledby="staticBackdropLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h1
+                          className="modal-title fs-5"
+                          id="staticBackdropLabel"
+                        >
+                          Verify
+                        </h1>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        Are you sure you want to delete?
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-danger"
+                          onClick={() => handleDeleteComment(getIdDelete)}
+                          data-bs-dismiss="modal"
+                        >
+                          Delete
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -211,6 +266,7 @@ function Maincontent(props: IPropsMainContent) {
         <hr />
       </div>
       <div>{renderAddComment()}</div>
+      <ToastContainer />
     </div>
   );
 }
