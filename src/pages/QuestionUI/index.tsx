@@ -5,16 +5,27 @@ import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import { DEFAULT_CURRENT_PAGE, DEFAULT_PAGE_SIZE, LocalStorageKey } from "../../constants/general.constant";
+import {
+  DEFAULT_CURRENT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  LocalStorageKey,
+} from "../../constants/general.constant";
 import { sortListDecrease } from "../../helper/utils";
-import { IQuestionDetail } from "../../interfaces/question.interfaces";
+import {
+  IQuestionDetail,
+  ITagQuestionDetail,
+} from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
 
 function QuestionPage() {
   const [data, setData] = useState<IQuestionDetail[]>([]);
-  const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>([]);
-  const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
+  const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
+    []
+  );
+  const [postDetail, setPostDetail] = useState<IQuestionDetail>(
+    DATADETAIL_GET_QUESTION
+  );
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
   const [pageCount, setPageCount] = useState<number>(0);
@@ -37,10 +48,14 @@ function QuestionPage() {
   };
 
   const getApiQuestion = () => {
-    questionApi.getApiQuestion()
+    questionApi
+      .getApiQuestion()
       .then((res) => {
         const listDataSort = sortListDecrease(res.data);
-        localStorage.setItem(LocalStorageKey.POST_QUESTIONS, JSON.stringify(listDataSort));
+        localStorage.setItem(
+          LocalStorageKey.POST_QUESTIONS,
+          JSON.stringify(listDataSort)
+        );
         setData(listDataSort);
         setPostDetail(listDataSort[0]);
       })
@@ -48,11 +63,11 @@ function QuestionPage() {
   };
 
   const getReloadData = () => {
-    setIsCreatePost(!isCreatePost)
+    setIsCreatePost(!isCreatePost);
   };
 
   const handleClick = (postId: number) => {
-    const post = data.find(post => post.id === postId);
+    const post = data.find((post) => post.id === postId);
     post && setPostDetail(post);
   };
 
@@ -62,14 +77,22 @@ function QuestionPage() {
 
   const renderListQuestion = () => {
     return currentQuestions.map((question: IQuestionDetail) => (
-      <div className={`${styles.cursorPointer} d-flex mb-4 shadow p-2`} key={question.id} onClick={() => { handleClick(question.id) }}>
+      <div
+        className={`${styles.cursorPointer} d-flex mb-4 shadow p-2`}
+        key={question.id}
+        onClick={() => {
+          handleClick(question.id);
+        }}
+      >
         <div className="d-flex flex-column ">
           <h6 className={styles.title}>{question.title}</h6>
           <p className={styles.textContent}>{question.textContent}</p>
           <div className="">
             <span className={`${styles.font12} ${styles.tags}`}>{question?.tag?.name}</span>
           </div>
-          <span className={styles.font12}>{moment(question?.createdAt).format("LLL")}</span>
+          <span className={styles.font12}>
+            {moment(question?.createdAt).format("LLL")}
+          </span>
         </div>
       </div>
     ));
@@ -80,7 +103,12 @@ function QuestionPage() {
       <header>
         <div className="d-flex justify-content-between p-3">
           <h4>{postDetail?.title}</h4>
-          <button type="button" className={`${styles.ask} btn btn-primary`} data-bs-toggle="modal" data-bs-target="#addQuestion"          >
+          <button
+            type="button"
+            className={`${styles.ask} btn btn-primary`}
+            data-bs-toggle="modal"
+            data-bs-target="#addQuestion"
+          >
             Add question
           </button>
           <ModalAddQuestion getReloadData={getReloadData} />
@@ -93,7 +121,9 @@ function QuestionPage() {
           </div>
           <div className="flex p-2">
             <small className="text-muted p-2">Tag </small>
-            {postDetail?.tag?.name}
+            {postDetail.tags.map((tag: any, index:number) => {
+                return <span>{tag.name}{ } </span>;     
+            })}
           </div>
         </div>
       </header>
