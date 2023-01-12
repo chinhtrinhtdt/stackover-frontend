@@ -32,7 +32,7 @@ function Maincontent(props: IPropsMainContent) {
   useEffect(() => {
     postDetail.id && getApiQuestionDetail();
     getApiComment();
-  }, [isComment, postDetail.id,isDeleteComment]);
+  }, [isComment, postDetail.id, isDeleteComment]);
 
   const getApiComment = () => {
     questionApi
@@ -134,8 +134,9 @@ function Maincontent(props: IPropsMainContent) {
       </div>
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
-          <span className={`${style.linkImprove} mx-2`}>-</span>
-          <span className={`${style.linkImprove} mx-2`}>-</span>
+          <span className={`${style.linkImprove} mx-2`}>Share</span>
+          <span className={`${style.linkImprove} mx-2`}>Edit</span>
+          <span className={`${style.linkImprove} mx-2`}>Follow</span>
         </div>
         <div
           className={`d-flex flex-row-reverse card mb-3 card-roll ${style.card_box}`}
