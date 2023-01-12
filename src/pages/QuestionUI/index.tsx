@@ -1,6 +1,7 @@
 import moment from "moment";
 import { memo, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useNavigate, useParams } from "react-router-dom";
 import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
@@ -10,7 +11,6 @@ import { sortListDecrease } from "../../helper/utils";
 import { IQuestionDetail } from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
-import { useNavigate, useParams } from "react-router-dom";
 
 function QuestionPage() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ function QuestionPage() {
   useEffect(()=> {
     const post = data.find(post => post.id === parseInt(questionId!));
     post && setPostDetail(post);
-  }, [questionId]);
+  }, [data, questionId]);
 
   useEffect(() => {
     getApiQuestion();

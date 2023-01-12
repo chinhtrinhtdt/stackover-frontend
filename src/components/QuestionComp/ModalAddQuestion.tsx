@@ -43,8 +43,14 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         resetStateInput();
 
         questionApi.postApiQuestion(question)
-            .then(res => getReloadData())
-            .catch(err => console.log(err))
+            .then(res => {
+                alert(res.data.message);
+                getReloadData();
+            })
+            .catch(err => {
+                console.log(err);
+                alert(err.message);
+            })
     };
 
     return (
