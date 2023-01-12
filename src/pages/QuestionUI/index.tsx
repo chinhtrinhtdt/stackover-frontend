@@ -10,8 +10,12 @@ import { sortListDecrease } from "../../helper/utils";
 import { IQuestionDetail } from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 function QuestionPage() {
+  const navigate = useNavigate();
+  const {questionId} = useParams();
+
   const [data, setData] = useState<IQuestionDetail[]>([]);
   const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>([]);
   const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
@@ -19,6 +23,11 @@ function QuestionPage() {
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
   const [pageCount, setPageCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
+
+  useEffect(()=> {
+    const post = data.find(post => post.id === parseInt(questionId!));
+    post && setPostDetail(post);
+  }, [questionId]);
 
   useEffect(() => {
     getApiQuestion();
@@ -52,8 +61,7 @@ function QuestionPage() {
   };
 
   const handleClick = (postId: number) => {
-    const post = data.find(post => post.id === postId);
-    post && setPostDetail(post);
+    navigate(`/questions/${postId}`);
   };
 
   const handleClickPagination = (event: any) => {
@@ -67,7 +75,7 @@ function QuestionPage() {
           <h6 className={styles.title}>{question.title}</h6>
           <p className={styles.textContent}>{question.textContent}</p>
           <div className="">
-            <span className={`${styles.font12} ${styles.tags}`}>{question?.tag?.name}</span>
+            {/* <span className={`${styles.font12} ${styles.tags}`}>{question?.tag?.name}</span> */}
           </div>
           <span className={styles.font12}>{moment(question?.createdAt).format("LLL")}</span>
         </div>
@@ -93,7 +101,7 @@ function QuestionPage() {
           </div>
           <div className="flex p-2">
             <small className="text-muted p-2">Tag </small>
-            {postDetail?.tag?.name}
+            {/* {postDetail?.tag?.name} */}
           </div>
         </div>
       </header>

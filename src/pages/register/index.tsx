@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
-import { MESSAGE } from '../../constants/general.constant';
+import { LocalStorageKey, MESSAGE } from '../../constants/general.constant';
 import { passwordValidation } from '../../helper/utils';
 import styles from './register.module.css';
 
@@ -35,6 +35,7 @@ function Register() {
       .then(res => {
         setLoading(false);
         alert(res.data?.message);
+        localStorage.setItem(LocalStorageKey.EMAIL,res.data.user.email);
         navigate('/login');
       })
       .catch(err => {
