@@ -88,7 +88,7 @@ function QuestionPage() {
           <h6 className={styles.title}>{question.title}</h6>
           <p className={styles.textContent}>{question.textContent}</p>
           <div className="">
-            {/* <span className={`${styles.font12} ${styles.tags}`}>{question.tag?.name}</span> */}
+            <span className={`${styles.font12} ${styles.tags}`}>{question?.tag?.name}</span>
           </div>
           <span className={styles.font12}>
             {moment(question?.createdAt).format("LLL")}
@@ -122,9 +122,7 @@ function QuestionPage() {
           <div className="flex p-2">
             <small className="text-muted p-2">Tag </small>
             {postDetail.tags.map((tag: any, index:number) => {
-             
-                return <span>{tag.name}{ } </span>;
-              
+                return <span>{tag.name}{ } </span>;     
             })}
           </div>
         </div>
@@ -141,7 +139,7 @@ function QuestionPage() {
           </div>
         </div>
 
-        <div className="p-2 w-25">
+        <div className={`${styles.zIndex0} p-2 w-25`}>
           {renderListQuestion()}
 
           <ReactPaginate

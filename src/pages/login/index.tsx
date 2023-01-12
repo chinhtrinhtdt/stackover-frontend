@@ -24,7 +24,7 @@ function Login() {
       .catch(err => {
         console.log(err);
         setLoading(false);
-        alert(err.response?.data?.message || MESSAGE.INVALID_LOGIN);
+        alert(err.response?.data?.message || MESSAGE.ERR_NETWORK);
       })
   }
 
