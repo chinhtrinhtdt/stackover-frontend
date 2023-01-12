@@ -91,20 +91,20 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
                     </div>
                 </div>
                 :
-                <div className="modal-dialog modal-dialog-centered ">
+                <div className="modal-dialog modal-dialog-centered">
                     <div className={`${styles.modalContent} modal-content`}>
                         <div className="modal-header">
                             <h5 className="modal-title" id="staticBackdropLabel">Join the Stack Overflow community</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body mb-3">
                             <h6>You must be logged in to ask a question on Stack Overflow</h6>
-                            <div data-bs-dismiss="modal" className='my-2 mt-3'>
-                                <span>You want to Login?</span> <Link to="/login">Click here</Link>
-                            </div>
-                            <div data-bs-dismiss="modal">
-                                <span>You want to Register?</span> <Link to="/register">Click here</Link>
-                            </div>
+                            <Link to="/login">
+                                <button data-bs-dismiss="modal" className='w-100 btn btn-outline-primary my-2 mt-3'>Login</button>
+                            </Link>
+                            <Link to="/register">
+                                <button data-bs-dismiss="modal" className='w-100 btn btn-outline-primary'>Register</button>
+                            </Link>
                         </div>
                     </div>
                 </div >
