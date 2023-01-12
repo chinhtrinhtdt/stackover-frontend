@@ -10,17 +10,24 @@ function UserList() {
   const [checkButtonUserTime, setCheckButtonUserTime] = useState<number>(0);
   const [check, setCheck] = useState<boolean>(false);
   const [listUser, setListUser] = useState<IListUserDetail[]>([]);
+  const [filterUserByType, setFilterUserByType] =
+    useState<string>("reputation");
   useEffect(() => {
-    getUserApi();
-  }, [check]);
+    // getUserApi();
+    getUserByType();
+  }, [check,filterUserByType]);
 
-  const getUserApi = () => {
+  const getUserByType = () => {
     userApi
-      .getUserApi()
+      .getUserByType(filterUserByType)
       .then((res) => setListUser(res.data))
       .catch((e) => console.log(e));
   };
 
+  const handleUserType = (id: number, item: string) => {
+    setCheckButtonUserType(id);
+    setFilterUserByType(item)
+  };
   const renderButtonUserType = (id: number, htmlfor: string, label: string) => {
     return (
       <>
@@ -29,7 +36,7 @@ function UserList() {
           className={`btn border ${
             checkButtonUserType === id ? styles.activeBtn : ""
           } ${styles.containerButtonUserType}`}
-          onClick={() => setCheckButtonUserType(id)}
+          onClick={() => handleUserType(id,htmlfor)}
         >
           <div className="fs-6">{label}</div>
         </button>
@@ -62,7 +69,7 @@ function UserList() {
         <div className={`${styles.containUser} row g-0 d-flex`}>
           <div className={`${styles.imgSize} col-md-2 m-2`}>
             <img
-              src={DEFAULT_AVATAR_USERLIST}
+              src={DEFAULT_AVATAR_USERLIST[Math.floor(Math.random() * 5)]}
               className="img-fluid rounded-start"
               alt="avatar"
             />
@@ -100,11 +107,11 @@ function UserList() {
             </div>
           </div>
           <div className="btn-group" role="group" aria-label="Basic example">
-            {renderButtonUserType(0, "btnradio1", "Reputation")}
-            {renderButtonUserType(1, "btnradio2", "New users")}
-            {renderButtonUserType(2, "btnradio3", "Voters")}
-            {renderButtonUserType(3, "btnradio4", "Editors")}
-            {renderButtonUserType(4, "btnradio5", "Moderators")}
+            {renderButtonUserType(0, "reputation", "Reputation")}
+            {renderButtonUserType(1, "new_users", "New users")}
+            {renderButtonUserType(2, "voter", "Voters")}
+            {renderButtonUserType(3, "editor", "Editors")}
+            {renderButtonUserType(4, "moderator", "Moderators")}
             <br />
           </div>
         </div>
