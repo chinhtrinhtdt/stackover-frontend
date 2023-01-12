@@ -18,6 +18,7 @@
 .linkImprove {
   color: #6a737c;
   text-decoration: none;
+  cursor: pointer;
 }
 .iconText {
   text-align: center;

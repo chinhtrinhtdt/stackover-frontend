@@ -19,6 +19,8 @@ interface IPropsMainContent {
 function Maincontent(props: IPropsMainContent) {
   const { postDetail } = props;
   const [isComment, setIsComment] = useState<boolean>(false);
+  const [isDeleteComment, setIsDeleteComment] = useState<boolean>(false);
+
   const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(
     DATADETAIL_GET_QUESTION
   );
@@ -30,7 +32,7 @@ function Maincontent(props: IPropsMainContent) {
   useEffect(() => {
     postDetail.id && getApiQuestionDetail();
     getApiComment();
-  }, [isComment, postDetail.id]);
+  }, [isComment, postDetail.id,isDeleteComment]);
 
   const getApiComment = () => {
     questionApi
@@ -119,7 +121,7 @@ function Maincontent(props: IPropsMainContent) {
   const handleDeleteComment = (item: ICommentDetail) => {
     questionApi
       .deleteApiComment(item.id)
-      .then((res) => setIsComment(!isComment))
+      .then((res) => setIsDeleteComment(!isDeleteComment))
       .catch((err) => console.log(err));
   };
 
