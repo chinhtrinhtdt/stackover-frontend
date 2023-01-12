@@ -37,3 +37,7 @@
 .cursorPointer {
   cursor: pointer;
 }
+
+.zIndex {
+  z-index: 0;
+}

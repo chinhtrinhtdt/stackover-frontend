@@ -41,6 +41,7 @@ export interface IQuestionDetail {
   createdAt: string;
   updatedAt: string;
   user: IUserQuestionDetail;
+  tag?: ITag;
 }
 
 export interface IQuestion {
