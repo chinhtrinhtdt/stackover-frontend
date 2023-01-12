@@ -19,6 +19,10 @@ const questionApi = {
     return API.post(ApiSettings.API_QUESTION, params);
   },
 
+  deleteApiComment(id: number | string) {
+    return API.delete(`${ApiSettings.API_COMMENT}/${id}`);
+  },
+
   getApiComment() {
     return API.get(ApiSettings.API_COMMENT);
   },

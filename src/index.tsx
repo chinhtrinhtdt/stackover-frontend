@@ -7,14 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@popperjs/core';
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import RouterDom from './Router';
+import App from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-   <RouterDom/>
+   <App/>
   </React.StrictMode>
 );
 

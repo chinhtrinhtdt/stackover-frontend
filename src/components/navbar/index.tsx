@@ -1,47 +1,53 @@
-import { Link } from "react-router-dom";
-import styles from "./navbar.module.css";
-import { useLocation } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import styles from './navbar.module.css';
 
 function Navbar() {
+  const pathCurrent = window.location.pathname;
+
+  const navbarMenu = [
+    {
+      path: '/questions',
+      name: 'Questions'
+    },
+    {
+      path: '/tags',
+      name: 'Tags'
+    },
+    {
+      path: '/users',
+      name: 'Users'
+    },
+    {
+      path: '/companies',
+      name: 'Companies'
+    },
+  ];
+
+  const renderNavbarMenu = () => (
+    navbarMenu.map((menu, index) => (
+      <NavLink to={menu.path} className="link-dark" key={index} >
+        <li className={`${pathCurrent === menu.path && styles.active} ps-3 py-2`} >
+          {menu.name}
+          {menu.path === '/questions' && <i className="bi bi-question-circle-fill ms-1"></i>}
+        </li>
+      </NavLink>
+    ))
+  );
+
   return (
     <nav
       className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}
     >
       <ul className="list-unstyled ps-0 w-100">
-        <li className="my-3 ps-2">
-          <Link to="/#" className="link-dark">
+        <NavLink to='/questions' className="link-dark" >
+          <li className={`${pathCurrent === '/' && styles.active} mt-3 mb-2 ps-1 py-2`} >
             Home
-          </Link>
-        </li>
-
-        <li className="mb-1 ps-2">Public</li>
-        <li className="mb-3 ps-2">
-          <Link to="/questions" className="link-dark ">
-            <i className="bi bi-info-circle"></i>
-            <span className="fw-bold ms-1">Questions</span>
-          </Link>
-          <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li className="ps-5 py-2">
-              <Link to="/tags" className="link-dark">
-                Tags
-              </Link>
-            </li>
-            <li className="ps-5 py-2">
-              <Link to="/users" className="link-dark">
-                {window.location.pathname === "/users" ? (
-                  <span className="fw-bold ">Users</span>
-                ) : (
-                  <span>Users</span>
-                )}
-              </Link>
-            </li>
-            <li className="ps-5 py-2">
-              <Link to="/#" className="link-dark">
-                Companies
-              </Link>
-            </li>
-          </ul>
-        </li>
+          </li>
+        </NavLink>
+        <li className='ps-1 py-2'>PUBLIC</li>
+        <ul className='list-unstyled'>
+          {renderNavbarMenu()}
+        </ul>
       </ul>
     </nav>
   );

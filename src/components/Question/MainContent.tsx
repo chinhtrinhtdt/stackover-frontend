@@ -1,7 +1,7 @@
-import * as React from "react";
-import ModalComment from "../QuestionComp/ModalComment";
+import { Link } from "react-router-dom";
 import style from "./Question.module.css";
-import { useState, useEffect } from "react";
+import { DATADETAIL_GET_QUESTION, LIST_IMAGE_USER } from "../../mocks";
+import { memo, useState, useEffect } from "react";
 import axios from "axios";
 import { questionApi } from "../../api";
 import {
@@ -10,22 +10,27 @@ import {
   ICommentDetail,
   IComment,
   IQuestionId,
-} from "../../interfaces/question.interface";
-import { DATADETAIL_GET_QUESTION } from "../../mocks";
+} from "../../interfaces/question.interfaces";
 import moment from "moment";
 
-function Maincontent(props: IQuestionId) {
-  const { questionId } = props;
-  const [posts, setPosts] = useState([]);
+interface IPropsMainContent {
+  postDetail: IQuestionDetail;
+}
+function Maincontent(props: IPropsMainContent) {
+  const { postDetail } = props;
   const [isComment, setIsComment] = useState<boolean>(false);
-  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
-  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
+  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(
+    DATADETAIL_GET_QUESTION
+  );
+  const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>(
+    []
+  );
   const [contentComment, setContentComment] = useState<string>("");
 
   useEffect(() => {
-    questionId && getApiQuestionDetail();
+    postDetail.id && getApiQuestionDetail();
     getApiComment();
-  }, [isComment, questionId]);
+  }, [isComment, postDetail.id]);
 
   const getApiComment = () => {
     questionApi
@@ -36,7 +41,7 @@ function Maincontent(props: IQuestionId) {
 
   const getApiQuestionDetail = () => {
     questionApi
-      .getApiQuestionDetail(questionId)
+      .getApiQuestionDetail(postDetail.id)
       .then((res) => setQuesDataDetail(res.data))
       .catch((e) => console.log(e));
   };
@@ -44,7 +49,7 @@ function Maincontent(props: IQuestionId) {
   const handleSunmitCmt = () => {
     const params = {
       content: contentComment,
-      questionId: questionId.toString(),
+      questionId: postDetail.id.toString(),
     };
     document
       .querySelector(".form-add-question")
@@ -111,24 +116,24 @@ function Maincontent(props: IQuestionId) {
     );
   };
 
+  const handleDeleteComment = (item: ICommentDetail) => {
+    questionApi
+      .deleteApiComment(item.id)
+      .then((res) => setIsComment(!isComment))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
-      <div>{quesdataDetail?.textContent}</div>
+      <div>{postDetail?.textContent}</div>
       <br />
       <div className={`overflow-auto ${style.containerCode}`}>
-        <p>{quesdataDetail?.codeContent}</p>
+        <p>{postDetail?.codeContent}</p>
       </div>
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
-          <a href="" className={`${style.linkImprove}`}>
-            Share
-          </a>
-          <a href="" className={`${style.linkImprove} mx-2`}>
-            Improve this question
-          </a>
-          <a href="" className={style.linkImprove}>
-            Follow
-          </a>
+          <span className={`${style.linkImprove} mx-2`}>-</span>
+          <span className={`${style.linkImprove} mx-2`}>-</span>
         </div>
         <div
           className={`d-flex flex-row-reverse card mb-3 card-roll ${style.card_box}`}
@@ -142,9 +147,9 @@ function Maincontent(props: IQuestionId) {
             </div>
             <div className="col-md-2 m-2">
               <img
-                src="https://i.stack.imgur.com/kKetn.jpg?s=64&g=1"
+                src={LIST_IMAGE_USER[0].img}
                 className="img-fluid rounded-start"
-                alt="..."
+                alt="avatar"
               />
             </div>
             <div className="col-md-8 ">
@@ -177,14 +182,27 @@ function Maincontent(props: IQuestionId) {
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
-            {item.content} -{" "}
-            <a href="" className={`${style.textComment}`}>
-              {item.user.username}
-            </a>{" "}
-            -{" "}
-            <span className={`${style.textComment} ${style.linkImprove}`}>
-              {moment(item?.createdAt).format("LLL")}
-            </span>
+            <div className={`${style.commentRow}`}>
+              <div>
+                {item.content} -{" "}
+                <a href="#" className={`${style.textComment}`}>
+                  {item.user.username}
+                </a>{" "}
+                -{" "}
+                <span className={`${style.textComment} ${style.linkImprove}`}>
+                  {moment(item?.createdAt).format("LLL")}
+                </span>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  onClick={() => handleDeleteComment(item)}
+                >
+                  <i className="bi bi-trash3"></i>
+                </button>
+              </div>
+            </div>
           </div>
         ))}
         <hr />
@@ -194,4 +212,4 @@ function Maincontent(props: IQuestionId) {
   );
 }
 
-export default React.memo(Maincontent);
+export default memo(Maincontent);
