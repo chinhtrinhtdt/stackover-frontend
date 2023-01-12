@@ -109,7 +109,7 @@ function QuestionPage() {
           </div>
         </div>
 
-        <div className={`${styles.zIndex} p-2 w-25`}>
+        <div className={`${styles.zIndex0} p-2 w-25`}>
           {renderListQuestion()}
 
           <ReactPaginate

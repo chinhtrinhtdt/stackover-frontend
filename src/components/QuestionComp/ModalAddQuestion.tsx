@@ -47,9 +47,9 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
             .catch(err => console.log(err))
     };
 
-    return (
-        <div className="modal fade" id="addQuestion" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            {checkToken() ?
+    const renderDialog = () => {
+        if (checkToken()) {
+            return (
                 <div className="modal-dialog modal-lg modal-dialog-centered ">
                     <div className={`${styles.modalContent} modal-content`}>
                         <div className="modal-header">
@@ -90,7 +90,9 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
                         </div>
                     </div>
                 </div>
-                :
+            )
+        } else {
+            return (
                 <div className="modal-dialog modal-dialog-centered">
                     <div className={`${styles.modalContent} modal-content`}>
                         <div className="modal-header">
@@ -108,7 +110,13 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
                         </div>
                     </div>
                 </div >
-            }
+            )
+        }
+    }
+
+    return (
+        <div className="modal fade" id="addQuestion" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {renderDialog()}
         </div>
     );
 }
