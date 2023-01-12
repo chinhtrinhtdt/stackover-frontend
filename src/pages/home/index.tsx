@@ -5,14 +5,15 @@ import Tags from "../tags";
 import UserList from "../userlistUI/index";
 import Companies from "../companies";
 import styles from "./home.module.css";
+import Footer from "../../components/footer";
 
 function Home() {
   let pathName = window.location.pathname;
   const renderPage = () => {
-    if (pathName  === "/questions" || pathName === "/" || pathName.includes("/questions/")) return <QuestionUI />;
-    if (pathName  === "/users") return <UserList />;
-    if (pathName  === "/tags") return <Tags />;
-    if (pathName  === "/companies") return <Companies />;
+    if (pathName === "/questions" || pathName === "/" || pathName.includes("/questions/")) return <QuestionUI />;
+    if (pathName === "/users") return <UserList />;
+    if (pathName === "/tags") return <Tags />;
+    if (pathName === "/companies") return <Companies />;
   };
 
   return (
@@ -22,6 +23,7 @@ function Home() {
         <Navbar />
         <div className={`${styles.content} px-3 w-100`}>{renderPage()}</div>
       </div>
+      <Footer />
     </div>
   );
 }
