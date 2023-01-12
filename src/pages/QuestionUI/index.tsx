@@ -11,7 +11,10 @@ import {
   LocalStorageKey,
 } from "../../constants/general.constant";
 import { sortListDecrease } from "../../helper/utils";
-import { IQuestionDetail } from "../../interfaces/question.interfaces";
+import {
+  IQuestionDetail,
+  ITagQuestionDetail,
+} from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
 
@@ -118,7 +121,11 @@ function QuestionPage() {
           </div>
           <div className="flex p-2">
             <small className="text-muted p-2">Tag </small>
-            {/* {postDetail?.tag?.name} */}
+            {postDetail.tags.map((tag: any, index:number) => {
+             
+                return <span>{tag.name}{ } </span>;
+              
+            })}
           </div>
         </div>
       </header>
