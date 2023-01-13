@@ -6,4 +6,5 @@ export class ApiSettings {
   public static API_GET_VOTE_DETAIL = "api/vote/question/";
   public static API_POST_VOTE = "api/vote";
   public static API_GET_ALL_USER = "api/user";
+  public static API_REGISTER_VERITY = "api/auth/verify";
 }

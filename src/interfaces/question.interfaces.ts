@@ -31,16 +31,24 @@ export interface IUserQuestionDetail {
   updatedAt: string;
 }
 
+export interface ITagQuestionDetail {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAtL: string;
+}
+
 export interface IQuestionDetail {
   id: number;
   title: string;
   textContent: string;
   codeContent: string;
   userId: number;
-  tagId: number;
   createdAt: string;
   updatedAt: string;
+  tags: ITagQuestionDetail[];
   user: IUserQuestionDetail;
+  tag?: ITag;
 }
 
 export interface IQuestion {

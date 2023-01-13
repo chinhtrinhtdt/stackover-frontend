@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
-import { MESSAGE } from '../../constants/general.constant';
+import { LocalStorageKey, MESSAGE } from '../../constants/general.constant';
 import { passwordValidation } from '../../helper/utils';
 import styles from './register.module.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Register() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ function Register() {
       })
       .catch(err => {
         setLoading(false);
-        alert(err.response?.data?.message || MESSAGE.ERR_NETWORK);
+        toast.error(err.response?.data?.message || MESSAGE.ERR_NETWORK);
       })
   }
 
@@ -88,6 +89,7 @@ function Register() {
           <Link className='text-decoration-none' to="/login"> Login</Link>
         </p>
       </div>
+      <ToastContainer />
     </div>
   )
 }
