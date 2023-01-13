@@ -31,3 +31,8 @@ export const VOTE_PAGE = {
   UP_VOTE: "UP_VOTE",
   DOWN_VOTE: "DOWN_VOTE",
 };
+
+export const toastMessage={
+    ADD_SUCESS:"Add success!",
+    DELETE_SUCCESS:"Delete success"
+}
