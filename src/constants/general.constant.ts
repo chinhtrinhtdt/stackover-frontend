@@ -13,7 +13,9 @@ export const MESSAGE = {
     INVALID_PASSWORD: "Your password is invalid",
     INVALID_REGISTER:  "Your username or email is used!",
     INVALID_LOGIN:  "Your username or password is incorrect!",
-    ERR_NETWORK: "Network error, please try again later!"
+    ERR_NETWORK: "Network error, please try again later!",
+    ADD_SUCESS:"Add success!",
+    DELETE_SUCCESS:"Delete success"
 };
 
 export const LocalStorageKey = {
@@ -32,7 +34,4 @@ export const VOTE_PAGE = {
   DOWN_VOTE: "DOWN_VOTE",
 };
 
-export const toastMessage={
-    ADD_SUCESS:"Add success!",
-    DELETE_SUCCESS:"Delete success"
-}
+

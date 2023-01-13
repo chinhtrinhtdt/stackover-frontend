@@ -17,7 +17,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { toastMessage } from "../../constants/general.constant";
+import { MESSAGE } from "../../constants/general.constant";
 interface IPropsMainContent {
   postDetail: IQuestionDetail;
 }
@@ -65,7 +65,7 @@ function Maincontent(props: IPropsMainContent) {
       .then((res) => {
         if (res.status === 201) {
           setIsComment(!isComment);
-          toast.success(toastMessage.ADD_SUCESS, { autoClose: 3000 });
+          toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
         }
       });
     }
@@ -127,7 +127,7 @@ function Maincontent(props: IPropsMainContent) {
     questionApi
       .deleteApiComment(item)
       .then((res) => {
-        toast.success(toastMessage.DELETE_SUCCESS, { autoClose: 3000 });
+        toast.success(MESSAGE.DELETE_SUCCESS, { autoClose: 3000 });
         setIsDeleteComment(!isDeleteComment);
       })
       .catch((err) => console.log(err));
