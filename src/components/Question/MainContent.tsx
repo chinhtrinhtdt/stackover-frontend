@@ -17,6 +17,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { MESSAGE } from "../../constants/general.constant";
 interface IPropsMainContent {
   postDetail: IQuestionDetail;
 }
@@ -59,10 +60,12 @@ function Maincontent(props: IPropsMainContent) {
       ?.classList.add("was-validated");
     if (contentComment) {
       setContentComment("");
-      questionApi.postApiComment(params).then((res) => {
+      questionApi
+      .postApiComment(params)
+      .then((res) => {
         if (res.status === 201) {
           setIsComment(!isComment);
-          toast.success("Add success!", { autoClose: 3000 });
+          toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
         }
       });
     }
@@ -124,7 +127,7 @@ function Maincontent(props: IPropsMainContent) {
     questionApi
       .deleteApiComment(item)
       .then((res) => {
-        toast.error("Delete success!", { autoClose: 3000 });
+        toast.success(MESSAGE.DELETE_SUCCESS, { autoClose: 3000 });
         setIsDeleteComment(!isDeleteComment);
       })
       .catch((err) => console.log(err));
@@ -227,7 +230,7 @@ function Maincontent(props: IPropsMainContent) {
                           className="modal-title fs-5"
                           id="staticBackdropLabel"
                         >
-                          Verify
+                          Confirm
                         </h1>
                         <button
                           type="button"
@@ -237,7 +240,7 @@ function Maincontent(props: IPropsMainContent) {
                         ></button>
                       </div>
                       <div className="modal-body">
-                        Are you sure you want to delete?
+                        Are you sure delete?
                       </div>
                       <div className="modal-footer">
                         <button

@@ -20,6 +20,11 @@
   text-decoration: none;
   cursor: pointer;
 }
+.vote {
+  color: #6a737c;
+  text-decoration: none;
+  cursor: pointer;
+}
 .iconText {
   text-align: center;
 }
@@ -48,3 +53,9 @@ textarea {
   display: flex;
   justify-content: space-between;
 }
+
+.linkImprove:hover{
+  color: rgb(45, 184, 184);
+}
+
+
