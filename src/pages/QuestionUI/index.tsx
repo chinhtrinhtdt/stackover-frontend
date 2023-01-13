@@ -153,7 +153,7 @@ function QuestionPage() {
           <ReactPaginate
             onPageChange={handleClickPagination}
             pageCount={pageCount}
-            containerClassName="pagination"
+            containerClassName="pagination justify-content-center"
             pageLinkClassName="page-link"
             activeClassName="active"
             previousLabel="<"

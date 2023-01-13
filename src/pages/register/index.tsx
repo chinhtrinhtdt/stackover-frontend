@@ -36,7 +36,6 @@ function Register() {
       .then(res => {
         setLoading(false);
         toast.success(res.data?.message);
-        localStorage.setItem(LocalStorageKey.EMAIL,res.data.user.email);
         navigate('/login');
       })
       .catch(err => {
