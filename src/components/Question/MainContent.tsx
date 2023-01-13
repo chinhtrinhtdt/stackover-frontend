@@ -59,7 +59,9 @@ function Maincontent(props: IPropsMainContent) {
       ?.classList.add("was-validated");
     if (contentComment) {
       setContentComment("");
-      questionApi.postApiComment(params).then((res) => {
+      questionApi
+      .postApiComment(params)
+      .then((res) => {
         if (res.status === 201) {
           setIsComment(!isComment);
           toast.success("Add success!", { autoClose: 3000 });
