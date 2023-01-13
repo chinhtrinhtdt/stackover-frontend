@@ -112,7 +112,7 @@ function QuestionPage() {
     <div className="container">
       <header>
         <div className="d-flex justify-content-between p-3">
-          <h4>{postDetail?.title}</h4>
+          <h4 className="w-100">{postDetail?.title}</h4>
           <button
             type="button"
             className={`${styles.ask} btn btn-primary`}
