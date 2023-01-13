@@ -39,9 +39,9 @@ export const DATADETAIL_GET_QUESTION = {
   textContent: "",
   codeContent: "",
   userId: 0,
-  tagId: 0,
   createdAt: "",
   updatedAt: "",
+  tags: [],
   user: {
     id: "",
     username: "",
@@ -210,4 +210,26 @@ export const GET_VOTE_DETAIL_TYPE = {
 };
 
 export const DEFAULT_AVATAR_USERLIST =
-  "https://www.gravatar.com/avatar/bcad6c8d7a64b0e16fd59996e3835ee9?s=96&d=identicon&r=PG";
+  [
+    "https://www.gravatar.com/avatar/bcad6c8d7a64b0e16fd59996e3835ee9?s=96&d=identicon&r=PG",
+    "https://www.gravatar.com/avatar/acb829898ee9c9df38d6e94827167823?s=96&d=identicon&r=PG",
+    "https://i.stack.imgur.com/agMKZ.png?s=96&g=1",
+    'https://www.gravatar.com/avatar/1d2d3229ed1961d2bd81853242493247?s=96&d=identicon&r=PG',
+    'https://www.gravatar.com/avatar/4ae512dd708a619496d36b1f681f95e0?s=96&d=identicon&r=PG',
+    'https://i.stack.imgur.com/Pyme2.jpg?s=96&g=1'
+  ]
+
+export   const listItemFooter = [
+  {
+      tittle: "Channels",
+      data: ['Angular', 'React', 'Vue', 'Laravel']
+  },
+  {
+      tittle: "Product",
+      data: ['Teams', 'Collectives', 'Collectives', 'Talent']
+  },
+  {
+      tittle: "About",
+      data: ['Legals', 'Privacy', 'Cookie policy', 'Cookie policy']
+  }
+]
