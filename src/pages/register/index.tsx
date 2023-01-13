@@ -35,7 +35,7 @@ function Register() {
     authApi.postApiRegister(registerObject)
       .then(res => {
         setLoading(false);
-        toast.success(res.data?.message);
+        alert(res.data?.message);
         navigate('/login');
       })
       .catch(err => {

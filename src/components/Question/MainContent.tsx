@@ -29,11 +29,11 @@ function Maincontent(props: IPropsMainContent) {
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
   const [show, setShow] = useState(false);
-  
+
   useEffect(() => {
     postDetail?.id && getApiQuestionDetail();
     getApiComment();
-  }, [isComment, isDeleteComment,postDetail?.id]);
+  }, [isComment, isDeleteComment, postDetail?.id]);
 
   const getApiComment = () => {
     questionApi
@@ -129,7 +129,7 @@ function Maincontent(props: IPropsMainContent) {
       })
       .catch((err) => console.log(err));
   };
-  
+
   return (
     <div>
       <div>{postDetail?.textContent}</div>
