@@ -124,7 +124,7 @@ function Maincontent(props: IPropsMainContent) {
     questionApi
       .deleteApiComment(item)
       .then((res) => {
-        toast.error("Delete success!", { autoClose: 3000 });
+        toast.success("Delete successfully!", { autoClose: 3000 });
         setIsDeleteComment(!isDeleteComment);
       })
       .catch((err) => console.log(err));
@@ -227,7 +227,7 @@ function Maincontent(props: IPropsMainContent) {
                           className="modal-title fs-5"
                           id="staticBackdropLabel"
                         >
-                          Verify
+                          Confirm
                         </h1>
                         <button
                           type="button"
@@ -237,7 +237,7 @@ function Maincontent(props: IPropsMainContent) {
                         ></button>
                       </div>
                       <div className="modal-body">
-                        Are you sure you want to delete?
+                        Are you sure delete?
                       </div>
                       <div className="modal-footer">
                         <button
