@@ -163,7 +163,7 @@ function Maincontent(props: IPropsMainContent) {
             <div className="col-md-8 ">
               <div className="m-2">
                 <h5 className="card-title fs-6">
-                  {quesdataDetail?.user.username}
+                  {quesdataDetail?.user?.username}
                 </h5>
                 <div className="d-flex">
                   <div>-</div>
@@ -194,7 +194,7 @@ function Maincontent(props: IPropsMainContent) {
               <div>
                 {item.content} -{" "}
                 <a href="#" className={`${style.textComment}`}>
-                  {item.user.username}
+                  {item?.user?.username}
                 </a>{" "}
                 -{" "}
                 <span className={`${style.textComment} ${style.linkImprove}`}>
