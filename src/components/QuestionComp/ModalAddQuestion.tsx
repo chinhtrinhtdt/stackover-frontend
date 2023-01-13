@@ -3,6 +3,7 @@ import { questionApi } from '../../api';
 import styles from './ModalAddQuestion.module.css';
 import { checkToken } from '../../helper/utils';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 interface IPropsModalAddQuestion {
     getReloadData: () => void;
@@ -43,8 +44,14 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         resetStateInput();
 
         questionApi.postApiQuestion(question)
-            .then(res => getReloadData())
-            .catch(err => console.log(err))
+            .then(res => {
+                toast.success(res?.data?.message);
+                getReloadData();
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error(err?.response?.data?.message);
+            })
     };
 
     const renderDialogAddQuestion = () => (
@@ -111,9 +118,12 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
     );
 
     return (
-        <div className="modal fade" id="addQuestion" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            {checkToken() ? renderDialogAddQuestion() : renderDialogLogin()}
-        </div>
+        <>
+            <div className="modal fade" id="addQuestion" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                {checkToken() ? renderDialogAddQuestion() : renderDialogLogin()}
+            </div>
+            <ToastContainer />
+        </>
     );
 }
 

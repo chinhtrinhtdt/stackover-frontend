@@ -218,3 +218,18 @@ export const DEFAULT_AVATAR_USERLIST =
     'https://www.gravatar.com/avatar/4ae512dd708a619496d36b1f681f95e0?s=96&d=identicon&r=PG',
     'https://i.stack.imgur.com/Pyme2.jpg?s=96&g=1'
   ]
+
+export   const listItemFooter = [
+  {
+      tittle: "Channels",
+      data: ['Angular', 'React', 'Vue', 'Laravel']
+  },
+  {
+      tittle: "Product",
+      data: ['Teams', 'Collectives', 'Collectives', 'Talent']
+  },
+  {
+      tittle: "About",
+      data: ['Legals', 'Privacy', 'Cookie policy', 'Cookie policy']
+  }
+]

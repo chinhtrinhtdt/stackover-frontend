@@ -29,11 +29,11 @@ function Maincontent(props: IPropsMainContent) {
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
   const [show, setShow] = useState(false);
-  
+
   useEffect(() => {
-    postDetail.id && getApiQuestionDetail();
+    postDetail?.id && getApiQuestionDetail();
     getApiComment();
-  }, [isComment, isDeleteComment,postDetail.id]);
+  }, [isComment, isDeleteComment, postDetail?.id]);
 
   const getApiComment = () => {
     questionApi
@@ -44,7 +44,7 @@ function Maincontent(props: IPropsMainContent) {
 
   const getApiQuestionDetail = () => {
     questionApi
-      .getApiQuestionDetail(postDetail.id)
+      .getApiQuestionDetail(postDetail?.id)
       .then((res) => setQuesDataDetail(res.data))
       .catch((e) => console.log(e));
   };
@@ -52,7 +52,7 @@ function Maincontent(props: IPropsMainContent) {
   const handleSunmitCmt = () => {
     const params = {
       content: contentComment,
-      questionId: postDetail.id.toString(),
+      questionId: postDetail?.id.toString(),
     };
     document
       .querySelector(".form-add-question")
@@ -129,7 +129,7 @@ function Maincontent(props: IPropsMainContent) {
       })
       .catch((err) => console.log(err));
   };
-  
+
   return (
     <div>
       <div>{postDetail?.textContent}</div>
@@ -163,7 +163,7 @@ function Maincontent(props: IPropsMainContent) {
             <div className="col-md-8 ">
               <div className="m-2">
                 <h5 className="card-title fs-6">
-                  {quesdataDetail?.user.username}
+                  {quesdataDetail?.user?.username}
                 </h5>
                 <div className="d-flex">
                   <div>-</div>
@@ -194,7 +194,7 @@ function Maincontent(props: IPropsMainContent) {
               <div>
                 {item.content} -{" "}
                 <a href="#" className={`${style.textComment}`}>
-                  {item.user.username}
+                  {item?.user?.username}
                 </a>{" "}
                 -{" "}
                 <span className={`${style.textComment} ${style.linkImprove}`}>

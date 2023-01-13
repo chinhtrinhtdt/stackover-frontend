@@ -1,6 +1,7 @@
 import moment from "moment";
 import { memo, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useNavigate, useParams } from "react-router-dom";
 import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
@@ -19,6 +20,9 @@ import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
 
 function QuestionPage() {
+  const navigate = useNavigate();
+  const { questionId } = useParams<string>();
+
   const [data, setData] = useState<IQuestionDetail[]>([]);
   const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
     []
@@ -30,6 +34,13 @@ function QuestionPage() {
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
   const [pageCount, setPageCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
+
+  useEffect(() => {
+    if (questionApi) {
+      const post = data.find(post => post.id === Number(questionId));
+      post && setPostDetail(post);
+    }
+  }, [data, questionId]);
 
   useEffect(() => {
     getApiQuestion();
@@ -67,8 +78,7 @@ function QuestionPage() {
   };
 
   const handleClick = (postId: number) => {
-    const post = data.find((post) => post.id === postId);
-    post && setPostDetail(post);
+    navigate(`/questions/${postId}`);
   };
 
   const handleClickPagination = (event: any) => {
@@ -87,8 +97,8 @@ function QuestionPage() {
         <div className="d-flex flex-column ">
           <h6 className={styles.title}>{question.title}</h6>
           <p className={styles.textContent}>{question.textContent}</p>
-          <div className="">
-            <span className={`${styles.font12} ${styles.tags}`}>{question?.tag?.name}</span>
+          <div className={styles.row1}>
+            {question?.tags.map((tag: ITagQuestionDetail, index: number) => <span key={index} className={`${styles.font12} ${styles.tags} me-2`}>{tag.name}{ } </span>)}
           </div>
           <span className={styles.font12}>
             {moment(question?.createdAt).format("LLL")}
@@ -102,7 +112,7 @@ function QuestionPage() {
     <div className="container">
       <header>
         <div className="d-flex justify-content-between p-3">
-          <h4>{postDetail?.title}</h4>
+          <h4 className="w-100">{postDetail?.title}</h4>
           <button
             type="button"
             className={`${styles.ask} btn btn-primary`}
@@ -121,9 +131,7 @@ function QuestionPage() {
           </div>
           <div className="flex p-2">
             <small className="text-muted p-2">Tag </small>
-            {postDetail.tags.map((tag: any, index:number) => {
-                return <span>{tag.name}{ } </span>;     
-            })}
+            {postDetail?.tags.map((tag: ITagQuestionDetail, index: number) => (<span key={index} className="me-2">{tag.name}</span>))}
           </div>
         </div>
       </header>
@@ -145,7 +153,7 @@ function QuestionPage() {
           <ReactPaginate
             onPageChange={handleClickPagination}
             pageCount={pageCount}
-            containerClassName="pagination"
+            containerClassName="pagination justify-content-center"
             pageLinkClassName="page-link"
             activeClassName="active"
             previousLabel="<"

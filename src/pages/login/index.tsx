@@ -5,6 +5,7 @@ import { LocalStorageKey, MESSAGE } from '../../constants/general.constant';
 import { IParamLogin } from '../../interfaces/api.interfaces';
 import { LOGO_SECONDARY_IMAGE_URL } from '../../mocks';
 import styles from './login.module.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function Login() {
       .catch(err => {
         console.log(err);
         setLoading(false);
-        alert(err.response?.data?.message || MESSAGE.ERR_NETWORK);
+        toast.error(err.response?.data?.message || MESSAGE.ERR_NETWORK);
       })
   }
 
@@ -80,6 +81,7 @@ function Login() {
           <Link to="/register"> Register</Link>
         </p>
       </div>
+      <ToastContainer />
     </div>
   )
 }
