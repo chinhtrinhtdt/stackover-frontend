@@ -35,7 +35,7 @@ function Register() {
     authApi.postApiRegister(registerObject)
       .then(res => {
         setLoading(false);
-        toast(res.data?.message);
+        toast.success(res.data?.message);
         localStorage.setItem(LocalStorageKey.EMAIL,res.data.user.email);
         navigate('/login');
       })

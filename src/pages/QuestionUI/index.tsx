@@ -21,7 +21,7 @@ import styles from "./questionUI.module.css";
 
 function QuestionPage() {
   const navigate = useNavigate();
-  const {questionId} = useParams();
+  const { questionId } = useParams<string>();
 
   const [data, setData] = useState<IQuestionDetail[]>([]);
   const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
@@ -35,9 +35,11 @@ function QuestionPage() {
   const [pageCount, setPageCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
 
-  useEffect(()=> {
-    const post = data.find(post => post.id === parseInt(questionId!));
-    post && setPostDetail(post);
+  useEffect(() => {
+    if (questionApi) {
+      const post = data.find(post => post.id === Number(questionId));
+      post && setPostDetail(post);
+    }
   }, [data, questionId]);
 
   useEffect(() => {
@@ -96,7 +98,7 @@ function QuestionPage() {
           <h6 className={styles.title}>{question.title}</h6>
           <p className={styles.textContent}>{question.textContent}</p>
           <div className={styles.row1}>
-              {question.tags.map((tag: any, index:number) => <span key={index} className={`${styles.font12} ${styles.tags} me-2`}>{tag.name}{ } </span>)}
+            {question?.tags.map((tag: ITagQuestionDetail, index: number) => <span key={index} className={`${styles.font12} ${styles.tags} me-2`}>{tag.name}{ } </span>)}
           </div>
           <span className={styles.font12}>
             {moment(question?.createdAt).format("LLL")}
@@ -129,7 +131,7 @@ function QuestionPage() {
           </div>
           <div className="flex p-2">
             <small className="text-muted p-2">Tag </small>
-            {postDetail.tags.map((tag: any, index:number) => (<span key={index}>{tag.name}{ } </span>))}
+            {postDetail?.tags.map((tag: ITagQuestionDetail, index: number) => (<span key={index} className="me-2">{tag.name}</span>))}
           </div>
         </div>
       </header>

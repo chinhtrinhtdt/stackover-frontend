@@ -31,9 +31,9 @@ function Maincontent(props: IPropsMainContent) {
   const [show, setShow] = useState(false);
   
   useEffect(() => {
-    postDetail.id && getApiQuestionDetail();
+    postDetail?.id && getApiQuestionDetail();
     getApiComment();
-  }, [isComment, isDeleteComment,postDetail.id]);
+  }, [isComment, isDeleteComment,postDetail?.id]);
 
   const getApiComment = () => {
     questionApi
@@ -44,7 +44,7 @@ function Maincontent(props: IPropsMainContent) {
 
   const getApiQuestionDetail = () => {
     questionApi
-      .getApiQuestionDetail(postDetail.id)
+      .getApiQuestionDetail(postDetail?.id)
       .then((res) => setQuesDataDetail(res.data))
       .catch((e) => console.log(e));
   };
@@ -52,7 +52,7 @@ function Maincontent(props: IPropsMainContent) {
   const handleSunmitCmt = () => {
     const params = {
       content: contentComment,
-      questionId: postDetail.id.toString(),
+      questionId: postDetail?.id.toString(),
     };
     document
       .querySelector(".form-add-question")

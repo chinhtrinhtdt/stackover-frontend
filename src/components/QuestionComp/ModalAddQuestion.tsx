@@ -45,7 +45,7 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
 
         questionApi.postApiQuestion(question)
             .then(res => {
-                toast(res?.data?.message);
+                toast.success(res?.data?.message);
                 getReloadData();
             })
             .catch(err => {

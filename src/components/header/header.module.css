@@ -7,11 +7,12 @@
     width: 150px;
 }
 
-a.link {
+a.link, span.link {
     border-radius: 20px;
+    cursor: pointer;
 }
 
-a.link:hover {
+a.link:hover, span.link:hover {
     background-color: rgba(167, 167, 167, 0.279);
     border-radius: 20px;
 }
