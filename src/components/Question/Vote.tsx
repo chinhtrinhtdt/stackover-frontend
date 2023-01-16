@@ -2,6 +2,7 @@ import * as React from "react";
 import { questionApi } from "../../api";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
+import {useParams} from 'react-router-dom';
 import {
   IQuestionId,
   IVoteDetail,
@@ -14,72 +15,52 @@ function Vote(props: IQuestionId) {
   const [voteNumber, setVoteNumber] = useState<number>(0);
   const [voteType, setVoteType] = useState<string>("");
   const { questionId } = props;
-  const user = JSON.parse(localStorage.getItem(LocalStorageKey.USER) || "{}");
+  const userName = JSON.parse(localStorage.getItem(LocalStorageKey.USER_NAME) || "{}");
+  const userId = JSON.parse(localStorage.getItem(LocalStorageKey.USER_ID) || "{}");
   const [statusVote, setStatusVote] = useState<IVoteDetail[]>([]);
-  const voteNoteLocal = JSON.parse(
-    localStorage.getItem(LocalStorageKey.USER_STATUS) || "[]"
-  );
+  const voteNoteLocal = JSON.parse(localStorage.getItem(LocalStorageKey.USER_STATUS) || "[]");
   const [checkStatus, setCheckStatus] = useState<boolean>(false);
+const [checkVoteId, setCheckVoteId] = useState<number>(0);
   // tim dung user dang dang nhap
   const voteUser = voteNoteLocal.find(
-    (item: IVoteDetail) => item.username === user.username
+    (item: IVoteDetail) => item.username === userName
   );
 
+  // const voteCheckId = 
   const checkUserVoted = statusVote.find(
-    ({ username }) => username === user.username
+    ({ username }) => username === userName
   );
-
+  const paramsRouter = useParams();
   useEffect(() => {
-    if (voteUser) setVoteType(voteUser.status);
-    if (questionId) getVotepApi();
-  }, [checkUserVoted?.username, voteType, questionId, checkStatus]);
+    setCheckVoteId(parseInt(localStorage.getItem(LocalStorageKey.USER_ID) || "{}"))
+    if (paramsRouter.questionId) getVotepApi();
+  }, [checkUserVoted?.username, voteType, checkStatus, voteNumber]);
 
+   
   const getVotepApi = () => {
     questionApi
-      .getApiVote(questionId)
+      .getApiVote(paramsRouter.questionId)
       .then((res) => setVoteNumber(res.data.upvote - res.data.downvote))
+      .catch((err) => console.log(err));
+    
+    questionApi
+      .getApiType(paramsRouter.questionId)
+      .then((res) => setVoteType(res.data.statusVote))
       .catch((err) => console.log(err));
   };
 
   const handleUpVote = () => {
-    let type = "";
-    const idxUser = voteNoteLocal.findIndex(
-      (item: IVoteDetail) => item.username === user.username
-    );
-    //check da co user nay duoi local chua
-    if (voteUser) {
-      if (voteUser.status === VOTE_PAGE.UP_VOTE) {
-        setVoteType("");
-        type = "";
-      }
-      if (voteUser.status === VOTE_PAGE.DOWN_VOTE || voteUser.status === "") {
-        setVoteType(VOTE_PAGE.UP_VOTE);
-        type = VOTE_PAGE.UP_VOTE;
-      }
-      const tmp = [...voteNoteLocal];
-      tmp[idxUser].status = type;
-      localStorage.setItem(LocalStorageKey.USER_STATUS, JSON.stringify(tmp));
-    } else {
-      setVoteType(VOTE_PAGE.UP_VOTE);
-      type = VOTE_PAGE.UP_VOTE;
-      const obj = {
-        username: user.username,
-        status: type,
-      };
-      voteNoteLocal.push(obj);
-      localStorage.setItem(
-        LocalStorageKey.USER_STATUS,
-        JSON.stringify(voteNoteLocal)
-      );
-    }
+    console.log(paramsRouter.questionId);
+    console.log(25,voteType);
     postApiUpVote();
   };
 
   const postApiUpVote = () => {
     const params = {
-      questionId: String(questionId),
+      questionId: String(paramsRouter.questionId).toString(),
       voteType: VOTE_PAGE.UP_VOTE,
     };
+
     questionApi
       .postApiVote(params)
       .then((res) => {
@@ -90,7 +71,7 @@ function Vote(props: IQuestionId) {
 
   const postApiDownVote = () => {
     const params = {
-      questionId: String(questionId),
+      questionId: String(paramsRouter.questionId).toString(),
       voteType: VOTE_PAGE.DOWN_VOTE,
     };
     questionApi
@@ -98,16 +79,14 @@ function Vote(props: IQuestionId) {
       .then((res) => {
         setCheckStatus(!checkStatus);
       })
-
       .catch((err) => console.log(err));
   };
 
   const handleDownVote = () => {
     let type = "";
     const idxUser = voteNoteLocal.findIndex(
-      (item: IVoteDetail) => item.username === user.username
+      (item: IVoteDetail) => item.username === userName
     );
-
     //check da co user nay duoi local chua
     if (voteUser) {
       if (voteUser.status === VOTE_PAGE.DOWN_VOTE) {
@@ -125,7 +104,7 @@ function Vote(props: IQuestionId) {
       setVoteType(VOTE_PAGE.DOWN_VOTE);
       type = VOTE_PAGE.DOWN_VOTE;
       const obj = {
-        username: user.username,
+        username: userName,
         status: type,
       };
       voteNoteLocal.push(obj);
@@ -134,7 +113,6 @@ function Vote(props: IQuestionId) {
         JSON.stringify(voteNoteLocal)
       );
     }
-
     postApiDownVote();
   };
 

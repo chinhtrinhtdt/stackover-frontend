@@ -23,16 +23,20 @@ const questionApi = {
     return API.delete(`${ApiSettings.API_COMMENT}/${id}`);
   },
 
-  getApiComment() {
-    return API.get(ApiSettings.API_COMMENT);
+  getApiComment(id:string | undefined ) {
+    return API.get(`${ApiSettings.API_QUESTION}${id}`);
   },
 
   postApiComment(params: IParamComment) {
     return API.post(ApiSettings.API_COMMENT, params);
   },
 
-  getApiVote(id: number | string) {
+  getApiVote(id: string | undefined) {
     return API.get(`${ApiSettings.API_GET_VOTE_DETAIL}${id}`);
+  },
+
+  getApiType(id: string | undefined) {
+    return API.get(`${ApiSettings.API_GET_VOTE_TYPE}${id}`);
   },
 
   postApiVote(params: IParamVote) {

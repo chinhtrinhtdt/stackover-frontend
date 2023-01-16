@@ -2,19 +2,14 @@ import { Link } from "react-router-dom";
 import style from "./Question.module.css";
 import { DATADETAIL_GET_QUESTION, LIST_IMAGE_USER } from "../../mocks";
 import { memo, useState, useEffect } from "react";
-import axios from "axios";
+import {useParams} from 'react-router-dom';
 import { questionApi } from "../../api";
 import {
   IQuestion,
   IQuestionDetail,
-  ICommentDetail,
-  IComment,
-  IQuestionId,
+  ICommentDetail
 } from "../../interfaces/question.interfaces";
 import moment from "moment";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MESSAGE } from "../../constants/general.constant";
@@ -29,7 +24,7 @@ function Maincontent(props: IPropsMainContent) {
   const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
-  const [show, setShow] = useState(false);
+  const paramsRouter = useParams();
 
   useEffect(() => {
     postDetail?.id && getApiQuestionDetail();
@@ -38,8 +33,8 @@ function Maincontent(props: IPropsMainContent) {
 
   const getApiComment = () => {
     questionApi
-      .getApiComment()
-      .then((res) => setCommentDataDetail(res.data))
+      .getApiComment(paramsRouter.questionId)
+      .then((res) => setCommentDataDetail(res.data.data.comments))
       .catch((e) => console.log(e));
   };
 
