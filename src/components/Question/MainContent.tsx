@@ -1,38 +1,71 @@
-import moment from "moment";
-import { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { questionApi } from "../../api";
-import { IPropsMainContent } from "../../interfaces/props.interfaces";
-import { ICommentDetail } from "../../interfaces/question.interface";
 import style from "./Question.module.css";
-import { LIST_IMAGE_USER } from "../../mocks";
-
+import { DATADETAIL_GET_QUESTION, LIST_IMAGE_USER } from "../../mocks";
+import { memo, useState, useEffect } from "react";
+import axios from "axios";
+import { questionApi } from "../../api";
+import {
+  IQuestion,
+  IQuestionDetail,
+  ICommentDetail,
+  IComment,
+  IQuestionId,
+} from "../../interfaces/question.interfaces";
+import moment from "moment";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { MESSAGE } from "../../constants/general.constant";
+interface IPropsMainContent {
+  postDetail: IQuestionDetail;
+}
 function Maincontent(props: IPropsMainContent) {
   const { postDetail } = props;
   const [isComment, setIsComment] = useState<boolean>(false);
+  const [isDeleteComment, setIsDeleteComment] = useState<boolean>(false);
+  const [getIdDelete, setIdDelete] = useState<number>(0);
+  const [quesdataDetail, setQuesDataDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
+    postDetail?.id && getApiQuestionDetail();
+    getApiComment();
+  }, [isComment, isDeleteComment, postDetail?.id]);
+
+  const getApiComment = () => {
     questionApi
       .getApiComment()
       .then((res) => setCommentDataDetail(res.data))
       .catch((e) => console.log(e));
-  }, [isComment]);
+  };
+
+  const getApiQuestionDetail = () => {
+    questionApi
+      .getApiQuestionDetail(postDetail?.id)
+      .then((res) => setQuesDataDetail(res.data))
+      .catch((e) => console.log(e));
+  };
 
   const handleSunmitCmt = () => {
     const params = {
       content: contentComment,
-      questionId: postDetail.id.toString(),
+      questionId: postDetail?.id.toString(),
     };
     document
       .querySelector(".form-add-question")
       ?.classList.add("was-validated");
     if (contentComment) {
       setContentComment("");
-      questionApi.postApiComment(params).then((res) => {
+      questionApi
+      .postApiComment(params)
+      .then((res) => {
         if (res.status === 201) {
           setIsComment(!isComment);
+          toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
         }
       });
     }
@@ -89,6 +122,17 @@ function Maincontent(props: IPropsMainContent) {
       </div>
     );
   };
+
+  const handleDeleteComment = (item: number) => {
+    questionApi
+      .deleteApiComment(item)
+      .then((res) => {
+        toast.success(MESSAGE.DELETE_SUCCESS, { autoClose: 3000 });
+        setIsDeleteComment(!isDeleteComment);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       <div>{postDetail?.textContent}</div>
@@ -98,26 +142,48 @@ function Maincontent(props: IPropsMainContent) {
       </div>
       <div className="d-flex justify-content-between mt-4">
         <div className="p-2 w-32 ">
-          <span className={`${style.linkImprove} mx-2`}>-</span>
-          <span className={`${style.linkImprove} mx-2`}>-</span>
+          <span className={`${style.linkImprove} mx-2`}>Share</span>
+          <span className={`${style.linkImprove} mx-2`}>Edit</span>
+          <span className={`${style.linkImprove} mx-2`}>Follow</span>
         </div>
-        <div className={`d-flex flex-row-reverse card mb-3 card-roll ${style.card_box}`}        >
+        <div
+          className={`d-flex flex-row-reverse card mb-3 card-roll ${style.card_box}`}
+        >
           <div className="row g-0 d-flex m-2 ">
             <div className="p-2 fs-6">
-              <small>asked Feb 11, 2019 at 15:18</small>
+              <small>
+                asked
+                <span> {moment(quesdataDetail?.createdAt).format("LLL")}</span>
+              </small>
             </div>
             <div className="col-md-2 m-2">
-              <img src={LIST_IMAGE_USER[0].img} className="img-fluid rounded-start" alt="avatar" />
+              <img
+                src={LIST_IMAGE_USER[0].img}
+                className="img-fluid rounded-start"
+                alt="avatar"
+              />
             </div>
-            <div className="col-md-8 m-2">
-              <h5 className="card-title fs-6">devserkan</h5>
-              <div className="d-flex">
-                <span>16.3k</span>
-                <ul className={`d-flex ${style.listVote}`}>
-                  <li><span>1</span></li>
-                  <li><span>222</span></li>
-                  <li><span>222</span></li>
-                </ul>
+            <div className="col-md-8 ">
+              <div className="m-2">
+                <h5 className="card-title fs-6">
+                  {quesdataDetail?.user?.username}
+                </h5>
+                <div className="d-flex">
+                  <div>-</div>
+                  <div className={`d-flex ${style.listVoteCotainer}`}>
+                    <ul className={`d-flex ${style.listVote}`}>
+                      <li>
+                        <span>-</span>
+                      </li>
+                      <li>
+                        <span>-</span>
+                      </li>
+                      <li>
+                        <span>-</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -127,19 +193,83 @@ function Maincontent(props: IPropsMainContent) {
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
-            {item.content} - {" "}
-            <span className={`${style.textComment}`}>
-              {item.user.username}
-            </span>
-            {" "}-{" "}
-            <span className={`${style.textComment} ${style.linkImprove}`}>
-              {moment(item?.createdAt).format("LLL")}
-            </span>
+            <div className={`${style.commentRow}`}>
+              <div>
+                {item.content} -{" "}
+                <a href="#" className={`${style.textComment}`}>
+                  {item?.user?.username}
+                </a>{" "}
+                -{" "}
+                <span className={`${style.textComment} ${style.linkImprove}`}>
+                  {moment(item?.createdAt).format("LLL")}
+                </span>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  onClick={() => setIdDelete(item.id)}
+                >
+                  <i className="bi bi-trash3"></i>
+                </button>
+                <div
+                  className="modal fade"
+                  id="staticBackdrop"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabIndex={-1}
+                  aria-labelledby="staticBackdropLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h1
+                          className="modal-title fs-5"
+                          id="staticBackdropLabel"
+                        >
+                          Confirm
+                        </h1>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        Are you sure delete?
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-danger"
+                          onClick={() => handleDeleteComment(getIdDelete)}
+                          data-bs-dismiss="modal"
+                        >
+                          Delete
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         ))}
         <hr />
       </div>
       <div>{renderAddComment()}</div>
+      <ToastContainer />
     </div>
   );
 }

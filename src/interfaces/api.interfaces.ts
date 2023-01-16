@@ -16,6 +16,11 @@ export interface IParamLogin {
     password: string;
 }
 
+export interface IParamVerify {
+  email: string | null;
+  code: string;
+}
+
 export interface IParamComment {
   content: string;
   questionId: string;

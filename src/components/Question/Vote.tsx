@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import {
   IQuestionId,
   IVoteDetail,
-} from "../../interfaces/question.interface";
+} from "../../interfaces/question.interfaces";
 import { DEFAULT_GET_VOTE_TYPE, GET_VOTE_DETAIL_TYPE } from "../../mocks";
 import { param } from "jquery";
 import { LocalStorageKey, VOTE_PAGE } from "../../constants/general.constant";
@@ -30,11 +30,8 @@ function Vote(props: IQuestionId) {
   );
 
   useEffect(() => {
-    if (voteUser) {
-      setVoteType(voteUser.status);
-    }
-
-    questionId && getVotepApi();
+    if (voteUser) setVoteType(voteUser.status);
+    if (questionId) getVotepApi();
   }, [checkUserVoted?.username, voteType, questionId, checkStatus]);
 
   const getVotepApi = () => {
@@ -145,24 +142,24 @@ function Vote(props: IQuestionId) {
     <>
       <div>
         <i
-          className={`${style.linkImprove} ${
+          className={`${style.vote} ${
             voteType === VOTE_PAGE.UP_VOTE ? style.activeBtnVote : null
           } bi bi-caret-up-fill fs-2 `}
           onClick={handleUpVote}
         ></i>
         <div className={`${style.iconText}`}>{voteNumber}</div>
         <i
-          className={`${style.linkImprove} ${
+          className={`${style.vote} ${
             voteType === VOTE_PAGE.DOWN_VOTE ? style.activeBtnVote : null
           } bi bi-caret-down-fill fs-2`}
           onClick={handleDownVote}
         ></i>
         <br />
         <div className={`${style.iconText}`}>
-          <i className={`${style.linkImprove} bi bi-bookmark fs-5`}></i>
+          <i className={`${style.vote} bi bi-bookmark fs-5`}></i>
         </div>
         <div className={`${style.iconText}`}>
-          <i className={`${style.linkImprove} bi bi-clock-history fs-5`}></i>
+          <i className={`${style.vote} bi bi-clock-history fs-5`}></i>
         </div>
       </div>
     </>

@@ -1,12 +1,33 @@
 import * as React from "react";
-import { LIST_IMAGE_USER } from "../../mocks";
+import { DEFAULT_AVATAR_USERLIST, LIST_IMAGE_USER } from "../../mocks";
 import styles from "./UserUI.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { userApi } from "../../api";
+import { IListUser, IListUserDetail } from "../../interfaces/user.interface";
 
 function UserList() {
   const [checkButtonUserType, setCheckButtonUserType] = useState<number>(0);
   const [checkButtonUserTime, setCheckButtonUserTime] = useState<number>(0);
+  const [check, setCheck] = useState<boolean>(false);
+  const [listUser, setListUser] = useState<IListUserDetail[]>([]);
+  const [filterUserByType, setFilterUserByType] =
+    useState<string>("reputation");
+  useEffect(() => {
+    // getUserApi();
+    getUserByType();
+  }, [check,filterUserByType]);
 
+  const getUserByType = () => {
+    userApi
+      .getUserByType(filterUserByType)
+      .then((res) => setListUser(res.data))
+      .catch((e) => console.log(e));
+  };
+
+  const handleUserType = (id: number, item: string) => {
+    setCheckButtonUserType(id);
+    setFilterUserByType(item)
+  };
   const renderButtonUserType = (id: number, htmlfor: string, label: string) => {
     return (
       <>
@@ -15,13 +36,14 @@ function UserList() {
           className={`btn border ${
             checkButtonUserType === id ? styles.activeBtn : ""
           } ${styles.containerButtonUserType}`}
-          onClick={() => setCheckButtonUserType(id)}
+          onClick={() => handleUserType(id,htmlfor)}
         >
           <div className="fs-6">{label}</div>
         </button>
       </>
     );
   };
+
   const renderButtonUserTime = (id: number, htmlfor: string, label: string) => {
     return (
       <>
@@ -37,24 +59,30 @@ function UserList() {
       </>
     );
   };
+
   const renderUserDetail = () => {
-    return LIST_IMAGE_USER.map((user) => (
+    return listUser.map((user: IListUserDetail, index: number) => (
       <div
         className={`d-flex flex-row-reverse card mb-5 me-4  card-roll ${styles.cardBox}`}
+        key={index}
       >
         <div className={`${styles.containUser} row g-0 d-flex`}>
           <div className={`${styles.imgSize} col-md-2 m-2`}>
-            <img src={user.img} className="img-fluid rounded-start" alt="..." />
+            <img
+              src={DEFAULT_AVATAR_USERLIST[Math.floor(Math.random() * 5)]}
+              className="img-fluid rounded-start"
+              alt="avatar"
+            />
           </div>
           <div className="col-md-8">
             <div className="fs-6">
-              <a href="#">{user.nameUser}</a>
-              <div className={`${styles.techType}`}>{user.nationality}</div>
+              <a href="">{user.user.username}</a>
+              <div className={`${styles.techType}`}>{user.reputation}</div>
               <div className={`${styles.techType}`}>
-                <b>1,231</b>
+                <b>-</b>
               </div>
               <div className={`${styles.techType}`}>
-                <a href="#">{user.techType}</a>
+                <a href="">-</a>
               </div>
             </div>
           </div>
@@ -62,6 +90,7 @@ function UserList() {
       </div>
     ));
   };
+
   return (
     <>
       <div className="ms-2 mb-2">
@@ -78,11 +107,11 @@ function UserList() {
             </div>
           </div>
           <div className="btn-group" role="group" aria-label="Basic example">
-            {renderButtonUserType(0, "btnradio1", "Reputation")}
-            {renderButtonUserType(1, "btnradio2", "New users")}
-            {renderButtonUserType(2, "btnradio3", "Voters")}
-            {renderButtonUserType(3, "btnradio4", "Editors")}
-            {renderButtonUserType(4, "btnradio5", "Moderators")}
+            {renderButtonUserType(0, "reputation", "Reputation")}
+            {renderButtonUserType(1, "new_users", "New users")}
+            {renderButtonUserType(2, "voter", "Voters")}
+            {renderButtonUserType(3, "editor", "Editors")}
+            {renderButtonUserType(4, "moderator", "Moderators")}
             <br />
           </div>
         </div>
