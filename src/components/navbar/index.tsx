@@ -21,6 +21,7 @@ function Navbar() {
       path: '/companies',
       name: 'Companies'
     },
+    
   ];
 
   const renderNavbarMenu = () => (
@@ -39,7 +40,7 @@ function Navbar() {
       className={`${styles.navbar} position-fixed h-100 border-end d-flex flex-column align-items-start justify-content-start`}
     >
       <ul className="list-unstyled ps-0 w-100">
-        <NavLink to='/questions' className="link-dark" >
+        <NavLink to='/' className="link-dark" >
           <li className={`${pathCurrent === '/' && styles.active} mt-3 mb-2 ps-1 py-2`} >
             Home
           </li>

@@ -38,17 +38,27 @@ export interface ITagQuestionDetail {
   updatedAtL: string;
 }
 
+export interface IVoteQuestion{
+  id: string;
+  userId: number;
+  questionId: number;
+  voteType: string;
+  createdAt: string;
+  updatedAt: string;
+}
 export interface IQuestionDetail {
   id: number;
   title: string;
   textContent: string;
   codeContent: string;
   userId: number;
+  views: number;
   createdAt: string;
   updatedAt: string;
   tags: ITagQuestionDetail[];
   user: IUserQuestionDetail;
-  tag?: ITag;
+  votes: IVoteQuestion[];
+  comments: ICommentDetail[];
 }
 
 export interface IQuestion {

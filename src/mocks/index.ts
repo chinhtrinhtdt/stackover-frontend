@@ -39,23 +39,26 @@ export const DATADETAIL_GET_QUESTION = {
   textContent: "",
   codeContent: "",
   userId: 0,
+  views: 0,
   createdAt: "",
   updatedAt: "",
   tags: [],
   user: {
-    id: "",
-    username: "",
-    password: "",
-    email: "",
-    name: "",
+    id: '',
+    username: '',
+    password: '',
+    email: '',
+    name: '',
     isActive: false,
-    codeVerify: "",
-    interestedTags: "",
-    location: "",
+    codeVerify: '',
+    interestedTags: '',
+    location: '',
     isEnabled2FA: false,
-    createdAt: "",
-    updatedAt: "",
+    createdAt: '',
+    updatedAt: ''
   },
+  votes: [],
+  comments: []
 };
 
 export const LIST_TAGS = [

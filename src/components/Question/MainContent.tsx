@@ -5,7 +5,6 @@ import { memo, useState, useEffect } from "react";
 import {useParams} from 'react-router-dom';
 import { questionApi } from "../../api";
 import {
-  IQuestion,
   IQuestionDetail,
   ICommentDetail
 } from "../../interfaces/question.interfaces";
@@ -161,20 +160,20 @@ function Maincontent(props: IPropsMainContent) {
             <div className="col-md-8 ">
               <div className="m-2">
                 <h5 className="card-title fs-6">
-                  {quesdataDetail?.user?.username}
+                  {postDetail?.user?.username}
                 </h5>
                 <div className="d-flex">
                   <div>-</div>
                   <div className={`d-flex ${style.listVoteCotainer}`}>
                     <ul className={`d-flex ${style.listVote}`}>
                       <li>
-                        <span>-</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="views">{postDetail.views}</span>
                       </li>
                       <li>
-                        <span>-</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="votes">{postDetail.votes.length}</span>
                       </li>
                       <li>
-                        <span>-</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="comments">{postDetail.comments.length}</span>
                       </li>
                     </ul>
                   </div>

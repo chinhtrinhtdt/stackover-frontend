@@ -32,7 +32,7 @@ const questionApi = {
   },
 
   getApiVote(id: string | number) {
-    return API.get(`${ApiSettings.API_GET_VOTE_DETAIL}${id}`);
+    return API.get(`${ApiSettings.API_VOTE}/${id}/question`);
   },
 
   getApiType(id: string | number) {
@@ -40,7 +40,7 @@ const questionApi = {
   },
 
   postApiVote(params: IParamVote) {
-    return API.post(ApiSettings.API_POST_VOTE, params);
+    return API.post(ApiSettings.API_VOTE, params);
   },
 };
 
