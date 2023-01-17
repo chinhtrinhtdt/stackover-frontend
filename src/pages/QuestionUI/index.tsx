@@ -39,10 +39,6 @@ function QuestionPage() {
     if (questionApi) {
       const post = data.find(post => post.id === Number(questionId));
       post && setPostDetail(post);
-
-      // navigate(`/questions/${postDetail.id}`);
-      // if(post){
-      // }
     }
   }, [data, questionId]);
 

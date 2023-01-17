@@ -31,10 +31,12 @@ function Maincontent(props: IPropsMainContent) {
   }, [isComment, isDeleteComment, postDetail?.id]);
 
   const getApiComment = () => {
-    questionApi
+    if(paramsRouter.questionId){
+      questionApi
       .getApiComment(paramsRouter.questionId)
       .then((res) => setCommentDataDetail(res.data.data.comments))
       .catch((e) => console.log(e));
+    }
   };
 
   const getApiQuestionDetail = () => {

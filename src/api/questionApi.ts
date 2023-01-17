@@ -11,7 +11,7 @@ const questionApi = {
     return API.get(ApiSettings.API_QUESTION);
   },
 
-  getApiQuestionDetail(id: number | string) {
+  getApiQuestionDetail(id: number) {
     return API.get(`${ApiSettings.API_QUESTION}${id}`);
   },
 
@@ -19,11 +19,11 @@ const questionApi = {
     return API.post(ApiSettings.API_QUESTION, params);
   },
 
-  deleteApiComment(id: number | string) {
+  deleteApiComment(id: number) {
     return API.delete(`${ApiSettings.API_COMMENT}/${id}`);
   },
 
-  getApiComment(id:string | undefined ) {
+  getApiComment(id: string) {
     return API.get(`${ApiSettings.API_QUESTION}${id}`);
   },
 
@@ -31,12 +31,12 @@ const questionApi = {
     return API.post(ApiSettings.API_COMMENT, params);
   },
 
-  getApiVote(id: string | number) {
+  getApiVote(id: string) {
     return API.get(`${ApiSettings.API_VOTE}/${id}/question`);
   },
 
-  getApiType(id: string | number) {
-    return API.get(`${ApiSettings.API_GET_VOTE_TYPE}${id}`);
+  getApiType(id: string) {
+    return API.get(`${ApiSettings.API_VOTE}/status?questionId=${id}`);
   },
 
   postApiVote(params: IParamVote) {
