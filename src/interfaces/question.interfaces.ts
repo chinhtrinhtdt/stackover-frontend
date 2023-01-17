@@ -72,9 +72,11 @@ export interface ICommentDetail {
   content: string;
   commentId: number;
   userId: number;
-  postId: number;
+  questionId: number;
   user: IUserInfor;
   createdAt: string;
+  updatedAt: string;
+  author: string;
 }
 
 export interface IComment {
