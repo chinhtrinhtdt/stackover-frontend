@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../api';
-import { LocalStorageKey, MESSAGE } from '../../constants/general.constant';
+import { MESSAGE } from '../../constants/general.constant';
 import { passwordValidation } from '../../helper/utils';
 import styles from './register.module.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { IParamRegister } from '../../interfaces/api.interfaces';
 
 function Register() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function Register() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [msgInvalidPassword, setMsgInvalidPassword] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [isRegister, setIsRegister] = useState<boolean>(false);
 
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -30,13 +32,17 @@ function Register() {
       setMsgInvalidPassword(MESSAGE.INVALID_PASSWORD);
       return;
     };
-    setLoading(true)
+    setLoading(true);
     setMsgInvalidPassword("");
+    handleRegister(registerObject);
+  }
+
+  const handleRegister = (registerObject: IParamRegister) => {
     authApi.postApiRegister(registerObject)
       .then(res => {
         setLoading(false);
-        alert(res.data?.message);
-        navigate('/login');
+        setIsRegister(true);
+        toast.success(res.data?.message);
       })
       .catch(err => {
         setLoading(false);
@@ -44,8 +50,8 @@ function Register() {
       })
   }
 
-  return (
-    <div className='d-grid gap-2 col-4 mx-auto mt-5 p-3'>
+  const renderRegister = () => (
+    <div>
       <h5 className='text-center'>Create your Stack Overflow account. It's free and only takes a minute.
       </h5>
 
@@ -89,6 +95,21 @@ function Register() {
           <Link className='text-decoration-none' to="/login"> Login</Link>
         </p>
       </div>
+    </div>
+  );
+
+  const renderRegisterSuccess = () => (
+    <div className='text-center'>
+      <h3 className='my-3'>Hi, {username}!</h3>
+      <p className='m-0'>You have successfully created a account.</p>
+      <p>Please click on the link in your Email to activate your account!</p>
+      <button className="btn btn-primary" type="button" onClick={() => navigate("/login")}>Go To Login</button>
+    </div>
+  )
+
+  return (
+    <div className='d-grid gap-2 col-4 mx-auto mt-5 p-3'>
+      {isRegister ? renderRegisterSuccess() : renderRegister()}
       <ToastContainer />
     </div>
   )

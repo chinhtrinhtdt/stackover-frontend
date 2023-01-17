@@ -10,3 +10,7 @@
 textarea.textarea::-webkit-scrollbar {
     display: none;
 }
+
+.font14 {
+    font-size: 14px;
+}
