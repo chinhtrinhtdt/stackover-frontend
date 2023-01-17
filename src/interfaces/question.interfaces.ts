@@ -76,7 +76,7 @@ export interface ICommentDetail {
   user: IUserInfor;
   createdAt: string;
   updatedAt: string;
-  author: string
+  author: string;
 }
 
 export interface IComment {

@@ -31,11 +31,11 @@ const questionApi = {
     return API.post(ApiSettings.API_COMMENT, params);
   },
 
-  getApiVote(id: string | undefined) {
+  getApiVote(id: string | number) {
     return API.get(`${ApiSettings.API_GET_VOTE_DETAIL}${id}`);
   },
 
-  getApiType(id: string | undefined) {
+  getApiType(id: string | number) {
     return API.get(`${ApiSettings.API_GET_VOTE_TYPE}${id}`);
   },
 

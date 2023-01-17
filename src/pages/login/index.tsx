@@ -20,7 +20,6 @@ function Login() {
       .then(res => {
         navigate('/');
         localStorage.setItem(LocalStorageKey.USER_NAME, JSON.stringify(res.data.user.username))
-        localStorage.setItem(LocalStorageKey.USER_ID, JSON.stringify(res.data.user.id))
         localStorage.setItem(LocalStorageKey.TOKEN, res.data.access_token);
       })
       .catch(err => {

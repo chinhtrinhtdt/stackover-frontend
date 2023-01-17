@@ -23,7 +23,6 @@ export const LocalStorageKey = {
     USER: "user",
     POST_QUESTIONS: "post-questions",
     USER_STATUS: "userStatus",
-    USER_ID: "userID",
     USER_NAME:"userName"
 };
 

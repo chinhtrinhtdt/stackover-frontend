@@ -21,7 +21,6 @@ export const checkToken = () => {
 
 export const getUserInfo = () => {
     const userInfo = localStorage.getItem(LocalStorageKey.USER);
-    const userId = localStorage.getItem(LocalStorageKey.USER_ID);
     return userInfo && JSON.parse(userInfo);
 };
 

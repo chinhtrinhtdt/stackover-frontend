@@ -251,7 +251,7 @@ function Maincontent(props: IPropsMainContent) {
                           className="btn btn-secondary"
                           data-bs-dismiss="modal"
                         >
-                          Close
+                          Cancel
                         </button>
                       </div>
                     </div>
