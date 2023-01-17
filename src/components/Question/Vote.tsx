@@ -18,7 +18,6 @@ function Vote(props: IQuestionId) {
   const paramsRouter = useParams();
 
   useEffect(() => {
-    console.log(26,questionId);
     if (paramsRouter.questionId) getVotepApi();
   }, [ voteType, checkStatus, voteNumber,paramsRouter.questionId]);
 
