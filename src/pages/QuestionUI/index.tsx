@@ -23,7 +23,6 @@ import 'moment-timezone';
 function QuestionPage() {
   const navigate = useNavigate();
   const { questionId } = useParams<string>();
-
   const [data, setData] = useState<IQuestionDetail[]>([]);
   const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
     []

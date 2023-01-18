@@ -64,11 +64,9 @@ function Maincontent(props: IPropsMainContent) {
       setContentComment("");
       questionApi
         .postApiComment(params)
-        .then((res) => {
-          if (res.status === 201) {
+        .then((res) =>  {
             setIsComment(!isComment);
             toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
-          }
         });
     }
   };
@@ -87,10 +85,8 @@ function Maincontent(props: IPropsMainContent) {
       questionApi
         .postApiComment(paramsChild)
         .then((res) => {
-          if (res.status === 201) {
             setIsComment(!isComment);
             toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
-          }
         });
     }
   };

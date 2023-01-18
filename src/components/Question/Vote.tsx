@@ -7,7 +7,7 @@ import {
   IQuestionId,
   IVoteDetail,
 } from "../../interfaces/question.interfaces";
-import { LocalStorageKey, VOTE_PAGE } from "../../constants/general.constant";
+import { LocalStorageKey, MESSAGE, VOTE_PAGE } from "../../constants/general.constant";
 import { toast } from "react-toastify";
 
 function Vote(props: IQuestionId) {
@@ -53,7 +53,7 @@ function Vote(props: IQuestionId) {
       })
       .catch((err) => {
         if (err.response.data.statusCode === 401)
-          toast.error("You haven't logged in!", { autoClose: 3000 });
+        toast.error(MESSAGE.ERROR_LOGIN, { autoClose: 3000 });
       });
   };
 
@@ -69,7 +69,7 @@ function Vote(props: IQuestionId) {
       })
       .catch((err) => {
         if (err.response.data.statusCode === 401)
-        toast.error("You haven't logged in!", { autoClose: 3000 });
+        toast.error(MESSAGE.ERROR_LOGIN, { autoClose: 3000 });
       });
   };
 
