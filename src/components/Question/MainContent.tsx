@@ -132,7 +132,7 @@ function Maincontent(props: IPropsMainContent) {
 
   return (
     <div>
-      <div>{postDetail?.textContent}</div>
+      <div dangerouslySetInnerHTML={{__html: postDetail?.textContent}}></div >
       <br />
       <div className={`overflow-auto ${style.containerCode}`}>
         <p>{postDetail?.codeContent}</p>

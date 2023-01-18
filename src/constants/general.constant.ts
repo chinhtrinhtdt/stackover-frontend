@@ -21,7 +21,6 @@ export const MESSAGE = {
 export const LocalStorageKey = {
     TOKEN: "token",
     USER: "user",
-    POST_QUESTIONS: "post-questions",
     USER_STATUS: "userStatus",
     USER_NAME: "userName"
 };
