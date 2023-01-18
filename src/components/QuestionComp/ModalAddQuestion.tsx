@@ -17,7 +17,7 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
     const [title, setTitle] = useState<string>('');
     const [textContent, setTextContent] = useState<string>('');
     const [tagName, setTagName] = useState<string>('');
-    const [isError, setIsError] = useState<boolean>(false);
+    const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
     const validation = () => {
         if (title && textContent && tagName) return true;
@@ -37,13 +37,13 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
             tagName
         };
 
-        setIsError(true);
+        setIsSubmit(true);
 
         if (!validation()) return;
         questionApi.postApiQuestion(question)
             .then(res => {
                 toast.success(res?.data?.message);
-                setIsError(false)
+                setIsSubmit(false);
                 resetStateInput();
                 getReloadData();
             })
@@ -55,7 +55,7 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
 
     const renderDialogAddQuestion = () => (
         <div className="modal-dialog modal-lg modal-dialog-centered ">
-            <div className={`${styles.modalContent} modal-content ${isError ? 'was-validated' : ''}`}>
+            <div className={`${styles.modalContent} modal-content ${isSubmit ? 'was-validated' : ''}`}>
                 <div className="modal-header">
                     <h5 className="modal-title" id="staticBackdropLabel">Add Question</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -70,7 +70,7 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
                         <div className="mb-3">
                             <label htmlFor="codeContent" className="form-label fw-bold">What are the code of your problem?</label>
                             <CKEditor editor={ClassicEditor} data={textContent} onChange={(event: any, editor: any) => setTextContent(editor.getData())} />
-                            <div className={isError && !textContent ? `${styles.font14} text-danger` : "valid-feedback"}> Please fill a code.</div>
+                            <div className={isSubmit && !textContent ? `${styles.font14} text-danger` : "valid-feedback"}> Please fill a code.</div>
                         </div>
                         <div className="mb-3">
                             <label htmlFor="tagName" className="form-label fw-bold">Tag name</label>
