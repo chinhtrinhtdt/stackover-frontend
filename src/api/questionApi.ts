@@ -11,7 +11,7 @@ const questionApi = {
     return API.get(ApiSettings.API_QUESTION);
   },
 
-  getApiQuestionDetail(id: number) {
+  getApiQuestionDetail(id: string) {
     return API.get(`${ApiSettings.API_QUESTION}${id}`);
   },
 
