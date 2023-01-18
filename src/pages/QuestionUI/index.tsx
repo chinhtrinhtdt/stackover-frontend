@@ -107,24 +107,6 @@ function QuestionPage() {
       </div>
     ));
   };
-//   let date = moment(postDetail?.createdAt).format("LLLL");
-//   // const mmt = moment.utc(new Date())
-//   // console.log(11,mmt.toDate()) // Kết quả: "Thu Feb 11 2021 13:27:00 GMT+0700"
-//   // console.log(22,mmt.toISOString()) // Kết quả: "2021-02-11T06:27:00Z"
-
-//   var newYork    = moment.tz(date, "Asia/Ho_Chi_Minh");
-// var losAngeles = newYork.clone().tz("America/Los_Angeles");
-// var london     = newYork.clone().tz("Europe/London");
-
-// console.log(15,moment(postDetail?.createdAt).format("LLL"));
-// console.log(16,date);
-
-// console.log(12,newYork.format("LLL"));
-// console.log(13,losAngeles.format("LLL"));
-// console.log(14,london.format("LLL"));
-//    // 2014-06-01T12:00:00-04:00
-//  // 2014-06-01T09:00:00-07:00
-//    // 2014-06-01T17:00:00+01:00
 
   return (
     <div className="container">
