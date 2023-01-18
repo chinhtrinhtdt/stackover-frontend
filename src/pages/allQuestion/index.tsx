@@ -6,6 +6,7 @@ import { questionApi } from "../../api";
 import { IQuestionDetail, ITagQuestionDetail } from "../../interfaces/question.interfaces";
 import { useNavigate } from "react-router-dom";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
+import moment from "moment";
 
 function AllQuestion() {
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ function AllQuestion() {
                                     <div className="d-flex justify-content-between" >
                                         <div className="mt-2 d-flex">
                                             {
-                                                listQuestion.tags.map((tag: ITagQuestionDetail, index: number) => {
+                                                listQuestion.tags.map((tag: ITagQuestionDetail) => {
                                                     return (
                                                         <>
                                                             <div key={tag.id}>
@@ -113,7 +114,7 @@ function AllQuestion() {
                     </div>
                 </div>
                 <div className={`${style.card}`}>
-                        {renderCard()}
+                    {renderCard()}
                 </div>
             </div>
         </>
