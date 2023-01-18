@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 import style from "./Question.module.css";
 import { DATADETAIL_GET_QUESTION, LIST_IMAGE_USER } from "../../mocks";
 import { memo, useState, useEffect } from "react";
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { questionApi } from "../../api";
 import {
-  IQuestion,
   IQuestionDetail,
   ICommentDetail
 } from "../../interfaces/question.interfaces";
@@ -25,26 +24,32 @@ function Maincontent(props: IPropsMainContent) {
   const [commentDataDetail, setCommentDataDetail] = useState<ICommentDetail[]>([]);
   const [contentComment, setContentComment] = useState<string>("");
   const paramsRouter = useParams();
+  const [isCommentChild, setIsCommentChild] = useState<boolean>(false);
+  const [idCommentChild, setIdCommentChild] = useState<number>(0);
 
   useEffect(() => {
-    postDetail?.id && getApiQuestionDetail();
+    getApiQuestionDetail();
     getApiComment();
-  }, [isComment, isDeleteComment, postDetail?.id]);
+  }, [isComment, isDeleteComment, postDetail?.id, paramsRouter.questionId]);
 
   const getApiComment = () => {
-    if(paramsRouter.questionId){
+    if (paramsRouter.questionId) {
       questionApi
-      .getApiComment(paramsRouter.questionId)
-      .then((res) => setCommentDataDetail(res.data.data.comments))
-      .catch((e) => console.log(e));
+        .getApiComment(paramsRouter.questionId)
+        .then((res) => setCommentDataDetail(res.data.data.comments))
+        .catch((e) => console.log(e));
     }
   };
 
   const getApiQuestionDetail = () => {
-    questionApi
-      .getApiQuestionDetail(postDetail?.id)
-      .then((res) => setQuesDataDetail(res.data))
-      .catch((e) => console.log(e));
+    if (paramsRouter.questionId) {
+      questionApi
+        .getApiQuestionDetail(paramsRouter.questionId)
+        .then((res) => {
+          setQuesDataDetail(res.data)
+        })
+        .catch((e) => console.log(e));
+    }
   };
 
   const handleSunmitCmt = () => {
@@ -58,13 +63,31 @@ function Maincontent(props: IPropsMainContent) {
     if (contentComment) {
       setContentComment("");
       questionApi
-      .postApiComment(params)
-      .then((res) => {
-        if (res.status === 201) {
-          setIsComment(!isComment);
-          toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
-        }
-      });
+        .postApiComment(params)
+        .then((res) =>  {
+            setIsComment(!isComment);
+            toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
+        });
+    }
+  };
+
+  const handleSunmitCmtChild = (id: number) => {
+    const paramsChild = {
+      content: contentComment,
+      questionId: postDetail?.id.toString(),
+      commentId: String(id)
+    };
+    document
+      .querySelector(".form-add-question")
+      ?.classList.add("was-validated");
+    if (contentComment) {
+      setContentComment("");
+      questionApi
+        .postApiComment(paramsChild)
+        .then((res) => {
+            setIsComment(!isComment);
+            toast.success(MESSAGE.ADD_SUCESS, { autoClose: 3000 });
+        });
     }
   };
 
@@ -127,9 +150,72 @@ function Maincontent(props: IPropsMainContent) {
         toast.success(MESSAGE.DELETE_SUCCESS, { autoClose: 3000 });
         setIsDeleteComment(!isDeleteComment);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response.data.message) toast.error(err.response.data.message, { autoClose: 3000 })
+      })
   };
 
+  const handleOpenCommentChild = (id: number) => {
+    setIdCommentChild(id);
+    setIsCommentChild(!isCommentChild);
+  }
+
+  const renderCommentChild = (id: number) => {
+    return (
+      <>
+        <div className="ms-4">
+          {isCommentChild && idCommentChild === id ? (
+            <div>
+              <div className="form-floating mt-4 mb-4">
+                <form className="form-add-question">
+                  <div className="mb-3">
+                    <label htmlFor="codeContent" className="form-label">
+                      Comment
+                    </label>
+                    <textarea
+                      className="form-control"
+                      rows={3}
+                      id="codeContent"
+                      name="codeContent"
+                      value={contentComment}
+                      onChange={(e) => setContentComment(e.target.value)}
+                      required
+                    />
+                    <div className="invalid-feedback">Please fill a comment.</div>
+                  </div>
+                </form>
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary mt-4"
+                onClick={() => handleSunmitCmtChild(id)}
+              >
+                Reply comment
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary mt-4 ms-2"
+                onClick={() => setIsCommentChild(!isCommentChild)}
+              >
+                Hide
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className={`btn btn-link ${style.linkImprove}`}
+              onClick={() => { handleOpenCommentChild(id) }}
+            >
+              Reply
+            </button>
+          )}
+        </div>
+      </>
+    )
+  }
+  const handleCommentChild = (id: number) => {
+    setIsCommentChild(!isCommentChild)
+  }
   return (
     <div>
       <div dangerouslySetInnerHTML={{__html: postDetail?.textContent}}></div >
@@ -150,7 +236,7 @@ function Maincontent(props: IPropsMainContent) {
             <div className="p-2 fs-6">
               <small>
                 asked
-                <span> {moment(quesdataDetail?.createdAt).format("LLL")}</span>
+                <span> {moment(postDetail?.createdAt).format("LLL")}</span>
               </small>
             </div>
             <div className="col-md-2 m-2">
@@ -163,20 +249,20 @@ function Maincontent(props: IPropsMainContent) {
             <div className="col-md-8 ">
               <div className="m-2">
                 <h5 className="card-title fs-6">
-                  {quesdataDetail?.user?.username}
+                  {postDetail?.user?.username}
                 </h5>
                 <div className="d-flex">
                   <div>-</div>
                   <div className={`d-flex ${style.listVoteCotainer}`}>
                     <ul className={`d-flex ${style.listVote}`}>
                       <li>
-                        <span>-</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="views">{postDetail.views}</span>
                       </li>
                       <li>
-                        <span>-</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="votes">{postDetail.votes.length}</span>
                       </li>
                       <li>
-                        <span>-</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="comments">{postDetail.comments.length}</span>
                       </li>
                     </ul>
                   </div>
@@ -186,15 +272,15 @@ function Maincontent(props: IPropsMainContent) {
           </div>
         </div>
       </div>
-      <div className={`${style.textComment}pl-4`}>
+      <div className={`${style.textComment} pl-4`}>
         {commentDataDetail.map((item: ICommentDetail, index: number) => (
           <div key={index}>
             <hr />
             <div className={`${style.commentRow}`}>
               <div>
                 {item.content} -{" "}
-                <a href="#" className={`${style.textComment}`}>
-                  {item?.user?.username}
+                <a href="" className={`${style.textComment}`}>
+                  {item?.author}
                 </a>{" "}
                 -{" "}
                 <span className={`${style.textComment} ${style.linkImprove}`}>
@@ -261,6 +347,8 @@ function Maincontent(props: IPropsMainContent) {
                 </div>
               </div>
             </div>
+            <div className="ms-4">Test</div>
+            {renderCommentChild(item?.id)}
           </div>
         ))}
         <hr />

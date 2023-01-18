@@ -11,7 +11,7 @@ const questionApi = {
     return API.get(ApiSettings.API_QUESTION);
   },
 
-  getApiQuestionDetail(id: number) {
+  getApiQuestionDetail(id: string) {
     return API.get(`${ApiSettings.API_QUESTION}${id}`);
   },
 
@@ -31,8 +31,8 @@ const questionApi = {
     return API.post(ApiSettings.API_COMMENT, params);
   },
 
-  getApiVote(id: string ) {
-    return API.get(`${ApiSettings.API_GET_VOTE_DETAIL}${id}`);
+  getApiVote(id: string) {
+    return API.get(`${ApiSettings.API_VOTE}/${id}/question`);
   },
 
   getApiType(id: string) {
