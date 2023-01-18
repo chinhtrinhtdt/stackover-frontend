@@ -29,6 +29,64 @@ function AllQuestion() {
         setIsCreatePost(!isCreatePost);
     };
 
+    const renderListQuestion = () => {
+        return (
+            listQuestion.map((listQuestion: IQuestionDetail, index: number) => {
+                return (
+                    <>
+                        <hr />
+                        <div className="d-flex " key={listQuestion.id}>
+                            <div className="flex-shrink-0 text-end ms-4">
+                                <div>{listQuestion.votes.length} votes</div>
+                                <div className={`${style.vote} my-2`}>{listQuestion.comments.length} comments</div>
+                                <div className={`${style.vote}`}>{listQuestion.views} views</div>
+                            </div>
+                            <div className="flex-grow-1 ms-3 me-4">
+                                <a href="" onClick={() => handleDetail(listQuestion.id)}>{listQuestion.title}</a>
+                                <div>
+                                    <div className="d-flex justify-content-between" >
+                                        <div className="mt-2 d-flex">
+                                            {
+                                                listQuestion.tags.map((tag: ITagQuestionDetail, index: number) => {
+                                                    return (
+                                                        <>
+                                                            <div key={tag.id}>
+                                                                <a className={`${style.tag} me-2`} >
+                                                                    {tag.name}
+                                                                </a>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <div className={`mt-4`}>
+                                            <img src={DEFAULT_AVATAR_USERLIST[Math.floor(Math.random() * 5)]} className={`${style.image}`} alt="avatar" />
+                                            <a href="" className="ms-2">{listQuestion.user.username} </a> <b>58</b> <small>asked 6 mins ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )
+            })
+        )
+    }
+
+    const renderCard = () => {
+        return (
+            <div className="card" >
+                <img src="..." className="card-img-top" alt="..." />
+                <div className="card-body">
+                    <h5 className="card-title">Card title</h5>
+                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="" className="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        )
+    }
+    
     return (
         <>
             <div className="d-flex">
@@ -51,60 +109,11 @@ function AllQuestion() {
 
                     </div>
                     <div>
-                        {
-                            listQuestion.map((listQuestion: IQuestionDetail, index: number) => {
-                                return (
-                                    <>
-                                        <hr />
-                                        <div className="d-flex " key={listQuestion.id}>
-                                            <div className="flex-shrink-0 text-end ms-4">
-                                                <div>{listQuestion.votes.length} votes</div>
-                                                <div className={`${style.vote} my-2`}>{listQuestion.comments.length} comments</div>
-                                                <div className={`${style.vote}`}>{listQuestion.views} views</div>
-                                            </div>
-                                            <div className="flex-grow-1 ms-3 me-4">
-                                                <a href="" onClick={() => handleDetail(listQuestion.id)}>{listQuestion.title}</a>
-                                                <div>
-                                                    <div className="d-flex justify-content-between" >
-                                                        <div className="mt-2 d-flex">
-                                                            {
-                                                                listQuestion.tags.map((tag: ITagQuestionDetail, index: number) => {
-                                                                    return (
-                                                                        <>
-                                                                            <div key={tag.id}>
-                                                                                <a className={`${style.tag} me-2`} >
-                                                                                    {tag.name}
-                                                                                </a>
-                                                                            </div>
-                                                                        </>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </div>
-                                                        <div className={`mt-4`}>
-                                                            <img src={DEFAULT_AVATAR_USERLIST[Math.floor(Math.random() * 5)]} className={`${style.image}`} alt="avatar" />
-                                                            <a href="" className="ms-2">{listQuestion.user.username} </a> <b>58</b> <small>asked 6 mins ago</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </>
-                                )
-                            })
-                        }
-
+                        {renderListQuestion()}
                     </div>
                 </div>
                 <div className={`${style.card}`}>
-                    <div className="card" >
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="" className="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
+                        {renderCard()}
                 </div>
             </div>
         </>

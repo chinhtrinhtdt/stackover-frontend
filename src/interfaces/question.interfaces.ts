@@ -46,6 +46,7 @@ export interface IVoteQuestion{
   createdAt: string;
   updatedAt: string;
 }
+
 export interface IQuestionDetail {
   id: number;
   title: string;
