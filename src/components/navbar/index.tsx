@@ -21,7 +21,6 @@ function Navbar() {
       path: '/companies',
       name: 'Companies'
     },
-    
   ];
 
   const renderNavbarMenu = () => (

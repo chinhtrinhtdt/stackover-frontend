@@ -10,9 +10,9 @@ import moment from 'moment-timezone';
 
 function AllQuestion() {
     const navigate = useNavigate();
-    const [listQuestion, setListQuestion] = useState<IQuestionDetail[]>([])
+    const [listQuestion, setListQuestion] = useState<IQuestionDetail[]>([]);
     const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
-    
+
     useEffect(
         () => {
             questionApi
@@ -63,7 +63,7 @@ function AllQuestion() {
                                         </div>
                                         <div className={`mt-4`}>
                                             <img src={DEFAULT_AVATAR_USERLIST[Math.floor(Math.random() * 5)]} className={`${style.image}`} alt="avatar" />
-                                            <a href="" className="ms-2">{listQuestion.user.username} </a> <b>58</b> <small>asked 6 mins ago</small>
+                                            <a href="" className="ms-2">{listQuestion.user.username} </a> <b>-</b> <small>-</small>
                                         </div>
                                     </div>
                                 </div>
