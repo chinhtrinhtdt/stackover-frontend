@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
 
 function AllQuestion() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [listQuestion, setListQuestion] = useState<IQuestionDetail[]>([])
     const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
 
@@ -22,7 +22,7 @@ function AllQuestion() {
     )
 
     const handleDetail = (id: number) => {
-        navigate(`/questions/${id}`)
+        navigate(`/questions/${id}`);
     }
 
     const getReloadData = () => {
@@ -31,7 +31,7 @@ function AllQuestion() {
 
     const renderListQuestion = () => {
         return (
-            listQuestion.map((listQuestion: IQuestionDetail, index: number) => {
+            listQuestion.map((listQuestion: IQuestionDetail) => {
                 return (
                     <>
                         <hr />
@@ -86,7 +86,7 @@ function AllQuestion() {
             </div>
         )
     }
-    
+
     return (
         <>
             <div className="d-flex">

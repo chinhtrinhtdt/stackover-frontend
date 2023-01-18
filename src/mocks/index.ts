@@ -44,18 +44,18 @@ export const DATADETAIL_GET_QUESTION = {
   updatedAt: "",
   tags: [],
   user: {
-    id: '',
-    username: '',
-    password: '',
-    email: '',
-    name: '',
+    id: "",
+    username: "",
+    password: "",
+    email: "",
+    name: "",
     isActive: false,
-    codeVerify: '',
-    interestedTags: '',
-    location: '',
+    codeVerify: "",
+    interestedTags: "",
+    location: "",
     isEnabled2FA: false,
-    createdAt: '',
-    updatedAt: ''
+    createdAt: "",
+    updatedAt: ""
   },
   votes: [],
   comments: []
