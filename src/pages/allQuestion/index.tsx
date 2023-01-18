@@ -6,13 +6,13 @@ import { questionApi } from "../../api";
 import { IQuestionDetail, ITagQuestionDetail } from "../../interfaces/question.interfaces";
 import { useNavigate } from "react-router-dom";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import moment from "moment";
+import moment from 'moment-timezone';
 
 function AllQuestion() {
     const navigate = useNavigate();
     const [listQuestion, setListQuestion] = useState<IQuestionDetail[]>([])
     const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
-
+    
     useEffect(
         () => {
             questionApi

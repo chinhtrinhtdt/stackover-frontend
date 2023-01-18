@@ -2,12 +2,13 @@ import * as React from "react";
 import { questionApi } from "../../api";
 import style from "./Question.module.css";
 import { useState, useEffect } from "react";
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   IQuestionId,
   IVoteDetail,
 } from "../../interfaces/question.interfaces";
 import { LocalStorageKey, VOTE_PAGE } from "../../constants/general.constant";
+import { toast } from "react-toastify";
 
 function Vote(props: IQuestionId) {
   const [voteNumber, setVoteNumber] = useState<number>(0);
@@ -19,19 +20,19 @@ function Vote(props: IQuestionId) {
 
   useEffect(() => {
     if (paramsRouter.questionId) getVotepApi();
-  }, [ voteType, checkStatus, voteNumber,paramsRouter.questionId]);
+  }, [voteType, checkStatus, voteNumber, paramsRouter.questionId]);
 
   const getVotepApi = () => {
-    if(paramsRouter.questionId){
+    if (paramsRouter.questionId) {
       questionApi
-      .getApiVote(paramsRouter.questionId)
-      .then((res) => setVoteNumber(res.data.upvote - res.data.downvote))
-      .catch((err) => console.log(err));
-    
-    questionApi
-      .getApiType(paramsRouter.questionId)
-      .then((res) => setVoteType(res.data.statusVote))
-      .catch((err) => console.log(err));
+        .getApiVote(paramsRouter.questionId)
+        .then((res) => setVoteNumber(res.data.upvote - res.data.downvote))
+        .catch((err) => console.log(err));
+
+      questionApi
+        .getApiType(paramsRouter.questionId)
+        .then((res) => setVoteType(res.data.statusVote))
+        .catch((err) => console.log(err));
     }
   };
 
@@ -50,7 +51,10 @@ function Vote(props: IQuestionId) {
       .then((res) => {
         setCheckStatus(!checkStatus);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response.data.statusCode === 401)
+          toast.error("You haven't logged in!", { autoClose: 3000 });
+      });
   };
 
   const postApiDownVote = () => {
@@ -63,11 +67,14 @@ function Vote(props: IQuestionId) {
       .then((res) => {
         setCheckStatus(!checkStatus);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err.response.data.statusCode === 401)
+        toast.error("You haven't logged in!", { autoClose: 3000 });
+      });
   };
 
   const handleDownVote = () => {
-   
+
     postApiDownVote();
   };
 
@@ -75,16 +82,14 @@ function Vote(props: IQuestionId) {
     <>
       <div>
         <i
-          className={`${style.vote} ${
-            voteType === VOTE_PAGE.UP_VOTE ? style.activeBtnVote : null
-          } bi bi-caret-up-fill fs-2 `}
+          className={`${style.vote} ${voteType === VOTE_PAGE.UP_VOTE ? style.activeBtnVote : null
+            } bi bi-caret-up-fill fs-2 `}
           onClick={handleUpVote}
         ></i>
         <div className={`${style.iconText}`}>{voteNumber}</div>
         <i
-          className={`${style.vote} ${
-            voteType === VOTE_PAGE.DOWN_VOTE ? style.activeBtnVote : null
-          } bi bi-caret-down-fill fs-2`}
+          className={`${style.vote} ${voteType === VOTE_PAGE.DOWN_VOTE ? style.activeBtnVote : null
+            } bi bi-caret-down-fill fs-2`}
           onClick={handleDownVote}
         ></i>
         <br />

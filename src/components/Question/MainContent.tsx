@@ -126,7 +126,9 @@ function Maincontent(props: IPropsMainContent) {
         toast.success(MESSAGE.DELETE_SUCCESS, { autoClose: 3000 });
         setIsDeleteComment(!isDeleteComment);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+         if(err.response.data.message) toast.error(err.response.data.message, { autoClose: 3000 })
+      })
   };
 
   return (
@@ -193,7 +195,7 @@ function Maincontent(props: IPropsMainContent) {
               <div>
                 {item.content} -{" "}
                 <a href="#" className={`${style.textComment}`}>
-                  {item?.user?.username}
+                  {item?.author}
                 </a>{" "}
                 -{" "}
                 <span className={`${style.textComment} ${style.linkImprove}`}>
