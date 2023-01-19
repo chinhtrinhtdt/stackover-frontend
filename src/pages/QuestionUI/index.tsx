@@ -32,14 +32,16 @@ function QuestionPage() {
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
 
   useEffect(() => {
-    if (questionId) {
+    if (!questionId && postDetail.id !== 0) {
+      navigate(`/questions/${postDetail.id}`);
+    } else {
       const post = data.find(question => question.id === Number(questionId));
       if (post) {
         setPostDetail(post);
         setListRelatedQuestions(data.filter((question) => postDetail.tags.find((postDetailTag) => question.tags.find((questionTag) => questionTag.name === postDetailTag.name))));
       };
     };
-  }, [data, questionId, postDetail]);
+  }, [isCreatePost, questionId, postDetail]);
 
   useEffect(() => {
     getApiQuestion();
@@ -91,7 +93,7 @@ function QuestionPage() {
       >
         <div className="d-flex flex-column w-100">
           <h6 className={styles.title}>{question.title}</h6>
-          <div dangerouslySetInnerHTML={{__html: question.textContent}}  className={styles.textContent}></div >
+          <div dangerouslySetInnerHTML={{ __html: question.textContent }} className={styles.textContent}></div >
           <div className={styles.row1}>
             {question?.tags.map((tag: ITagQuestionDetail, index: number) => <span key={index} className={`${styles.font12} ${styles.tags} me-2`}>{tag.name}{ } </span>)}
           </div>

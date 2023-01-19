@@ -3,7 +3,6 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Verify from "../pages/verify";
-import AllQuestion from "../pages/allQuestion";
 
 const RouterDom = () => {
 
