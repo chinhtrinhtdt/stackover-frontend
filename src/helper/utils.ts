@@ -25,7 +25,7 @@ export const getUserInfo = () => {
     return userInfo && JSON.parse(userInfo);
 };
 
-export const sortListDecrease = (list: any[]) => {
+export const sortListDecrease = (list: any) => {
     return list.sort((a, b) => b?.id - a?.id);
 };
 
