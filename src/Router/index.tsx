@@ -3,6 +3,7 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Verify from "../pages/verify";
+import AllQuestion from "../pages/allQuestion";
 
 const RouterDom = () => {
 
@@ -11,7 +12,7 @@ const RouterDom = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Navigate to="/questions" />} />
+        <Route path="/" element={<Home/>} />
         <Route path="/users" element={<Home />} />
         <Route path="/questions" element={<Home />} />
         <Route path="/questions/:questionId" element={<Home />} />

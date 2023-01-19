@@ -4,6 +4,8 @@ import styles from './ModalAddQuestion.module.css';
 import { checkToken } from '../../helper/utils';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 interface IPropsModalAddQuestion {
     getReloadData: () => void;
@@ -14,18 +16,17 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
 
     const [title, setTitle] = useState<string>('');
     const [textContent, setTextContent] = useState<string>('');
-    const [codeContent, setCodeContent] = useState<string>('');
     const [tagName, setTagName] = useState<string>('');
+    const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
     const validation = () => {
-        if (title && textContent && codeContent && tagName) return true;
+        if (title && textContent && tagName) return true;
         return false;
     };
 
     const resetStateInput = () => {
         setTitle('');
         setTextContent('');
-        setCodeContent('');
         setTagName('');
     };
 
@@ -33,19 +34,17 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
         const question = {
             title,
             textContent,
-            codeContent,
             tagName
         };
-        document.querySelector(".modal-add-question")?.classList.add("was-validated");
+
+        setIsSubmit(true);
 
         if (!validation()) return;
-
-        document.querySelector(".modal-add-question")?.classList.remove("was-validated");
-        resetStateInput();
-
         questionApi.postApiQuestion(question)
             .then(res => {
                 toast.success(res?.data?.message);
+                setIsSubmit(false);
+                resetStateInput();
                 getReloadData();
             })
             .catch(err => {
@@ -56,7 +55,7 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
 
     const renderDialogAddQuestion = () => (
         <div className="modal-dialog modal-lg modal-dialog-centered ">
-            <div className={`${styles.modalContent} modal-content`}>
+            <div className={`${styles.modalContent} modal-content ${isSubmit ? 'was-validated' : ''}`}>
                 <div className="modal-header">
                     <h5 className="modal-title" id="staticBackdropLabel">Add Question</h5>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -68,19 +67,11 @@ function ModalAddQuestion(props: IPropsModalAddQuestion) {
                             <input type="text" className="form-control" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
                             <div className="invalid-feedback"> Please fill a title.</div>
                         </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="textContent" className="form-label fw-bold">What are the details of your problem?</label>
-                            <textarea className={`${styles.textarea} form-control`} rows={3} id="textContent" name="textContent" value={textContent} onChange={(e) => setTextContent(e.target.value)} required />
-                            <div className="invalid-feedback"> Please fill a problem.</div>
-                        </div>
-
                         <div className="mb-3">
                             <label htmlFor="codeContent" className="form-label fw-bold">What are the code of your problem?</label>
-                            <textarea className={`${styles.textarea} form-control`} rows={3} id="codeContent" name="codeContent" value={codeContent} onChange={(e) => setCodeContent(e.target.value)} required />
-                            <div className="invalid-feedback"> Please fill a code.</div>
+                            <CKEditor editor={ClassicEditor} data={textContent} onChange={(event: any, editor: any) => setTextContent(editor.getData())} />
+                            <div className={isSubmit && !textContent ? `${styles.font14} text-danger` : "valid-feedback"}> Please fill a code.</div>
                         </div>
-
                         <div className="mb-3">
                             <label htmlFor="tagName" className="form-label fw-bold">Tag name</label>
                             <input type="text" className="form-control" id="tagName" name="tagName" value={tagName} onChange={(e) => setTagName(e.target.value)} required />

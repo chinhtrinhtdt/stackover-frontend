@@ -9,7 +9,6 @@ import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
 import {
   DEFAULT_CURRENT_PAGE,
   DEFAULT_PAGE_SIZE,
-  LocalStorageKey,
 } from "../../constants/general.constant";
 import { sortListDecrease } from "../../helper/utils";
 import {
@@ -18,11 +17,11 @@ import {
 } from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
+import 'moment-timezone';
 
 function QuestionPage() {
   const navigate = useNavigate();
   const { questionId } = useParams<string>();
-
   const [data, setData] = useState<IQuestionDetail[]>([]);
   const [listRelatedQuestions, setListRelatedQuestions] = useState<IQuestionDetail[]>([]);
   const [listRelatedQuestionsCurrent, setListRelatedQuestionsCurrent] = useState<IQuestionDetail[]>([]);
@@ -63,10 +62,6 @@ function QuestionPage() {
       .getApiQuestion()
       .then((res) => {
         const listDataSort = sortListDecrease(res.data);
-        localStorage.setItem(
-          LocalStorageKey.POST_QUESTIONS,
-          JSON.stringify(listDataSort)
-        );
         setData(listDataSort);
         setPostDetail(listDataSort[0]);
       })
@@ -96,7 +91,7 @@ function QuestionPage() {
       >
         <div className="d-flex flex-column w-100">
           <h6 className={styles.title}>{question.title}</h6>
-          <div className={styles.textContent}>{question.textContent}</div>
+          <div dangerouslySetInnerHTML={{__html: question.textContent}}  className={styles.textContent}></div >
           <div className={styles.row1}>
             {question?.tags.map((tag: ITagQuestionDetail, index: number) => <span key={index} className={`${styles.font12} ${styles.tags} me-2`}>{tag.name}{ } </span>)}
           </div>
