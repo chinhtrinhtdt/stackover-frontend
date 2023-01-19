@@ -14,14 +14,16 @@ export const MESSAGE = {
     INVALID_REGISTER:  "Your username or email is used!",
     INVALID_LOGIN:  "Your username or password is incorrect!",
     ERR_NETWORK: "Network error, please try again later!",
-    ADD_SUCESS:"Add successfullly!",
-    DELETE_SUCCESS:"Delete successfully"
+    ADD_SUCESS: "Add successfullly!",
+    DELETE_SUCCESS: "Delete successfully",
+    ERROR_LOGIN: "You haven't logged in!"
 };
 
 export const LocalStorageKey = {
     TOKEN: "token",
     USER: "user",
     USER_STATUS: "userStatus",
+    USER_NAME: "userName"
 };
 
 export const DEFAULT_PAGE_SIZE = 5;

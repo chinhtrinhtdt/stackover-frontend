@@ -18,11 +18,11 @@ import {
 } from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
+import 'moment-timezone';
 
 function QuestionPage() {
   const navigate = useNavigate();
   const { questionId } = useParams<string>();
-
   const [data, setData] = useState<IQuestionDetail[]>([]);
   const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
     []

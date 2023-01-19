@@ -19,7 +19,7 @@ function Login() {
     authApi.postApiLogin(formData)
       .then(res => {
         navigate('/');
-        localStorage.setItem(LocalStorageKey.USER, JSON.stringify(res.data.user.username))
+        localStorage.setItem(LocalStorageKey.USER_NAME, JSON.stringify(res.data.user.username))
         localStorage.setItem(LocalStorageKey.TOKEN, res.data.access_token);
       })
       .catch(err => {

@@ -39,6 +39,7 @@ export const DATADETAIL_GET_QUESTION = {
   textContent: "",
   codeContent: "",
   userId: 0,
+  views: 0,
   createdAt: "",
   updatedAt: "",
   tags: [],
@@ -54,8 +55,10 @@ export const DATADETAIL_GET_QUESTION = {
     location: "",
     isEnabled2FA: false,
     createdAt: "",
-    updatedAt: "",
+    updatedAt: ""
   },
+  votes: [],
+  comments: []
 };
 
 export const LIST_TAGS = [
