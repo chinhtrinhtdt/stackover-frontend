@@ -6,9 +6,9 @@ import { questionApi } from "../../api";
 import { IQuestionDetail, ITagQuestionDetail } from "../../interfaces/question.interfaces";
 import { useNavigate } from "react-router-dom";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import moment from 'moment-timezone';
 import ReactPaginate from "react-paginate";
 import { DEFAULT_CURRENT_PAGE, DEFAULT_PAGE_SIZE } from "../../constants/general.constant";
+import { processPagination } from "../../helper/utils";
 
 function AllQuestion() {
     const navigate = useNavigate();
@@ -20,17 +20,18 @@ function AllQuestion() {
     const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
         []
     );
+
     useEffect(
         () => {
             questionApi
                 .getApiQuestion()
                 .then((res) => setListQuestion(res.data))
                 .catch((err) => console.log(err))
-        }, [isCreatePost, currentPage]
+        }, [isCreatePost]
     )
 
     useEffect(() => {
-        processPagination();
+        processPaginationHome();
     }, [listQuestion, currentPage]);
 
     const handleDetail = (id: number) => {
@@ -90,12 +91,10 @@ function AllQuestion() {
         setCurrentPage(event.selected);
     };
 
-    const processPagination = () => {
+    const processPaginationHome = () => {
         const pageCount = Math.ceil(listQuestion.length / pageSize);
-        const indexOfFirst = (currentPage * pageSize) % listQuestion.length;
-        const indexOfLast = indexOfFirst + pageSize;
         setPageCount(pageCount);
-        setCurrentQuestions(listQuestion.slice(indexOfFirst, indexOfLast));
+        setCurrentQuestions(processPagination(listQuestion, currentPage, pageSize));
     };
 
     return (
@@ -121,7 +120,6 @@ function AllQuestion() {
                     </div>
                     <div className={`p-2`}>
                         {renderListQuestion()}
-
                         <ReactPaginate
                             onPageChange={handleClickPagination}
                             pageCount={pageCount}
@@ -137,9 +135,8 @@ function AllQuestion() {
                         />
                     </div>
                 </div>
-               
             </div>
-          
+
         </>
     )
 }
