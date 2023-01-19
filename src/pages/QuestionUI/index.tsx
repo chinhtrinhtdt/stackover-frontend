@@ -24,23 +24,23 @@ function QuestionPage() {
   const { questionId } = useParams<string>();
 
   const [data, setData] = useState<IQuestionDetail[]>([]);
-  const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
-    []
-  );
-  const [postDetail, setPostDetail] = useState<IQuestionDetail>(
-    DATADETAIL_GET_QUESTION
-  );
+  const [listRelatedQuestions, setListRelatedQuestions] = useState<IQuestionDetail[]>([]);
+  const [listRelatedQuestionsCurrent, setListRelatedQuestionsCurrent] = useState<IQuestionDetail[]>([]);
+  const [postDetail, setPostDetail] = useState<IQuestionDetail>(DATADETAIL_GET_QUESTION);
   const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
   const [pageCount, setPageCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
 
   useEffect(() => {
-    if (questionApi) {
-      const post = data.find(post => post.id === Number(questionId));
-      post && setPostDetail(post);
-    }
-  }, [data, questionId]);
+    if (questionId) {
+      const post = data.find(question => question.id === Number(questionId));
+      if (post) {
+        setPostDetail(post);
+        setListRelatedQuestions(data.filter((question) => postDetail.tags.find((postDetailTag) => question.tags.find((questionTag) => questionTag.name === postDetailTag.name))));
+      };
+    };
+  }, [data, questionId, postDetail]);
 
   useEffect(() => {
     getApiQuestion();
@@ -48,14 +48,14 @@ function QuestionPage() {
 
   useEffect(() => {
     processPagination();
-  }, [data, currentPage]);
+  }, [listRelatedQuestions, currentPage]);
 
   const processPagination = () => {
-    const pageCount = Math.ceil(data.length / pageSize);
+    const pageCount = Math.ceil(listRelatedQuestions.length / pageSize);
     const indexOfFirst = (currentPage * pageSize) % data.length;
     const indexOfLast = indexOfFirst + pageSize;
     setPageCount(pageCount);
-    setCurrentQuestions(data.slice(indexOfFirst, indexOfLast));
+    setListRelatedQuestionsCurrent(listRelatedQuestions.slice(indexOfFirst, indexOfLast));
   };
 
   const getApiQuestion = () => {
@@ -86,7 +86,7 @@ function QuestionPage() {
   };
 
   const renderListQuestion = () => {
-    return currentQuestions.map((question: IQuestionDetail) => (
+    return listRelatedQuestionsCurrent.map((question: IQuestionDetail) => (
       <div
         className={`${styles.cursorPointer} d-flex mb-4 shadow p-2`}
         key={question.id}
@@ -94,9 +94,9 @@ function QuestionPage() {
           handleClick(question.id);
         }}
       >
-        <div className="d-flex flex-column ">
+        <div className="d-flex flex-column w-100">
           <h6 className={styles.title}>{question.title}</h6>
-          <p className={styles.textContent}>{question.textContent}</p>
+          <div className={styles.textContent}>{question.textContent}</div>
           <div className={styles.row1}>
             {question?.tags.map((tag: ITagQuestionDetail, index: number) => <span key={index} className={`${styles.font12} ${styles.tags} me-2`}>{tag.name}{ } </span>)}
           </div>
@@ -148,6 +148,7 @@ function QuestionPage() {
         </div>
 
         <div className={`${styles.zIndex0} p-2 w-25`}>
+          <h5 className="mb-4 ">Related questions</h5>
           {renderListQuestion()}
 
           <ReactPaginate
