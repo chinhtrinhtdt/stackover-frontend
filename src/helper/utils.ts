@@ -1,3 +1,4 @@
+import { IQuestionDetail } from '../interfaces/question.interfaces';
 import { LocalStorageKey } from './../constants/general.constant';
 export const passwordValidation = (password: string) => {
     const regExDigit = /^(?=.*\d)/;
@@ -24,6 +25,12 @@ export const getUserInfo = () => {
     return userInfo && JSON.parse(userInfo);
 };
 
-export const sortListDecrease = (list: any[]) => {
+export const sortListDecrease = (list: any) => {
     return list.sort((a, b) => b?.id - a?.id);
+};
+
+export const processPagination = (data : any, currentPage: number, pageSize: number) => {
+    const indexOfFirst = (currentPage * pageSize) % data.length;
+    const indexOfLast = indexOfFirst + pageSize;
+    return(data.slice(indexOfFirst, indexOfLast));
 };
