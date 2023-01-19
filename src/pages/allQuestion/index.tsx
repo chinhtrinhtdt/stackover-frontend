@@ -7,20 +7,31 @@ import { IQuestionDetail, ITagQuestionDetail } from "../../interfaces/question.i
 import { useNavigate } from "react-router-dom";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
 import moment from 'moment-timezone';
+import ReactPaginate from "react-paginate";
+import { DEFAULT_CURRENT_PAGE, DEFAULT_PAGE_SIZE } from "../../constants/general.constant";
 
 function AllQuestion() {
     const navigate = useNavigate();
     const [listQuestion, setListQuestion] = useState<IQuestionDetail[]>([]);
     const [isCreatePost, setIsCreatePost] = useState<boolean>(false);
-
+    const [currentPage, setCurrentPage] = useState<number>(DEFAULT_CURRENT_PAGE);
+    const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
+    const [pageCount, setPageCount] = useState<number>(0);
+    const [currentQuestions, setCurrentQuestions] = useState<IQuestionDetail[]>(
+        []
+    );
     useEffect(
         () => {
             questionApi
                 .getApiQuestion()
                 .then((res) => setListQuestion(res.data))
                 .catch((err) => console.log(err))
-        }, [isCreatePost]
+        }, [isCreatePost, currentPage]
     )
+
+    useEffect(() => {
+        processPagination();
+    }, [listQuestion, currentPage]);
 
     const handleDetail = (id: number) => {
         navigate(`/questions/${id}`);
@@ -32,7 +43,7 @@ function AllQuestion() {
 
     const renderListQuestion = () => {
         return (
-            listQuestion.map((listQuestion: IQuestionDetail) => {
+            currentQuestions.map((listQuestion: IQuestionDetail) => {
                 return (
                     <>
                         <hr />
@@ -75,18 +86,17 @@ function AllQuestion() {
         )
     }
 
-    const renderCard = () => {
-        return (
-            <div className="card" >
-                <img src="..." className="card-img-top" alt="..." />
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="" className="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        )
-    }
+    const handleClickPagination = (event: any) => {
+        setCurrentPage(event.selected);
+    };
+
+    const processPagination = () => {
+        const pageCount = Math.ceil(listQuestion.length / pageSize);
+        const indexOfFirst = (currentPage * pageSize) % listQuestion.length;
+        const indexOfLast = indexOfFirst + pageSize;
+        setPageCount(pageCount);
+        setCurrentQuestions(listQuestion.slice(indexOfFirst, indexOfLast));
+    };
 
     return (
         <>
@@ -94,7 +104,7 @@ function AllQuestion() {
                 <div className="flex-grow-1">
                     <div className="d-flex justify-content-between m-4">
                         <div className={`fs-3`}>
-                            Top Questions
+                            All Questions
                         </div>
                         <div>
                             <button
@@ -109,14 +119,27 @@ function AllQuestion() {
                         </div>
 
                     </div>
-                    <div>
+                    <div className={`p-2`}>
                         {renderListQuestion()}
+
+                        <ReactPaginate
+                            onPageChange={handleClickPagination}
+                            pageCount={pageCount}
+                            containerClassName="pagination justify-content-center"
+                            pageLinkClassName="page-link"
+                            activeClassName="active"
+                            previousLabel="<"
+                            previousLinkClassName="page-link"
+                            breakLabel="..."
+                            breakLinkClassName="page-link"
+                            nextLabel=">"
+                            nextLinkClassName="page-link"
+                        />
                     </div>
                 </div>
-                <div className={`${style.card}`}>
-                    {renderCard()}
-                </div>
+               
             </div>
+          
         </>
     )
 }
