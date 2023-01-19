@@ -29,7 +29,7 @@ export const sortListDecrease = (list: any[]) => {
     return list.sort((a, b) => b?.id - a?.id);
 };
 
-export const processPagination = (data :IQuestionDetail[], currentPage: number, pageSize: number) => {
+export const processPagination = (data : any[], currentPage: number, pageSize: number) => {
     const indexOfFirst = (currentPage * pageSize) % data.length;
     const indexOfLast = indexOfFirst + pageSize;
     return(data.slice(indexOfFirst, indexOfLast));
