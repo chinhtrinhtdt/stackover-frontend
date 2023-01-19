@@ -3,6 +3,7 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import Register from "../pages/register";
 import Verify from "../pages/verify";
+import NotFound from "../components/NotFound";
 
 const RouterDom = () => {
 
@@ -18,6 +19,7 @@ const RouterDom = () => {
         <Route path="/tags" element={<Home />} />
         <Route path="/companies" element={<Home />} />
         <Route path="/verify" element={<Verify />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
