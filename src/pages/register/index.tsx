@@ -78,7 +78,7 @@ function Register() {
           </div>
           <div className="invalid-feedback"> Please fill a password.</div>
           <div className={`${styles.font14} invalid-password text-danger`}> {msgInvalidPassword} </div>
-          <span className={`${styles.note}`}>Passwords must contain at least six characters, including at least 1 letter, 1 special characters and 1 number.</span>
+          <span className={`${styles.note}`}>Passwords must contain at least six characters, including at least 1 letter upper, 1 special character and 1 number.</span>
         </div>
 
         <button type="submit" className="btn btn-primary mt-2" onClick={handleSubmit}>
