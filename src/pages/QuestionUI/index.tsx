@@ -6,15 +6,9 @@ import { questionApi } from "../../api";
 import MainContent from "../../components/Question/MainContent";
 import Vote from "../../components/Question/Vote";
 import ModalAddQuestion from "../../components/QuestionComp/ModalAddQuestion";
-import {
-  DEFAULT_CURRENT_PAGE,
-  DEFAULT_PAGE_SIZE,
-} from "../../constants/general.constant";
-import { sortListDecrease } from "../../helper/utils";
-import {
-  IQuestionDetail,
-  ITagQuestionDetail,
-} from "../../interfaces/question.interfaces";
+import {  DEFAULT_CURRENT_PAGE,  DEFAULT_PAGE_SIZE,} from "../../constants/general.constant";
+import { processPagination } from "../../helper/utils";
+import {  IQuestionDetail,  ITagQuestionDetail,} from "../../interfaces/question.interfaces";
 import { DATADETAIL_GET_QUESTION } from "../../mocks";
 import styles from "./questionUI.module.css";
 import 'moment-timezone';
@@ -37,8 +31,9 @@ function QuestionPage() {
     } else {
       const post = data.find(question => question.id === Number(questionId));
       if (post) {
-        setPostDetail(post);
-        setListRelatedQuestions(data.filter((question) => postDetail.tags.find((postDetailTag) => question.tags.find((questionTag) => questionTag.name === postDetailTag.name))));
+        setPostDetail(post);        
+        questionApi.getApiQuestionByTag(post.tags[0].name)
+        .then(res => setListRelatedQuestions(res.data.questions))
       };
     };
   }, [isCreatePost, questionId, postDetail]);
@@ -48,24 +43,17 @@ function QuestionPage() {
   }, [isCreatePost]);
 
   useEffect(() => {
-    processPagination();
-  }, [listRelatedQuestions, currentPage]);
-
-  const processPagination = () => {
     const pageCount = Math.ceil(listRelatedQuestions.length / pageSize);
-    const indexOfFirst = (currentPage * pageSize) % data.length;
-    const indexOfLast = indexOfFirst + pageSize;
     setPageCount(pageCount);
-    setListRelatedQuestionsCurrent(listRelatedQuestions.slice(indexOfFirst, indexOfLast));
-  };
+    setListRelatedQuestionsCurrent(processPagination(listRelatedQuestions, currentPage, pageSize));
+  }, [listRelatedQuestions, currentPage]);
 
   const getApiQuestion = () => {
     questionApi
       .getApiQuestion()
       .then((res) => {
-        const listDataSort = sortListDecrease(res.data);
-        setData(listDataSort);
-        setPostDetail(listDataSort[0]);
+        setData(res.data);
+        setPostDetail(res.data[0]);
       })
       .catch((e) => console.log(e));
   };
@@ -94,10 +82,7 @@ function QuestionPage() {
         <div className="d-flex flex-column w-100">
           <h6 className={styles.title}>{question.title}</h6>
           <div dangerouslySetInnerHTML={{ __html: question.textContent }} className={styles.textContent}></div >
-          <div className={styles.row1}>
-            {question?.tags.map((tag: ITagQuestionDetail, index: number) => <span key={index} className={`${styles.font12} ${styles.tags} me-2`}>{tag.name}{ } </span>)}
-          </div>
-          <span className={styles.font12}>
+          <span className={`${styles.font12} mt-2`}>
             {moment(question?.createdAt).format("LLL")}
           </span>
         </div>

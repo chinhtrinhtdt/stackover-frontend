@@ -42,6 +42,10 @@ const questionApi = {
   postApiVote(params: IParamVote) {
     return API.post(ApiSettings.API_VOTE, params);
   },
+
+  getApiQuestionByTag(tagName: string) {
+    return API.get(`${ApiSettings.API_GET_QUESTION_BY_TAG}/${tagName}`);
+  }
 };
 
 export default questionApi;

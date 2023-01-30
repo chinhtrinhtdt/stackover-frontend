@@ -256,13 +256,13 @@ function Maincontent(props: IPropsMainContent) {
                   <div className={`d-flex ${style.listVoteCotainer}`}>
                     <ul className={`d-flex ${style.listVote}`}>
                       <li>
-                        <span data-toggle="tooltip" data-placement="bottom" title="views">{postDetail.views}</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="views">{postDetail?.views}</span>
                       </li>
                       <li>
-                        <span data-toggle="tooltip" data-placement="bottom" title="votes">{postDetail.votes.length}</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="votes">{postDetail?.votes.length}</span>
                       </li>
                       <li>
-                        <span data-toggle="tooltip" data-placement="bottom" title="comments">{postDetail.comments.length}</span>
+                        <span data-toggle="tooltip" data-placement="bottom" title="comments">{postDetail?.comments.length}</span>
                       </li>
                     </ul>
                   </div>
