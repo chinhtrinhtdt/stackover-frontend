@@ -7,10 +7,12 @@ import Companies from "../companies";
 import styles from "./home.module.css";
 import Footer from "../../components/footer";
 import AllQuestion from "../allQuestion";
+import QuestionsByTag from "../../components/questionsByTag";
 
 function Home() {
   let pathName = window.location.pathname;
   const renderPage = () => {
+    if (pathName.includes("/questions/tag")) return <QuestionsByTag />;
     if (pathName.includes("/questions")) return <QuestionUI />;
     if (pathName === "/users") return <UserList />;
     if (pathName === "/") return <AllQuestion />;

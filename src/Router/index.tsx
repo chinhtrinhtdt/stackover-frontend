@@ -16,6 +16,7 @@ const RouterDom = () => {
         <Route path="/users" element={<Home />} />
         <Route path="/questions" element={<Home />} />
         <Route path="/questions/:questionId" element={<Home />} />
+        <Route path="/questions/tag/:tagName" element={<Home />} />
         <Route path="/tags" element={<Home />} />
         <Route path="/companies" element={<Home />} />
         <Route path="/verify" element={<Verify />} />

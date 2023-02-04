@@ -111,8 +111,3 @@ export interface IVoteDetail {
   username: string;
   status: string;
 }
-
-export interface ITag {
-  id?: number;
-  name: string;
-}
